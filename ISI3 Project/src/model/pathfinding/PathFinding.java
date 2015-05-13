@@ -1,14 +1,15 @@
 package model.pathfinding;
 
 import java.util.List;
-import model.Node;
+import model.graph.Node;
 
 public interface PathFinding {
     /**
-     * Retourner le meilleur chemin
-     * @param origin Noeud d'origine
-     * @param dest Noeud de destination
-     * @return List de Noeud correspondant au meilleur chemin
+     * Get the shortest path from origin to dest with the authorize Nodes & Edges
+     * @param origin Origin node
+     * @param dest Destination node
+     * @param auth Authorizer
+     * @return List of nodes which represent the shortest way
      */
-    public List<Node> getShortestPath(Node origin, Node dest);
+    public List<Node> getShortestPath(Node origin, Node dest, Authorizer auth);
 }
