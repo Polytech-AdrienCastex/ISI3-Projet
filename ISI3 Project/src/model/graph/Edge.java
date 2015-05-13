@@ -14,4 +14,13 @@ public class Edge
     
     private final Node n1;
     private final Node n2;
+    
+    public Node getStartNode()
+    {
+        return n1;
+    }
+    public Node getStopNode()
+    {
+        return n2;
+    }
 }

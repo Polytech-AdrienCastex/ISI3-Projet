@@ -14,9 +14,17 @@ public class Graph
     public Graph()
     {
         nodes = new ArrayList<>();
+        
+        uid = 0;
     }
     
     private final List<Node> nodes;
+    private Integer uid;
+    public Integer getUID()
+    {
+        uid++;
+        return uid;
+    }
     
     public List<Node> getNodes()
     {
@@ -25,6 +33,9 @@ public class Graph
     
     public Boolean addNode(Node n)
     {
+        Integer nid = n.getId();
+        if(uid < nid)
+            uid = nid;
         return nodes.add(n);
     }
     
