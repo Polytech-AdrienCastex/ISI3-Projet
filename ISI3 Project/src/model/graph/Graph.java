@@ -31,7 +31,7 @@ public class Graph
      * Return a unique ID for the current graph
      * @return Integer
      */
-    public Integer getUID()
+    Integer getUID()
     {
         uid++;
         return uid;
