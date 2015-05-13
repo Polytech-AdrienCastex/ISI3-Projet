@@ -1,7 +1,7 @@
 package model.pathfinding;
 
 import java.util.List;
-import model.Node;
+import model.graph.Node;
 
 public interface PathFinding {
     /**

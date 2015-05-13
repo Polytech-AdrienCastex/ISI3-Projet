@@ -1,7 +1,7 @@
 package model.pathfinding;
 
-import model.Edge;
-import model.Node;
+import model.graph.Edge;
+import model.graph.Node;
 
 public interface Authorizer {
     /**
