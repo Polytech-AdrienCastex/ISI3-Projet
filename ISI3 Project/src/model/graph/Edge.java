@@ -1,26 +1,45 @@
-package model;
+package model.graph;
 
 /**
  *
- * @author p1002239
  */
 public class Edge
 {
-    public Edge(Node n1, Node n2)
+    /**
+     * Create an edge between two nodes of a graph
+     * @param start Start node
+     * @param end End node
+     */
+    public Edge(Node start, Node end)
     {
-        this.n1 = n1;
-        this.n2 = n2;
+        this.start = start;
+        this.end = end;
     }
     
-    private final Node n1;
-    private final Node n2;
+    /**
+     * Start node
+     */
+    private final Node start;
+    /**
+     * End node
+     */
+    private final Node end;
     
+    /**
+     * Get the node at the beginning of the edge
+     * @return Node
+     */
     public Node getStartNode()
     {
-        return n1;
+        return start;
     }
+    
+    /**
+     * Get the node at the end of the edge
+     * @return Node
+     */
     public Node getStopNode()
     {
-        return n2;
+        return end;
     }
 }
