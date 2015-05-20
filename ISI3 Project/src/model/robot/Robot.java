@@ -14,7 +14,7 @@ import model.pathfinding.PathFinding;
 public abstract class Robot implements Authorizer {
     private Double speed;
     private Node currentNode;
-    private List<Node> destination;
+    private List<Edge> destination;
     
     private PathFinding pathFinding;
 
@@ -87,28 +87,17 @@ public abstract class Robot implements Authorizer {
     {        
         if (isBusy()) return null;
                         
-        List<Node> path = pathFinding.getShortestPath(currentNode, dest, this);
+        List<Edge> path = pathFinding.getShortestPath(currentNode, dest, this);
         Double value = 0.0;
         
-        for (int i=0; i < path.size()-1; ++i)
+        for (Edge e : path)
         {
-            //Rechercher chaque arrête du noeud par rapport au prochain noeud
-            List<Edge> vEdges = path.get(i).getEdges(path.get(i+1));
-            
-            //Prendre la meilleure arrête
-            double bestV = Double.MAX_VALUE;
-            for (Edge e : vEdges)
+            if (e instanceof Valued) 
             {
-                if (e instanceof Valued) 
-                { //Arrête valuée
-                    Valued v = (Valued)e;
-                    if (v.getValue() < bestV)
-                        bestV = v.getValue();
-                }
+                Valued v = (Valued)e;
+                value += (v.getValue() * speed);
             }
-            
-            value += bestV;
-        }
+        }       
         
         return value;
     }
