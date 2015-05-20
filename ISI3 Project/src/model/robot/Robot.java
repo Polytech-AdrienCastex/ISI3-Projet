@@ -12,7 +12,7 @@ import model.pathfinding.PathFinding;
 /**
  * Robot general
  */
-public abstract class Robot implements Authorizer {
+public abstract class Robot implements Authorizer, Runnable {
     private Double speed;
     private Node currentNode;
     private LinkedList<Edge> path;
@@ -133,10 +133,28 @@ public abstract class Robot implements Authorizer {
     }
     
     /**
-     * Move forward to the next node in the path liste
+     * Move forward to the next node in the path list
      */
     public void moveForward() {
         if (path.size() > 0)
-            currentNode = path.remove(0).getStopNode();
+        {
+            Edge nextEdge = path.remove(0);
+            
+            if (canUseEdge(nextEdge) && canUseNode(nextEdge.getStopNode()))
+            {
+                currentNode = nextEdge.getStopNode();
+            } else {
+                //Vider la destination
+                path.clear();
+            }
+        }
+            
+    }
+
+    @Override
+    public void run() {
+        //Si robot sur noeud en feu .. eteindre le feu (baisser intensité)
+        
+        //sinon si destination avancer
     }
 }
