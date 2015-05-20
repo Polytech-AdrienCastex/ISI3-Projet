@@ -1,5 +1,6 @@
 package model.robot;
 
+import java.util.LinkedList;
 import java.util.List;
 import model.graph.Edge;
 import model.graph.Fireable;
@@ -14,7 +15,7 @@ import model.pathfinding.PathFinding;
 public abstract class Robot implements Authorizer {
     private Double speed;
     private Node currentNode;
-    private List<Edge> destination;
+    private LinkedList<Edge> path;
     
     private PathFinding pathFinding;
 
@@ -106,9 +107,9 @@ public abstract class Robot implements Authorizer {
      * @return true if the robot is busy
      */
     public Boolean isBusy() {
-        if (destination.size() > 0)
+        if (path.size() > 0)
         {
-            if (!destination.get(destination.size()-1).getStopNode().equals(currentNode))
+            if (!path.get(path.size()-1).getStopNode().equals(currentNode))
                 return true; //Le robot n'a pas atteint sa destination
                         
             if (currentNode instanceof Fireable)
@@ -128,6 +129,6 @@ public abstract class Robot implements Authorizer {
      */
     public void setDestination(Node dest)
     {
-        this.destination = pathFinding.getShortestPath(currentNode, dest, this);
+        this.path = new LinkedList<>(pathFinding.getShortestPath(currentNode, dest, this));
     }
 }
