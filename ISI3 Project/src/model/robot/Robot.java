@@ -1,8 +1,8 @@
 package model.robot;
 
 import java.util.List;
-import java.util.Random;
 import model.graph.Edge;
+import model.graph.Fireable;
 import model.graph.Node;
 import model.graph.Valued;
 import model.pathfinding.Authorizer;
@@ -81,12 +81,10 @@ public abstract class Robot implements Authorizer {
     /**
      * Return the value of the best path depending on the dest node
      * @param dest Dest node
-     * @return value of the best path, null if busy
+     * @return value of the best path
      */
     public Double getPathValue(Node dest)
-    {        
-        if (isBusy()) return null;
-                        
+    {                                
         List<Edge> path = pathFinding.getShortestPath(currentNode, dest, this);
         Double value = 0.0;
         
@@ -103,12 +101,25 @@ public abstract class Robot implements Authorizer {
     }
     
     /**
-     * Robot busy or not
-     * Random value
+     * The robot is busy when he didnt reach his destination yet or  
+     * he has a destination and is on a node on fire
      * @return true if the robot is busy
      */
     public Boolean isBusy() {
-        return new Random().nextBoolean();
+        if (destination.size() > 0)
+        {
+            if (!destination.get(destination.size()-1).getStopNode().equals(currentNode))
+                return true; //Le robot n'a pas atteint sa destination
+                        
+            if (currentNode instanceof Fireable)
+            {
+                Fireable fNode = (Fireable)currentNode;
+                if (fNode.isOnFire())
+                    return true; //Noeud toujours en feu
+            }            
+        }
+        
+        return  false;            
     }
     
     /**
