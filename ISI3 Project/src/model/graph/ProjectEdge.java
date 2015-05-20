@@ -5,7 +5,7 @@ import model.EdgeType;
 /**
  *
  */
-public class RobotEdge extends Edge implements Valued, Typed, Waterable
+public class ProjectEdge extends Edge implements Valued, Typed, Waterable
 {
     /**
      * Create an edge which can be valued, typed and under water.
@@ -14,7 +14,7 @@ public class RobotEdge extends Edge implements Valued, Typed, Waterable
      * @param type Type of the edge.
      * @param value Value of the edge.
      */
-    public RobotEdge(Node start, Node end, EdgeType type, Double value)
+    public ProjectEdge(Node start, Node end, EdgeType type, Double value)
     {
         super(start, end);
         
