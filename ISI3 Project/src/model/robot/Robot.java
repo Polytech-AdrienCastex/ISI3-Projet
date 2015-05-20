@@ -131,4 +131,12 @@ public abstract class Robot implements Authorizer {
     {
         this.path = new LinkedList<>(pathFinding.getShortestPath(currentNode, dest, this));
     }
+    
+    /**
+     * Move forward to the next node in the path liste
+     */
+    public void moveForward() {
+        if (path.size() > 0)
+            currentNode = path.remove(0).getStopNode();
+    }
 }
