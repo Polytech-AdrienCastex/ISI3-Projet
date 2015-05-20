@@ -4,21 +4,30 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 import model.graph.Graph;
 
 /**
  *
  */
-public class GraphDrawer
+public class GraphDrawer extends JPanel implements Observer
 {
-    public GraphDrawer(NodeDrawer nodeDrawer, EdgeDrawer edgeDrawer)
+    public GraphDrawer(Graph graph, NodeDrawer nodeDrawer, EdgeDrawer edgeDrawer)
     {
+        super();
+        
+        this.graph = graph;
+        
         this.nodeDrawer = nodeDrawer;
         this.edgeDrawer = edgeDrawer;
         
         this.image = null;
     }
+    
+    protected final Graph graph;
     
     private final NodeDrawer nodeDrawer;
     private final EdgeDrawer edgeDrawer;
@@ -52,5 +61,17 @@ public class GraphDrawer
         // Draw nodes
         graph.getNodes()
                 .forEach(n -> nodeDrawer.draw(g, n));
+    }
+    
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        draw(g, graph);
+    }
+
+    @Override
+    public void update(Observable o, Object arg)
+    {
+        this.repaint();
     }
 }
