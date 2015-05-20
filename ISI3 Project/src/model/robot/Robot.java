@@ -1,60 +1,133 @@
 package model.robot;
 
 import java.util.List;
+import java.util.Random;
+import model.graph.Edge;
 import model.graph.Node;
+import model.graph.Valued;
 import model.pathfinding.Authorizer;
+import model.pathfinding.PathFinding;
 
 /**
- * Robot en général
+ * Robot general
  */
 public abstract class Robot implements Authorizer {
-    private Double vitesse;
+    private Double speed;
     private Node currentNode;
     private List<Node> destination;
+    
+    private PathFinding pathFinding;
 
-    public Robot(Double vitesse, Node currentNode) {
-        this.vitesse = vitesse;
+    /**
+     * Constructor
+     * @param speed speed
+     * @param currentNode current node where the robot is
+     * @param pf Search path algo
+     */
+    public Robot(Double speed, Node currentNode, PathFinding pf) {
+        this.speed = speed;
         this.currentNode = currentNode;
+        this.pathFinding = pf;
     }
 
+    /**
+     * Getter current node
+     * @return current Node
+     */
     public Node getCurrentNode() {
         return currentNode;
     }
 
+    /**
+     * Setter current node
+     * @param currentNode current node to set
+     */
     public void setCurrentNode(Node currentNode) {
         this.currentNode = currentNode;
     }
+
+    /**
+     * Getter speed
+     * @return speed double
+     */
+    public Double getSpeed() {
+        return speed;
+    }
+
+    /**
+     * Setter speed
+     * @param speed double speed
+     */
+    public void setSpeed(Double speed) {
+        this.speed = speed;
+    }
+
+    /**
+     * Getter algo path finding
+     * @return PathFinding
+     */
+    public PathFinding getPathFinding() {
+        return pathFinding;
+    }
+
+    /**
+     * Setter algo path finding
+     * @param pathFinding algo path finding
+     */
+    public void setPathFinding(PathFinding pathFinding) {
+        this.pathFinding = pathFinding;
+    }   
        
     /**
-     * Retourner la valeur du meilleur chemin selon le noeud de destination
-     * @param dest Noeud de destination
-     * @return Valeur du meilleur chemin
+     * Return the value of the best path depending on the dest node
+     * @param dest Dest node
+     * @return value of the best path, null if busy
      */
     public Double getPathValue(Node dest)
-    {
-        //PathFinding pf = 
+    {        
+        if (isBusy()) return null;
+                        
+        List<Node> path = pathFinding.getShortestPath(currentNode, dest, this);
+        Double value = 0.0;
         
-        //Multiplier par la vitesse chaque arrête
+        for (int i=0; i < path.size()-1; ++i)
+        {
+            //Rechercher chaque arrête du noeud par rapport au prochain noeud
+            List<Edge> vEdges = path.get(i).getEdges(path.get(i+1));
+            
+            //Prendre la meilleure arrête
+            double bestV = Double.MAX_VALUE;
+            for (Edge e : vEdges)
+            {
+                if (e instanceof Valued) 
+                { //Arrête valuée
+                    Valued v = (Valued)e;
+                    if (v.getValue() < bestV)
+                        bestV = v.getValue();
+                }
+            }
+            
+            value += bestV;
+        }
         
-        return null;
+        return value;
     }
     
     /**
-     * Robot occupé ou non
-     * @return vrai si occupé
+     * Robot busy or not
+     * Random value
+     * @return true if the robot is busy
      */
     public Boolean isBusy() {
-        //Random rand = new Random();
-        
-        return false;
+        return new Random().nextBoolean();
     }
     
     /**
-     * Definir le destination du robot à partir du noeud de destination
-     * @param dest Noeud cible (destination)
+     * Define the destination of the robot from the dest node
+     * @param dest Destination node 
      */
     public void setDestination(Node dest)
     {
-        //determiner chemin
+        this.destination = pathFinding.getShortestPath(currentNode, dest, this);
     }
 }

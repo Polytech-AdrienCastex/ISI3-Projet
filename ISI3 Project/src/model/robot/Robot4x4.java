@@ -2,15 +2,17 @@ package model.robot;
 
 import model.graph.Edge;
 import model.graph.Node;
+import model.pathfinding.PathFinding;
 
 /**
- * Robot tout terrain
+ * Robot all ground
  */
 public class Robot4x4 extends Robot {
 
-    public Robot4x4(Double vitesse, Node currentNode) {
-        super(vitesse, currentNode);
+    public Robot4x4(Double speed, Node currentNode, PathFinding pf) {
+        super(speed, currentNode, pf);
     }
+    
 
     @Override
     public Boolean canUseEdge(Edge e) {
