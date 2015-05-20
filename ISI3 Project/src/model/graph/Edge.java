@@ -14,6 +14,8 @@ public class Edge
     {
         this.start = start;
         this.end = end;
+        
+        this.start.addEdge(this);
     }
     
     /**
