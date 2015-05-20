@@ -2,6 +2,7 @@ package model.graph;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -48,9 +49,13 @@ public class Node
      * Add a new edge
      * @param e Edge to add
      */
-    void addEdge(Edge e)
+    Boolean addEdge(Edge e)
     {
+        if(!this.equals(e.getStartNode()) && !this.equals(e.getStopNode()))
+            return false;
+        
         edges.add(e);
+        return true;
     }
     
     /**
@@ -105,5 +110,22 @@ public class Node
     public Graph getGraph()
     {
         return graph;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(this.getClass().equals(obj.getClass()))
+            return obj.hashCode() == this.hashCode();
+        else
+            return false;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 5;
+        hash = 89 * hash + Objects.hashCode(this.id);
+        return hash;
     }
 }
