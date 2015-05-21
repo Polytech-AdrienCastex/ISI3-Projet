@@ -2,7 +2,7 @@ package model.graph.project;
 
 import model.elementary.Fireable;
 import model.elementary.Localisable;
-import model.Point;
+import model.elementary.Point;
 import model.graph.Graph;
 import model.graph.Node;
 import org.w3c.dom.Document;

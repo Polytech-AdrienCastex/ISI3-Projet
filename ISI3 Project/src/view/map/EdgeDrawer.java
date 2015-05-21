@@ -2,7 +2,7 @@ package view.map;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import model.Point;
+import model.elementary.Point;
 import model.graph.Edge;
 import model.elementary.Fireable;
 import model.elementary.Localisable;

@@ -1,7 +1,5 @@
 package model.elementary;
 
-import model.Point;
-
 /**
  *
  */

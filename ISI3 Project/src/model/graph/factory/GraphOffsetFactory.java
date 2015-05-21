@@ -9,7 +9,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import model.EdgeType;
 import model.NodeListWrap;
-import model.Point;
+import model.elementary.Point;
 import model.graph.project.FireableNode;
 import model.graph.Graph;
 import model.elementary.Localisable;

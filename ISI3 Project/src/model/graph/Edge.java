@@ -1,6 +1,6 @@
 package model.graph;
 
-import model.Serializable;
+import model.elementary.Serializable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

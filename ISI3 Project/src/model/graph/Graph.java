@@ -3,7 +3,7 @@ package model.graph;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import model.Serializable;
+import model.elementary.Serializable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
