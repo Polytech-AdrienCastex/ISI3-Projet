@@ -3,9 +3,9 @@ package model.robot;
 import java.util.LinkedList;
 import java.util.List;
 import model.graph.Edge;
-import model.graph.Fireable;
+import model.elementary.Fireable;
 import model.graph.Node;
-import model.graph.Valued;
+import model.elementary.Valued;
 import model.pathfinding.Authorizer;
 import model.pathfinding.PathFinding;
 

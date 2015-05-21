@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import model.Point;
 import model.graph.Edge;
-import model.graph.Fireable;
-import model.graph.Localisable;
-import model.graph.Typed;
-import model.graph.Waterable;
+import model.elementary.Fireable;
+import model.elementary.Localisable;
+import model.elementary.Typed;
+import model.elementary.Waterable;
 
 /**
  *
@@ -28,11 +28,11 @@ public class EdgeDrawer
                 switch(((Typed)edge).getType())
                 {
                     case Plat:
-                        color = Color.green;
+                        color = Color.blue;
                         break;
                         
                     case Escarpe:
-                        color = Color.ORANGE;
+                        color = Color.red;
                         break;
                 }
         
@@ -40,6 +40,12 @@ public class EdgeDrawer
         
         Point start = ((Localisable)edge.getStartNode()).getLocation();
         Point end = ((Localisable)edge.getStopNode()).getLocation();
-        g.drawLine(start.x.intValue(), start.y.intValue(), end.x.intValue(), end.y.intValue());
+        
+        int offset = 0;
+        g.drawLine(start.x.intValue() + offset, start.y.intValue() + offset, end.x.intValue() + offset, end.y.intValue() + offset);/*
+        offset = 1;
+        g.drawLine(start.x.intValue() + offset, start.y.intValue() + offset, end.x.intValue() + offset, end.y.intValue() + offset);
+        offset = -1;
+        g.drawLine(start.x.intValue() + offset, start.y.intValue() + offset, end.x.intValue() + offset, end.y.intValue() + offset);*/
     }
 }

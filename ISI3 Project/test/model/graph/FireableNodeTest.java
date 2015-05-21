@@ -1,5 +1,6 @@
 package model.graph;
 
+import model.graph.project.FireableNode;
 import model.Point;
 import org.junit.After;
 import org.junit.AfterClass;

@@ -2,7 +2,7 @@ package model.robot;
 
 import model.graph.Edge;
 import model.graph.Node;
-import model.graph.Waterable;
+import model.elementary.Waterable;
 import model.pathfinding.PathFinding;
 
 /**

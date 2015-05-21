@@ -1,6 +1,13 @@
-package model.graph;
+package model.graph.project;
 
+import model.elementary.Valued;
+import model.elementary.Typed;
+import model.elementary.Waterable;
 import model.EdgeType;
+import model.graph.Edge;
+import model.graph.Node;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -74,5 +81,13 @@ public class ProjectEdge extends Edge implements Valued, Typed, Waterable
     public void setUnderWater(Boolean underWater)
     {
         this.underWater = underWater;
+    }
+    
+    @Override
+    public Element toXML(Document elementBuilder)
+    {
+        Element element = super.toXML(elementBuilder);
+        element.setAttribute("type", getType().toString().toUpperCase());
+        return element;
     }
 }

@@ -1,6 +1,12 @@
-package model.graph;
+package model.graph.project;
 
+import model.elementary.Fireable;
+import model.elementary.Localisable;
 import model.Point;
+import model.graph.Graph;
+import model.graph.Node;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -38,7 +44,7 @@ public class FireableNode extends Node implements Fireable, Localisable
     /**
      * Location of the node on the map.
      */
-    private final Point location;
+    public Point location;
 
     /**
      * Get if the node is on fire or not.
@@ -84,4 +90,13 @@ public class FireableNode extends Node implements Fireable, Localisable
         return location;
     }
     
+    @Override
+    public Element toXML(Document elementBuilder)
+    {
+        Element element = super.toXML(elementBuilder);
+        element.setAttribute("type", isOnFire() ? "INCENDIE" : "NORMAL");
+        element.setAttribute("x", getLocation().x.toString());
+        element.setAttribute("y", getLocation().y.toString());
+        return element;
+    }
 }

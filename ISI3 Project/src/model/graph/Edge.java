@@ -1,9 +1,13 @@
 package model.graph;
 
+import model.Serializable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 /**
  *
  */
-public class Edge
+public class Edge implements Serializable
 {
     /**
      * Create an edge between two nodes of a graph
@@ -44,5 +48,14 @@ public class Edge
     public Node getStopNode()
     {
         return end;
+    }
+
+    @Override
+    public Element toXML(Document elementBuilder)
+    {
+        Element element = elementBuilder.createElement("edge");
+        element.setAttribute("nd1", start.getId().toString());
+        element.setAttribute("nd2", end.getId().toString());
+        return element;
     }
 }

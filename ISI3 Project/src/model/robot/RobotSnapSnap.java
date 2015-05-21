@@ -3,7 +3,7 @@ package model.robot;
 import model.EdgeType;
 import model.graph.Edge;
 import model.graph.Node;
-import model.graph.Typed;
+import model.elementary.Typed;
 import model.pathfinding.PathFinding;
 
 /**

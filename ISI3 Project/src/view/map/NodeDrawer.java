@@ -3,8 +3,8 @@ package view.map;
 import java.awt.Color;
 import java.awt.Graphics;
 import model.Point;
-import model.graph.Fireable;
-import model.graph.Localisable;
+import model.elementary.Fireable;
+import model.elementary.Localisable;
 import model.graph.Node;
 
 /**
@@ -19,10 +19,12 @@ public class NodeDrawer
             if(node instanceof Fireable && ((Fireable)node).isOnFire())
                 g.setColor(Color.red);
             else
-                g.setColor(Color.green);
+                g.setColor(Color.blue);
+            
+            final int radius = 4;
             
             Point location = ((Localisable)node).getLocation();
-            g.drawOval(location.x.intValue(), location.y.intValue(), 5, 5);
+            g.fillOval(location.x.intValue() - radius, location.y.intValue() - radius, radius*2, radius*2);
         }
     }
 }

@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import model.Serializable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
  */
-public class Node
+public class Node implements Serializable
 {
     /**
      * Create an node with a specific <i>id</i> in <i>graph</i>.
@@ -127,5 +130,14 @@ public class Node
         int hash = 5;
         hash = 89 * hash + Objects.hashCode(this.id);
         return hash;
+    }
+    
+
+    @Override
+    public Element toXML(Document elementBuilder)
+    {
+        Element element = elementBuilder.createElement("node");
+        element.setAttribute("id", getId().toString());
+        return element;
     }
 }

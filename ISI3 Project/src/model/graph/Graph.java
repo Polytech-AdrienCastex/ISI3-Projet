@@ -2,11 +2,15 @@ package model.graph;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import model.Serializable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
  */
-public class Graph
+public class Graph implements Serializable
 {
     /**
      * Create an empty graph
@@ -67,5 +71,24 @@ public class Graph
     public Boolean removeNode(Node n)
     {
         return nodes.remove(n);
+    }
+    
+    public List<Edge> getEdges()
+    {
+        return getNodes().stream()
+                .flatMap(n -> n.getEdges().stream())
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Element toXML(Document elementBuilder)
+    {
+        Element element = elementBuilder.createElement("osm");
+        
+        getNodes().forEach(n -> element.appendChild(n.toXML(elementBuilder)));
+        getEdges().forEach(e -> element.appendChild(e.toXML(elementBuilder)));
+        
+        return element;
     }
 }
