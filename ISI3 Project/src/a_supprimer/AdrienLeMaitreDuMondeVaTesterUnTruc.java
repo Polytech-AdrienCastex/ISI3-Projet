@@ -9,7 +9,7 @@ import view.Window;
 /**
  *
  */
-public class AdrienLeMaitreDuMondeVaTesterUnePartie
+public class AdrienLeMaitreDuMondeVaTesterUnTruc
 {
     public static void main(String[] args) throws Exception
     {

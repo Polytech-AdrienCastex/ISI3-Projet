@@ -1,4 +1,4 @@
-package model;
+package model.xml;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Iterator;
