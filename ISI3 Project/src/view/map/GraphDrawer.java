@@ -8,6 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import model.elementary.Point;
 import model.graph.Graph;
 
 /**
@@ -45,6 +46,11 @@ public class GraphDrawer extends JPanel implements Observer
         {
             return false;
         }
+    }
+    
+    public Point getBackgroundSize()
+    {
+        return new Point((double)image.getWidth(), (double)image.getHeight());
     }
     
     public void draw(Graphics g, Graph graph)
