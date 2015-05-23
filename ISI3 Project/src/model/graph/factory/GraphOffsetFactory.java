@@ -34,21 +34,39 @@ public class GraphOffsetFactory extends GraphFactory
     protected final int offsetX;
     protected final int offsetY;
     
+    protected void applyOffset(Graph graph)
+    {
+        applyOffset(graph, 1);
+    }
+    protected void applyOffset(Graph graph, int coef)
+    {
+        graph.getNodes()
+                .forEach(n -> 
+                {
+                    Point p = ((Localisable)n).getLocation();
+                    p.x -= offsetX * coef;
+                    p.y -= offsetY * coef;
+                    ((FireableNode)n).location = p;
+                });
+    }
+    
     @Override
     public Graph load(File graphFile) throws ParserConfigurationException, IOException, SAXException
     {
         Graph graph = super.load(graphFile);
         
-        
-        graph.getNodes()
-                .forEach(n -> 
-                {
-                    Point p = ((Localisable)n).getLocation();
-                    p.x -= offsetX;
-                    p.y -= offsetY;
-                    ((FireableNode)n).location = p;
-                });
+        applyOffset(graph, 1);
         
         return graph;
+    }
+    
+    @Override
+    public void save(File graphFile, Graph graph) throws ParserConfigurationException, IOException
+    {
+        applyOffset(graph, -1);
+        
+        super.save(graphFile, graph);
+        
+        applyOffset(graph, 1);
     }
 }
