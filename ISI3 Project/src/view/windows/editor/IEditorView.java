@@ -1,4 +1,4 @@
-package view.map.editor;
+package view.windows.editor;
 
 import view.*;
 

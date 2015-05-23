@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import model.Observable;
 import model.xml.Serializable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -11,7 +12,7 @@ import org.w3c.dom.Element;
 /**
  *
  */
-public class Node implements Serializable
+public class Node extends Observable implements Serializable
 {
     /**
      * Create an node with a specific <i>id</i> in <i>graph</i>.
@@ -58,6 +59,8 @@ public class Node implements Serializable
             return false;
         
         edges.add(e);
+        
+        notifyChanges();
         return true;
     }
     

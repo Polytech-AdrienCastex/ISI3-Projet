@@ -1,5 +1,6 @@
 package model.graph;
 
+import model.Observable;
 import model.xml.Serializable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -7,7 +8,7 @@ import org.w3c.dom.Element;
 /**
  *
  */
-public class Edge implements Serializable
+public class Edge extends Observable implements Serializable
 {
     /**
      * Create an edge between two nodes of a graph

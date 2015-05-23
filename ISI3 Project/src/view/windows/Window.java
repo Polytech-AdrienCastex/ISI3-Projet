@@ -1,10 +1,7 @@
-package view;
+package view.windows;
 
 import controller.actionmanagers.ActionManager;
-import controller.actionmanagers.MainActionManager;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import javax.swing.JFrame;
 
 /**

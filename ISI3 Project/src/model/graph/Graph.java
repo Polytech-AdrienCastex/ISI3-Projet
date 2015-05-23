@@ -2,7 +2,9 @@ package model.graph;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 import java.util.stream.Collectors;
+import model.Observable;
 import model.xml.Serializable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -10,7 +12,7 @@ import org.w3c.dom.Element;
 /**
  *
  */
-public class Graph implements Serializable
+public class Graph extends Observable implements Serializable, Observer
 {
     /**
      * Create an empty graph
@@ -60,6 +62,8 @@ public class Graph implements Serializable
         Integer nid = n.getId();
         if(uid < nid)
             uid = nid;
+        
+        n.addObserver(this);
         return nodes.add(n);
     }
     
@@ -70,6 +74,7 @@ public class Graph implements Serializable
      */
     public Boolean removeNode(Node n)
     {
+        n.deleteObserver(this);
         return nodes.remove(n);
     }
     
@@ -90,5 +95,11 @@ public class Graph implements Serializable
         getEdges().forEach(e -> element.appendChild(e.toXML(elementBuilder)));
         
         return element;
+    }
+
+    @Override
+    public void update(java.util.Observable o, Object o1)
+    {
+        notifyChanges();
     }
 }

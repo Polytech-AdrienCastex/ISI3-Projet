@@ -1,8 +1,9 @@
-package view;
+package view.windows;
 
+import view.menupanel.Separator;
+import view.menupanel.ButtonPanel;
+import view.menupanel.Button;
 import controller.actionmanagers.ActionManager;
-import view.main.*;
-import controller.actionmanagers.MainActionManager;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -23,6 +24,9 @@ public abstract class GraphWindow extends Window
     public GraphWindow(ActionManager actionManager)
     {
         super(actionManager);
+        
+        this.setResizable(false);
+        this.setLocationByPlatform(true);
     }
     
     protected GraphDrawer graphDrawer;
@@ -82,6 +86,7 @@ public abstract class GraphWindow extends Window
         this.graphDrawer.setSize(this.getSize());
         this.graphDrawer.setPreferredSize(this.getSize());
         this.graphDrawer.setLocation(0, 0);
+        this.graphDrawer.addMouseListener(this.actionManager);
         
         this.buttonPanel = new ButtonPanel();
         this.buttonPanel.setLocation(0, 0);

@@ -2,12 +2,9 @@ package view.map;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import model.elementary.Point;
 import model.graph.Graph;
@@ -23,41 +20,43 @@ public class GraphDrawer extends JPanel implements Observer
         super();
         
         this.graph = graph;
+        graph.addObserver(this);
         
         this.nodeDrawer = nodeDrawer;
         this.edgeDrawer = edgeDrawer;
         
-        this.image = null;
+        this.backgroundImage = null;
     }
     
     protected final Graph graph;
     
-    private final NodeDrawer nodeDrawer;
-    private final EdgeDrawer edgeDrawer;
+    protected final NodeDrawer nodeDrawer;
+    protected final EdgeDrawer edgeDrawer;
     
-    private Image image;
+    protected Image backgroundImage;
     
     public Boolean setBackgroundImage(File imageFile)
     {
-        image = ImageLoader.loadImage(imageFile);
-        return image != null;
+        backgroundImage = ImageLoader.loadImage(imageFile);
+        return backgroundImage != null;
     }
     public Boolean setBackgroundImage(Image image)
     {
-        this.image = image;
+        this.backgroundImage = image;
         return true;
     }
     
     public Point getBackgroundSize()
     {
-        return new Point((double)image.getWidth(null), (double)image.getHeight(null));
+        return new Point((double)backgroundImage.getWidth(null), (double)backgroundImage.getHeight(null));
     }
     
+    private static Image selectedImage = null;
     public void draw(Graphics g)
     {
         // Draw background image
-        if(image != null)
-            g.drawImage(image, 0, 0, null);
+        if(backgroundImage != null)
+            g.drawImage(backgroundImage, 0, 0, null);
         
         // Draw edges
         graph.getNodes()
@@ -67,6 +66,12 @@ public class GraphDrawer extends JPanel implements Observer
         // Draw nodes
         graph.getNodes()
                 .forEach(n -> nodeDrawer.draw(g, n));
+        
+        if(selectedImage == null)
+            selectedImage = ImageLoader.loadImage("fireline.png");
+        int h = 100;
+        if(selectedImage != null && this.getName() != null && this.getName().equals("setfire"))
+            g.drawImage(selectedImage, 0, backgroundImage.getHeight(null) - h, backgroundImage.getWidth(null), h, null);
     }
     
     @Override
@@ -79,11 +84,11 @@ public class GraphDrawer extends JPanel implements Observer
     @Override
     public void update(Observable o, Object arg)
     {
-        this.repaint();
+        this.getParent().repaint();
     }
 
     public Image getBackgroundImage()
     {
-        return this.image;
+        return this.backgroundImage;
     }
 }

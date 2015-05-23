@@ -1,4 +1,4 @@
-package view;
+package view.menupanel;
 
 import java.awt.Color;
 import java.awt.Graphics;

@@ -1,10 +1,11 @@
-package view;
+package view.menupanel;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.JPanel;
+import view.ImageLoader;
 
 /**
  *
@@ -32,7 +33,7 @@ public class Button extends JPanel
     public void draw(Graphics g)
     {
         if(image != null)
-            g.drawImage(image, 0, 0, null);
+            g.drawImage(image, 0, 0, this.getSize().width, this.getSize().height, null);
     }
 
     @Override

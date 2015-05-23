@@ -81,6 +81,7 @@ public class ProjectEdge extends Edge implements Valued, Typed, Waterable
     public void setUnderWater(Boolean underWater)
     {
         this.underWater = underWater;
+        notifyChanges();
     }
     
     @Override

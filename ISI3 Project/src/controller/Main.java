@@ -2,7 +2,7 @@ package controller;
 
 import controller.actionmanagers.MainActionManager;
 import model.graph.Graph;
-import view.main.MainWindow;
+import view.windows.main.MainWindow;
 
 /**
  *

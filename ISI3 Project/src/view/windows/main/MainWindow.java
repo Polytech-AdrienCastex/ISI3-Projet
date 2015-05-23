@@ -1,20 +1,8 @@
-package view.main;
+package view.windows.main;
 
 import controller.actionmanagers.MainActionManager;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import model.elementary.Point;
-import model.graph.Graph;
-import view.Button;
-import view.ButtonPanel;
-import view.GraphWindow;
-import view.Window;
-import view.map.EdgeDrawer;
-import view.map.GraphDrawer;
-import view.map.NodeDrawer;
+import view.windows.GraphWindow;
 
 /**
  *
@@ -31,9 +19,9 @@ public class MainWindow extends GraphWindow implements IMainView
     {
         super.initialize();
         
-        addButton("edit", "play.png");
-        addButton("edit", "step.png");
-        addButton("edit", "fire.png");
+        addButton("play", "play.png");
+        addButton("step", "step.png");
+        addButton("fire", "fire.png");
         addSeparator();
         addButton("edit", "edit.png");
     }
@@ -42,5 +30,13 @@ public class MainWindow extends GraphWindow implements IMainView
     public Image getGraphBackground()
     {
         return this.graphDrawer.getBackgroundImage();
+    }
+
+    @Override
+    public void setMode(String mode)
+    {
+        System.out.println("MODE : set" + mode);
+        this.graphDrawer.setName("set" + mode);
+        this.repaint();
     }
 }

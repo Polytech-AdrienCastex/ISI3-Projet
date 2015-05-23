@@ -6,8 +6,8 @@ import model.graph.Graph;
 import model.graph.factory.GraphFactory;
 import model.graph.factory.GraphOffsetFactory;
 import view.ImageLoader;
-import view.main.MainWindow;
-import view.Window;
+import view.windows.main.MainWindow;
+import view.windows.Window;
 
 /**
  *

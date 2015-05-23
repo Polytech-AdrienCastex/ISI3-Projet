@@ -78,6 +78,8 @@ public class FireableNode extends Node implements Fireable, Localisable
             this.fireIntensity = 0.0;
         else
             this.fireIntensity = intensity;
+        
+        notifyChanges();
     }
 
     /**
