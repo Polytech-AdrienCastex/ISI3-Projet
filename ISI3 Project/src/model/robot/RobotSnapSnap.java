@@ -9,7 +9,7 @@ import model.pathfinding.PathFinding;
 /**
  * Robot à chenilles
  */
-public class RobotSnapSnap extends Robot {
+public class RobotSnapSnap extends FlammableRobot {
 
     public RobotSnapSnap(Double speed, Node currentNode, PathFinding pf) {
         super(speed, currentNode, pf);
@@ -21,12 +21,6 @@ public class RobotSnapSnap extends Robot {
         if (e instanceof Typed)
             return ((Typed)e).getType() == EdgeType.Escarpe;
         
-        return true;
-    }
-
-    @Override
-    public Boolean canUseNode(Node n) {
-        return true;
-    }
-    
+        return super.canUseEdge(e);
+    }    
 }
