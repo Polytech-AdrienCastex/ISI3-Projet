@@ -5,6 +5,7 @@
  */
 package model.graph;
 
+import java.util.Collection;
 import model.graph.Edge;
 import model.graph.Node;
 import model.graph.Graph;
@@ -58,7 +59,7 @@ public class NodeTest
         
         Edge edge = new Edge(n1, n2);
         
-        List<Edge> result = n1.getEdges();
+        Collection<Edge> result = n1.getEdges();
         assertArrayEquals(new Edge[] { edge }, result.toArray());
     }
 
@@ -70,7 +71,7 @@ public class NodeTest
     {
         System.out.println("getEdges");
         
-        List<Edge> result;
+        Collection<Edge> result;
         
         Node n1 = new Node(graph);
         Node n2 = new Node(graph);

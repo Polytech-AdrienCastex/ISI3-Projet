@@ -35,23 +35,6 @@ public class MainActionManager extends ActionManager<IMainView>
                 break;
         }
     }
-    
-    private Node findNodeFromLocation(Point location, int radius)
-    {
-        return graph.getNodes().stream()
-                .filter(n -> n instanceof Localisable)
-                .filter(n ->
-                {
-                    Point p = ((Localisable)n).getLocation();
-                    return
-                            p.x >= location.x - radius &&
-                            p.x <= location.x + radius &&
-                            p.y >= location.y - radius &&
-                            p.y <= location.y + radius;
-                })
-                .findFirst()
-                .orElse(null);
-    }
 
     @Override
     protected void action(String command, MouseEvent e, Point clkLocation)
@@ -64,11 +47,11 @@ public class MainActionManager extends ActionManager<IMainView>
                 editorWindow.setGraph(graph, this.getView().getGraphBackground());
                 editorWindow.initialize();
                 eam.setView(editorWindow);
-                editorWindow.run();
+                editorWindow.showDialog();
                 break;
                 
             case "setfire":
-                Node node = findNodeFromLocation(clkLocation, 10);
+                Node node = findNodeFromLocation(graph, clkLocation, 10);
                 if(node != null)
                 {
                     if(node instanceof Fireable)

@@ -6,7 +6,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import model.elementary.Localisable;
 import model.elementary.Point;
+import model.graph.Graph;
+import model.graph.Node;
 
 /**
  *
@@ -83,4 +86,22 @@ public abstract class ActionManager<V> extends WindowAdapter implements ActionLi
     @Override
     public void mousePressed(MouseEvent e)
     { }
+    
+    
+    protected static Node findNodeFromLocation(Graph graph, Point location, int radius)
+    {
+        return graph.getNodes().stream()
+                .filter(n -> n instanceof Localisable)
+                .filter(n ->
+                {
+                    Point p = ((Localisable)n).getLocation();
+                    return
+                            p.x >= location.x - radius &&
+                            p.x <= location.x + radius &&
+                            p.y >= location.y - radius &&
+                            p.y <= location.y + radius;
+                })
+                .findFirst()
+                .orElse(null);
+    }
 }

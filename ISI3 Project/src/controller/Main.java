@@ -21,6 +21,6 @@ public abstract class Main
         bam.setView(window);
         
         window.initialize();
-        window.run();
+        window.showWindow();
     }
 }

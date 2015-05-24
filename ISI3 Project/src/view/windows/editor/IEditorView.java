@@ -1,11 +1,11 @@
 package view.windows.editor;
 
-import view.IView;
+import view.IModeView;
 
 /**
  *
  */
-public interface IEditorView extends IView
+public interface IEditorView extends IModeView
 {
     
 }

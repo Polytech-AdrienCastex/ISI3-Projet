@@ -1,8 +1,12 @@
 package model.graph;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Observer;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 import model.Observable;
 import model.xml.Serializable;
@@ -19,7 +23,7 @@ public class Graph extends Observable implements Serializable, Observer
      */
     public Graph()
     {
-        nodes = new ArrayList<>();
+        nodes = new ConcurrentLinkedQueue<>();
         
         uid = 0;
     }
@@ -27,7 +31,7 @@ public class Graph extends Observable implements Serializable, Observer
     /**
      * List of nodes owned by the current graph
      */
-    private final List<Node> nodes;
+    private final Collection<Node> nodes;
     
     /**
      * Curretn unique ID for the current graph
@@ -47,7 +51,7 @@ public class Graph extends Observable implements Serializable, Observer
      * Return the list of the nodes in the graph
      * @return List of nodes
      */
-    public List<Node> getNodes()
+    public Collection<Node> getNodes()
     {
         return nodes;
     }
@@ -64,7 +68,10 @@ public class Graph extends Observable implements Serializable, Observer
             uid = nid;
         
         n.addObserver(this);
-        return nodes.add(n);
+        
+        Boolean result = nodes.add(n);
+        notifyChanges();
+        return result;
     }
     
     /**
@@ -74,8 +81,14 @@ public class Graph extends Observable implements Serializable, Observer
      */
     public Boolean removeNode(Node n)
     {
+        List<Edge> edges = new ArrayList<>(n.getEdges());
+        edges.forEach(e -> e.getStopNode().removeEdge(e));
+        edges.forEach(e -> e.getStartNode().removeEdge(e));
         n.deleteObserver(this);
-        return nodes.remove(n);
+
+        Boolean result = nodes.remove(n);
+        notifyChanges();
+        return result;
     }
     
     public List<Edge> getEdges()

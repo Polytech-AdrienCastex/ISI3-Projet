@@ -31,12 +31,4 @@ public class MainWindow extends GraphWindow implements IMainView
     {
         return this.graphDrawer.getBackgroundImage();
     }
-
-    @Override
-    public void setMode(String mode)
-    {
-        System.out.println("MODE : set" + mode);
-        this.graphDrawer.setName("set" + mode);
-        this.repaint();
-    }
 }

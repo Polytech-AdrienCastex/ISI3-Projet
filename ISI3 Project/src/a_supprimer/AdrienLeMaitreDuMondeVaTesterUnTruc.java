@@ -42,6 +42,6 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
         window.initialize();
         
         bam.setView(window);
-        window.run();
+        window.showWindow();
     }
 }

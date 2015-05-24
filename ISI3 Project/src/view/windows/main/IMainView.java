@@ -1,14 +1,12 @@
 package view.windows.main;
 
 import java.awt.Image;
-import view.IView;
+import view.IModeView;
 
 /**
  *
  */
-public interface IMainView extends IView
+public interface IMainView extends IModeView
 {
     public Image getGraphBackground();
-
-    public void setMode(String mode);
 }

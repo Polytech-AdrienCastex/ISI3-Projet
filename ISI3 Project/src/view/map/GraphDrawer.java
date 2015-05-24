@@ -69,9 +69,15 @@ public class GraphDrawer extends JPanel implements Observer
         
         if(selectedImage == null)
             selectedImage = ImageLoader.loadImage("fireline.png");
-        int h = 100;
+        
         if(selectedImage != null && this.getName() != null && this.getName().equals("setfire"))
-            g.drawImage(selectedImage, 0, backgroundImage.getHeight(null) - h, backgroundImage.getWidth(null), h, null);
+        {
+            final int h = 100;
+            if(backgroundImage != null)
+                g.drawImage(selectedImage, 0, backgroundImage.getHeight(null) - h, backgroundImage.getWidth(null), h, null);
+            else
+                g.drawImage(selectedImage, 0, this.getParent().getHeight() - h, this.getParent().getWidth(), h, null);
+        }
     }
     
     @Override

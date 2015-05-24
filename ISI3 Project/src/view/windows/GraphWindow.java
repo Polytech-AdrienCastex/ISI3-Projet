@@ -10,8 +10,10 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import model.elementary.Localisable;
 import model.elementary.Point;
 import model.graph.Graph;
+import view.IModeView;
 import view.map.EdgeDrawer;
 import view.map.GraphDrawer;
 import view.map.NodeDrawer;
@@ -19,14 +21,13 @@ import view.map.NodeDrawer;
 /**
  *
  */
-public abstract class GraphWindow extends Window
+public abstract class GraphWindow extends Window implements IModeView
 {
     public GraphWindow(ActionManager actionManager)
     {
         super(actionManager);
         
         this.setResizable(false);
-        this.setLocationByPlatform(true);
     }
     
     protected GraphDrawer graphDrawer;
@@ -38,17 +39,16 @@ public abstract class GraphWindow extends Window
     }
     public void setGraph(Graph graph, String backgroundPath)
     {
-        if(backgroundPath != null)
-            try
-            {
-                Image image = ImageIO.read(new File(backgroundPath));
-                setGraph(graph, image);
-                return;
-            }
-            catch (IOException e)
-            { }
-        
-        setGraph(graph, (Image)null);
+        if(backgroundPath == null)
+            setGraph(graph, (Image)null);
+            
+        try
+        {
+            Image image = ImageIO.read(new File(backgroundPath));
+            setGraph(graph, image);
+        }
+        catch (IOException e)
+        { }
     }
     public void setGraph(Graph graph, Image backgroundImage)
     {
@@ -62,7 +62,19 @@ public abstract class GraphWindow extends Window
             this.setMinimumSize(new Dimension(size.x.intValue(), size.y.intValue()));
         }
         else
-            this.setSize(new Dimension(600, 600));
+            this.setMinimumSize(new Dimension(
+                    (int)graph.getNodes().stream()
+                            .filter(n -> n instanceof Localisable)
+                            .mapToDouble(n -> ((Localisable)n).getLocation().x)
+                            .max()
+                            .orElse(600.0) + 100
+                    ,
+                    (int)graph.getNodes().stream()
+                            .filter(n -> n instanceof Localisable)
+                            .mapToDouble(n -> ((Localisable)n).getLocation().y)
+                            .max()
+                            .orElse(600.0) + 100
+            ));
     }
     
     protected Button addButton(String action, String imageName)
@@ -82,7 +94,7 @@ public abstract class GraphWindow extends Window
     @Override
     public void initialize()
     {
-        this.graphDrawer.setBackground(Color.green);
+        this.graphDrawer.setBackground(Color.white);
         this.graphDrawer.setSize(this.getSize());
         this.graphDrawer.setPreferredSize(this.getSize());
         this.graphDrawer.setLocation(0, 0);
@@ -95,5 +107,13 @@ public abstract class GraphWindow extends Window
         this.add(this.buttonPanel);
         this.add(this.graphDrawer);
         this.pack();
+    }
+    
+    @Override
+    public void setMode(String mode)
+    {
+        System.out.println("MODE : set" + mode);
+        this.graphDrawer.setName("set" + mode);
+        this.repaint();
     }
 }

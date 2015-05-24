@@ -3,6 +3,7 @@ package model.graph;
 import model.graph.Node;
 import model.graph.Graph;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -72,7 +73,7 @@ public class GraphTest
             new Node(instance)
         };
         
-        List<Node> result = instance.getNodes();
+        Collection<Node> result = instance.getNodes();
         
         assertArrayEquals(nodes, result.toArray());
     }
@@ -88,7 +89,7 @@ public class GraphTest
         Graph instance = new Graph();
         Node n = new Node(instance);
         
-        List<Node> ns = instance.getNodes();
+        Collection<Node> ns = instance.getNodes();
         
         assertArrayEquals(new Node[] { n }, ns.toArray());
     }
@@ -108,7 +109,7 @@ public class GraphTest
         
         instance.removeNode(n2);
         
-        List<Node> ns = instance.getNodes();
+        Collection<Node> ns = instance.getNodes();
         
         assertArrayEquals(new Node[] { n1, n3 }, ns.toArray());
     }

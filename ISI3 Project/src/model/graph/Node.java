@@ -1,8 +1,10 @@
 package model.graph;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 import model.Observable;
 import model.xml.Serializable;
@@ -39,7 +41,7 @@ public class Node extends Observable implements Serializable
     /**
      * List of edges.
      */
-    private final List<Edge> edges = new ArrayList<>();
+    private final Collection<Edge> edges = new ConcurrentLinkedQueue<>();
     /**
      * ID of the node.
      */
@@ -57,9 +59,19 @@ public class Node extends Observable implements Serializable
     {
         if(!this.equals(e.getStartNode()) && !this.equals(e.getStopNode()))
             return false;
-        
+
         edges.add(e);
-        
+
+        notifyChanges();
+        return true;
+    }
+    
+    Boolean removeEdge(Edge e)
+    {
+        if(!edges.contains(e))
+            return false;
+        edges.remove(e);
+
         notifyChanges();
         return true;
     }
@@ -68,7 +80,7 @@ public class Node extends Observable implements Serializable
      * Get the edges linked to the current node.
      * @return List of Edge
      */
-    public List<Edge> getEdges()
+    public Collection<Edge> getEdges()
     {
         return edges;
     }
