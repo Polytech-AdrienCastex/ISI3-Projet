@@ -1,14 +1,10 @@
 package view;
 
 import java.awt.Image;
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -22,7 +18,7 @@ public class ImageLoader
         if(!imageFolder.endsWith("/") && !imageFolder.endsWith("\\"))
             imageFolder += "/";
         
-        ImageLoader.imageFolder = imageFolder + "aaaaaaaaaa";
+        ImageLoader.imageFolder = imageFolder;
     }
     
     private static final ClassLoader loader = new ImageLoader().getClass().getClassLoader();
@@ -33,7 +29,7 @@ public class ImageLoader
         if(f.exists())
             return loadImage(f);
         else
-            return loadImage(loader.getResourceAsStream("resources/" + imageName));
+            return loadImage(loader.getResourceAsStream("view/resources/" + imageName));
     }
     public static Image loadImage(File imageFile)
     {
