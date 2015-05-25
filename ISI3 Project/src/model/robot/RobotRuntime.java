@@ -24,7 +24,11 @@ public class RobotRuntime extends TimerTask {
         }
     }    
     
-    public void start() {
-        t.schedule(this, 0, 1000); //mise à jour toute les secondes
+    /**
+     * Start timer with an interval time in milliseconds
+     * @param intervalTime Run every intervalTime milliseconds
+     */
+    public void start(int intervalTime) {
+        t.schedule(this, 0, intervalTime); 
     }
 }

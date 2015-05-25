@@ -65,9 +65,9 @@ public class Manager implements Runnable {
         this.grap = grap;
     }
     
-    private List<Node> searchNodesNotInFire(boolean mustBeNotOccuped)
+    private List<Node> searchNodesNotAffected(boolean mustBeNotOccuped)
     {
-        List<Node> nodesNotInFire = new ArrayList<>();
+        List<Node> nodesNotAffected = new ArrayList<>();
         for (Node n : grap.getNodes())
         {
             if (n instanceof Fireable)
@@ -89,14 +89,16 @@ public class Manager implements Runnable {
 
                         if (!robotOnIt)
                         {
-                            nodesNotInFire.add(n);
+                            nodesNotAffected.add(n);
                         }
+                    } else {
+                        nodesNotAffected.add(n);
                     }
                 }
             }
         }
         
-        return nodesNotInFire;
+        return nodesNotAffected;
     }
 
     /**
@@ -107,11 +109,11 @@ public class Manager implements Runnable {
         Random rand = new Random();
         
         //Rechercher les incendies non affectés
-        List<Node> nNotInFire = searchNodesNotInFire(true);
+        List<Node> nNotAffected = searchNodesNotAffected(true);
         
         //Pour chaque robot non occupé regarder le chemin
         //Prendre le meilleur chemin 
-        for (Node n : nNotInFire)
+        for (Node n : nNotAffected)
         {
             List<Robot> bestRobots = new ArrayList<>();
             double bestValue = Double.MAX_VALUE;

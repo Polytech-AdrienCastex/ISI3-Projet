@@ -1,11 +1,12 @@
 package model.robot;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import model.graph.Edge;
-import model.elementary.Fireable;
 import model.graph.Node;
 import model.elementary.Valued;
+import model.item.IItem;
 import model.pathfinding.Authorizer;
 import model.pathfinding.PathFinding;
 
@@ -13,11 +14,12 @@ import model.pathfinding.PathFinding;
  * Robot general
  */
 public abstract class Robot implements Authorizer, Runnable {
-    private Double speed;
-    private Node currentNode;
-    private LinkedList<Edge> path;
+    protected Double speed;
+    protected Node currentNode;
+    protected List<IItem> items;
     
     private PathFinding pathFinding;
+    private LinkedList<Edge> path;
 
     /**
      * Constructor
@@ -29,6 +31,45 @@ public abstract class Robot implements Authorizer, Runnable {
         this.speed = speed;
         this.currentNode = currentNode;
         this.pathFinding = pf;
+        this.items = new ArrayList<>();
+    }
+
+    /**
+     * Get the robot items
+     * @return 
+     */
+    public List<IItem> getItems() {
+        return items;
+    }
+
+    /**
+     * Set a list of items for the robot
+     * @param items 
+     */
+    public void setItems(List<IItem> items) {
+        this.items = items;
+    }
+    
+    /**
+     * Add an item to the robot
+     * @param i Item to add
+     */
+    public void addItem(IItem i)
+    {
+        if (!items.contains(i))
+            items.add(i);
+    }
+    
+    /**
+     * Remove the item in parameter from the robot
+     * @param i Item to remove
+     * @return true if item has be removed
+     */
+    public boolean removeItem(IItem i)
+    {
+        if (i != null)
+            return items.remove(i);
+        return false;
     }
 
     /**
@@ -102,22 +143,14 @@ public abstract class Robot implements Authorizer, Runnable {
     }
     
     /**
-     * The robot is busy when he didnt reach his destination yet or  
-     * he has a destination and is on a node on fire
+     * The robot is busy when he didnt reach his destination yet 
      * @return true if the robot is busy
      */
     public Boolean isBusy() {
         if (path.size() > 0)
         {
             if (!path.get(path.size()-1).getStopNode().equals(currentNode))
-                return true; //Le robot n'a pas atteint sa destination
-                        
-            if (currentNode instanceof Fireable)
-            {
-                Fireable fNode = (Fireable)currentNode;
-                if (fNode.isOnFire())
-                    return true; //Noeud toujours en feu
-            }            
+                return true; //Le robot n'a pas atteint sa destination   
         }
         
         return  false;            
@@ -151,10 +184,20 @@ public abstract class Robot implements Authorizer, Runnable {
             
     }
 
+    /**
+     * Run action
+     */
     @Override
     public void run() {
-        //Si robot sur noeud en feu .. eteindre le feu (baisser intensité)
+        moveForward();    
         
-        //sinon si destination avancer
+        //Items action
+        for (IItem i : items)
+        {
+            i.actionNode(currentNode);
+            
+            for (Edge e : currentNode.getEdges())
+                i.actionEdge(e);
+        }
     }
 }
