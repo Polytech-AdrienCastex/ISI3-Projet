@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package astar;
 
 import java.util.ArrayList;
@@ -18,10 +12,7 @@ import model.graph.project.ProjectEdge;
 import model.robot.Robot;
 import model.robot.RobotPafPaf;
 
-/**
- *
- * @author p1309208
- */
+
 public class Test {
     
     /**
