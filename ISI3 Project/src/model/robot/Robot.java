@@ -3,6 +3,7 @@ package model.robot;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import model.Observable;
 import model.graph.Edge;
 import model.graph.Node;
 import model.elementary.Valued;
@@ -13,10 +14,10 @@ import model.pathfinding.PathFinding;
 /**
  * Robot general
  */
-public abstract class Robot implements Authorizer, Runnable {
+public abstract class Robot<I extends IItem> extends Observable implements Authorizer, Runnable {
     protected Double speed;
     protected Node currentNode;
-    protected List<IItem> items;
+    protected List<I> items;
     
     private PathFinding pathFinding;
     private LinkedList<Edge> path;
@@ -38,7 +39,7 @@ public abstract class Robot implements Authorizer, Runnable {
      * Get the robot items
      * @return 
      */
-    public List<IItem> getItems() {
+    public List<I> getItems() {
         return items;
     }
 
@@ -46,7 +47,7 @@ public abstract class Robot implements Authorizer, Runnable {
      * Set a list of items for the robot
      * @param items 
      */
-    public void setItems(List<IItem> items) {
+    public void setItems(List<I> items) {
         this.items = items;
     }
     
@@ -54,7 +55,7 @@ public abstract class Robot implements Authorizer, Runnable {
      * Add an item to the robot
      * @param i Item to add
      */
-    public void addItem(IItem i)
+    public void addItem(I i)
     {
         if (!items.contains(i))
             items.add(i);
@@ -65,7 +66,7 @@ public abstract class Robot implements Authorizer, Runnable {
      * @param i Item to remove
      * @return true if item has be removed
      */
-    public boolean removeItem(IItem i)
+    public boolean removeItem(I i)
     {
         if (i != null)
             return items.remove(i);
@@ -86,6 +87,7 @@ public abstract class Robot implements Authorizer, Runnable {
      */
     public void setCurrentNode(Node currentNode) {
         this.currentNode = currentNode;
+        notifyChanges();
     }
 
     /**
@@ -181,7 +183,6 @@ public abstract class Robot implements Authorizer, Runnable {
                 path.clear();
             }
         }
-            
     }
 
     /**
@@ -199,5 +200,7 @@ public abstract class Robot implements Authorizer, Runnable {
             for (Edge e : currentNode.getEdges())
                 i.actionEdge(e);
         }
+                           
+        notifyChanges();
     }
 }

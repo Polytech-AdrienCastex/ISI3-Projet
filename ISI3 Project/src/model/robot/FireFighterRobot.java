@@ -5,7 +5,7 @@ import model.graph.Node;
 import model.item.FireHose;
 import model.pathfinding.PathFinding;
 
-public abstract class FireFighterRobot extends Robot {
+public abstract class FireFighterRobot extends Robot<FireHose> {
 
     /**
      * Contructor : By default the FireFighter has 1 FireHose item
