@@ -101,8 +101,7 @@ public class Node extends Observable implements Serializable
     public List<Node> getNextNodes()
     {
         return edges.stream()
-                .filter(e -> this.equals(e.getStartNode()))
-                .map(e -> e.getStopNode())
+                .map(e -> this.equals(e.getStartNode()) ? e.getStopNode() : e.getStartNode())
                 .collect(Collectors.toList());
     }
     
