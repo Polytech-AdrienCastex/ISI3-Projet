@@ -24,59 +24,71 @@ public class BFS implements PathFinding
     @SuppressWarnings("empty-statement")
     public List<Edge> getShortestPath(Node origin, Node dest, Authorizer auth)
     {
-        Map<Node, Double> distance = new HashMap<>();
-        
-        Queue<Node> discoveredNodes = new LinkedList<>();
-        
-        Queue<Node> queue = new LinkedList<>();
-        queue.add(origin);
-        discoveredNodes.add(origin);
-        
-        origin.getGraph().getNodes().forEach(n -> distance.put(n, Double.POSITIVE_INFINITY));
-        distance.put(origin, 0.0);
-        
-        while(!queue.isEmpty())
+        try
         {
-            Node current = queue.remove();
-            
-            current.getNextNodes()
-                    .stream()
-                    .filter(n -> !discoveredNodes.contains(n))
-                    .forEach(n ->
-                    {
-                        queue.add(n);
-                        discoveredNodes.add(n);
-                        
-                        distance.put(n, distance.get(current) + current.getEdges(n).stream()
-                                .filter(e -> e instanceof Valued)
-                                .mapToDouble(e -> ((Valued)e).getValue())
-                                .min()
-                                .orElse(1.0));
-                    });
+            Map<Node, Double> distance = new HashMap<>();
+
+            Queue<Node> discoveredNodes = new LinkedList<>();
+
+            Queue<Node> queue = new LinkedList<>();
+            queue.add(origin);
+            discoveredNodes.add(origin);
+
+            origin.getGraph().getNodes().forEach(n -> distance.put(n, Double.POSITIVE_INFINITY));
+            distance.put(origin, 0.0);
+
+            while(!queue.isEmpty())
+            {
+                Node current = queue.remove();
+
+                current.getNextNodes()
+                        .stream()
+                        .filter(n -> auth.canUseNode(n) || n.equals(dest))
+                        .filter(n -> !discoveredNodes.contains(n))
+                        .forEach(n ->
+                        {
+                            queue.add(n);
+                            discoveredNodes.add(n);
+
+                            distance.put(n, distance.get(current) + current.getEdges(n).stream()
+                                    .filter(e -> auth.canUseEdge(e))
+                                    .filter(e -> e instanceof Valued)
+                                    .mapToDouble(e -> ((Valued)e).getValue())
+                                    .min()
+                                    .orElse(1.0));
+                        });
+            }
+
+            List<Edge> edges = new ArrayList<>();
+            Node lastNode = dest;
+
+            do
+            {
+                Node nextNode = lastNode.getNextNodes()
+                        .stream()
+                        .filter(n -> auth.canUseNode(n) || n.equals(dest))
+                        .min(Comparator.comparingDouble(n -> distance.get(n)))
+                        .orElse(null);
+                
+                if(nextNode == null)
+                    return new ArrayList<>();
+
+                edges.add(lastNode.getEdges(nextNode)
+                        .stream()
+                        .filter(e -> auth.canUseEdge(e))
+                        .filter(e -> e instanceof Valued)
+                        .min(Comparator.comparing(e -> ((Valued)e).getValue()))
+                        .get());
+
+                lastNode = nextNode;
+            } while(!origin.equals(lastNode));
+
+            Collections.reverse(edges);
+            return edges;
         }
-        
-        List<Edge> edges = new ArrayList<>();
-        Node lastNode = dest;
-        
-        do
+        catch(java.util.NoSuchElementException ex)
         {
-            Node nextNode = lastNode.getNextNodes()
-                    .stream()
-                    .filter(n -> auth.canUseNode(n) || n.equals(dest))
-                    .min(Comparator.comparingDouble(n -> distance.get(n)))
-                    .orElse(null);
-
-            edges.add(lastNode.getEdges(nextNode)
-                    .stream()
-                    .filter(e -> auth.canUseEdge(e))
-                    .filter(e -> e instanceof Valued)
-                    .min(Comparator.comparing(e -> ((Valued)e).getValue()))
-                    .get());
-
-            lastNode = nextNode;
-        } while(!origin.equals(lastNode));
-        
-        Collections.reverse(edges);
-        return edges;
+            return new ArrayList<>();
+        }
     }
 }

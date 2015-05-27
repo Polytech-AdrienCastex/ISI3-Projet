@@ -2,9 +2,10 @@ package model;
 
 import java.util.Collection;
 import java.util.Iterator;
+import javafx.util.Pair;
 
 /**
- *
+ * This class represents a collection which can be observed.
  * @param <T>
  */
 public class ObservableCollection<T> extends Observable implements Collection<T>
@@ -47,12 +48,16 @@ public class ObservableCollection<T> extends Observable implements Collection<T>
 
     @Override
     public boolean add(T e) {
-        return collection.add(e);
+        boolean result = collection.add(e);
+        notifyChanges(new Pair<String, Object>("add", e));
+        return result;
     }
 
     @Override
     public boolean remove(Object o) {
-        return collection.remove(o);
+        boolean result = collection.remove(o);
+        notifyChanges(new Pair<String, Object>("remove", o));
+        return result;
     }
 
     @Override
@@ -67,16 +72,21 @@ public class ObservableCollection<T> extends Observable implements Collection<T>
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return collection.removeAll(c);
+        boolean result = collection.removeAll(c);
+        notifyChanges();
+        return result;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return collection.retainAll(c);
+        boolean result = collection.retainAll(c);
+        notifyChanges();
+        return result;
     }
 
     @Override
     public void clear() {
         collection.clear();
+        notifyChanges();
     }
 }

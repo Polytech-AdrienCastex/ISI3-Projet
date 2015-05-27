@@ -12,7 +12,7 @@ import model.graph.Node;
  */
 public class FireHose implements IItem
 {
-    private final static int WATER_EDGE_PROBABILITY = 20; // %
+    private final static int WATER_EDGE_PROBABILITY = 5; // %
     
     private final double intensity; //power force of the weapon
     private final Random rnd;

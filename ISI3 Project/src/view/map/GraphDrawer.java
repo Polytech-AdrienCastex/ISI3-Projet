@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JPanel;
 import model.elementary.Point;
 import model.graph.Graph;
@@ -16,6 +18,8 @@ import view.robot.RobotDrawer;
  */
 public class GraphDrawer extends JPanel implements Observer
 {
+    private final static int AUTO_DRAWER_PERIOD = 250; // ms
+    
     public GraphDrawer(Graph graph, NodeDrawer nodeDrawer, EdgeDrawer edgeDrawer, RobotDrawer robotDrawer)
     {
         super();
@@ -33,6 +37,40 @@ public class GraphDrawer extends JPanel implements Observer
         
         if(robotDrawer != null)
             robotDrawer.addObserver(this);
+    }
+    
+    private Runtime runtime = null;
+    protected class Runtime extends TimerTask
+    {
+        /**
+         * Internal timer.
+         */
+        private final Timer t;
+
+        /**
+         * Constructor.
+         */
+        public Runtime()
+        {
+            this.t = new Timer();
+        }
+
+        @Override
+        public void run()
+        {
+            getParent().repaint();
+            nodeDrawer.updateResources();
+            robotDrawer.updateResources();
+        }    
+
+        /**
+         * Start timer with an interval time in milliseconds
+         * @param intervalTime Run every intervalTime milliseconds
+         */
+        public void start(int intervalTime)
+        {
+            t.schedule(this, 0, intervalTime); 
+        }
     }
     
     protected final Graph graph;
@@ -89,6 +127,13 @@ public class GraphDrawer extends JPanel implements Observer
         // Draw robots
         if(robotDrawer != null)
             robotDrawer.draw(g);
+        
+        // Start the auto-drawer if not already started
+        if(runtime == null)
+        {
+            runtime = new Runtime();
+            runtime.start(AUTO_DRAWER_PERIOD);
+        }
     }
     
     @Override

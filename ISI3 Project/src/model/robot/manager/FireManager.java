@@ -3,6 +3,8 @@ package model.robot.manager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import model.elementary.Fireable;
 import model.graph.Graph;
 import model.graph.Node;
@@ -17,38 +19,13 @@ public class FireManager extends Manager<FireFighterRobot> {
     
     private List<Node> searchNodesNotAffected(boolean mustBeNotOccuped)
     {
-        List<Node> nodesNotAffected = new ArrayList<>();
-        for (Node n : grap.getNodes())
-        {
-            if (n instanceof Fireable)
-            { 
-                Fireable fNode = (Fireable)n;
-                if (fNode.isOnFire())
-                { //Pour chaque noeud en feu
-                    if (mustBeNotOccuped)
-                    {
-                        boolean robotOnIt = false;
-                        for (FireFighterRobot r : robots)
-                        { //Regarde si le robot est présent sur le noeud
-                            if (r.getCurrentNode().equals(fNode))
-                            {
-                                robotOnIt = true;
-                                break;
-                            }
-                        }
-
-                        if (!robotOnIt)
-                        {
-                            nodesNotAffected.add(n);
-                        }
-                    } else {
-                        nodesNotAffected.add(n);
-                    }
-                }
-            }
-        }
-        
-        return nodesNotAffected;
+        return grap.getNodes().stream()
+                .filter(n -> n instanceof Fireable)
+                .map(n -> (Fireable)n)
+                .filter(n -> n.isOnFire())
+                .filter(n -> mustBeNotOccuped && robots.stream().noneMatch(ffr -> ffr.getCurrentNode().equals(n)))
+                .map(n -> (Node)n)
+                .collect(Collectors.toList());
     }
     
     /**
@@ -73,15 +50,18 @@ public class FireManager extends Manager<FireFighterRobot> {
                 if (!r.isBusy())
                 {
                     double value = r.getPathValue(n);
-                    if (value < bestValue)
+                    if(value >= 0)
                     {
-                        bestRobots.clear();
-                        bestValue = value;
-                    }
-                    
-                    if (value == bestValue)
-                    {
-                        bestRobots.add(r);
+                        if (value < bestValue)
+                        {
+                            bestRobots.clear();
+                            bestValue = value;
+                        }
+
+                        if (value == bestValue)
+                        {
+                            bestRobots.add(r);
+                        }
                     }
                 }
             }

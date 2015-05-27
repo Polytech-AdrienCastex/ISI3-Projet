@@ -3,9 +3,6 @@ package view.map;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import model.elementary.Point;
 import model.elementary.Fireable;
 import model.elementary.Localisable;
@@ -17,6 +14,16 @@ import view.ImageLoader;
  */
 public class NodeDrawer
 {
+    public NodeDrawer()
+    {
+        fireImages = new Image[]
+        {
+            ImageLoader.loadImage("redfire.png"),
+            ImageLoader.loadImage("redfire_2.png"),
+            ImageLoader.loadImage("redfire_3.png")
+        };
+    }
+    
     /**
      * <b>true</b> if the class has to draw the number of the node on the
      * screen. <b>false</b> otherwise.
@@ -24,9 +31,22 @@ public class NodeDrawer
     private final static boolean DRAW_NODE_ID = false;
     
     /**
-     * Image representing the fire.
+     * Images representing the fire.
      */
-    private static Image fireImage = null;
+    private Image[] fireImages;
+    
+    /**
+     * Index of the animated resources.
+     */
+    private int resourcesIndex = 0;
+    
+    /**
+     * Update the index of the animated resources.
+     */
+    public void updateResources()
+    {
+        resourcesIndex++;
+    }
     
     /**
      * Draw the <i>node</i> on the graphics <i>g</i>.
@@ -48,13 +68,8 @@ public class NodeDrawer
             {
                 g.setColor(Color.red);
                 
-                if(fireImage == null)
-                    fireImage = ImageLoader.loadImage("redfire.png");
-                    
-                if(fireImage != null)
-                {
-                    g.drawImage(fireImage, location.x.intValue() - fireImage.getWidth(null) / 2, location.y.intValue() - fireImage.getHeight(null) / 2, null);
-                }
+                Image fire = fireImages[resourcesIndex % fireImages.length];
+                g.drawImage(fire, location.x.intValue() - fire.getWidth(null) / 2, location.y.intValue() - fire.getHeight(null) / 2, null);
             }
             else
             {

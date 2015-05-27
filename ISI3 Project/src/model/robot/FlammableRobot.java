@@ -2,6 +2,7 @@
 package model.robot;
 
 import model.elementary.Fireable;
+import model.elementary.Waterable;
 import model.graph.Edge;
 import model.graph.Node;
 import model.item.FireHose;
@@ -21,8 +22,8 @@ public class FlammableRobot extends FireFighterRobot {
      */
     @Override
     public Boolean canUseEdge(Edge e) {
-        if (e instanceof Fireable)
-            return !((Fireable)e).isOnFire();
+        if (e instanceof Waterable)
+            return !((Waterable)e).isUnderWater();
         
         return true;
     }

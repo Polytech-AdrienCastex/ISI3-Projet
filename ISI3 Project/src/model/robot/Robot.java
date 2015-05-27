@@ -146,18 +146,14 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
     public Double getPathValue(Node dest)
     {                                
         List<Edge> path = pathFinding.getShortestPath(currentNode, dest, this);
-        Double value = 0.0;
         
-        for (Edge e : path)
-        {
-            if (e instanceof Valued) 
-            {
-                Valued v = (Valued)e;
-                value += (v.getValue() * speed);
-            }
-        }       
+        if(path.isEmpty())
+            return -1.0;
         
-        return value;
+        return path.stream()
+                .filter(e -> e instanceof Valued)
+                .mapToDouble(e -> ((Valued)e).getValue() * speed)
+                .sum();
     }
     
     /**
@@ -187,7 +183,6 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
         {
             Edge nextEdge = path.remove(0);
             Node nextNode = nextEdge.getStopNode().equals(currentNode) ? nextEdge.getStartNode(): nextEdge.getStopNode();
-            System.out.println(currentNode + " " + nextNode + " " + nextEdge);
             
             if ((nextEdge.getStartNode().equals(currentNode) || nextEdge.getStopNode().equals(currentNode)) && canUseEdge(nextEdge) && (path.size() == 0 || canUseNode(nextNode)))
             {

@@ -13,6 +13,8 @@ import model.pathfinding.algorithms.BFS;
 import model.pathfinding.algorithms.astar.AstarBirdFly;
 import model.pathfinding.algorithms.astar.BirdFly;
 import model.robot.Robot4x4;
+import model.robot.RobotPafPaf;
+import model.robot.RobotSnapSnap;
 import model.robot.manager.FireManager;
 import model.robot.manager.Manager;
 import model.robot.manager.RobotRuntime;
@@ -73,5 +75,6 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
         System.out.println("Manager run");
         RobotRuntime rr = new RobotRuntime(manager);
         rr.start(1000);
+        //manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose(1.0)));
     }
 }

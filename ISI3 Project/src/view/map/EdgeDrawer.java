@@ -13,6 +13,11 @@ import model.elementary.Waterable;
  */
 public class EdgeDrawer
 {
+    private final static Color DEFAULT_COLOR = Color.BLACK;
+    private final static Color UNDER_WATER_COLOR = Color.cyan;
+    private final static Color PLAT_COLOR = Color.BLACK;
+    private final static Color ESCARPE_COLOR = Color.ORANGE;
+    
     /**
      * Size of the line representing the edge.
      */
@@ -31,20 +36,20 @@ public class EdgeDrawer
         if(!(edge.getStartNode() instanceof Localisable) || !(edge.getStopNode() instanceof Localisable))
             return;
         
-        Color color = Color.black;
+        Color color = DEFAULT_COLOR;
         
         if(edge instanceof Waterable && ((Waterable)edge).isUnderWater())
-            color = Color.blue;
+            color = UNDER_WATER_COLOR;
         else
             if(edge instanceof Typed)
                 switch(((Typed)edge).getType())
                 {
                     case Plat:
-                        color = Color.blue;
+                        color = PLAT_COLOR;
                         break;
                         
                     case Escarpe:
-                        color = Color.red;
+                        color = ESCARPE_COLOR;
                         break;
                 }
         
