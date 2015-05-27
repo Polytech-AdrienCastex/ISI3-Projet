@@ -13,10 +13,12 @@ import javax.imageio.ImageIO;
 import model.elementary.Localisable;
 import model.elementary.Point;
 import model.graph.Graph;
+import model.robot.Manager;
 import view.IModeView;
 import view.map.EdgeDrawer;
 import view.map.GraphDrawer;
 import view.map.NodeDrawer;
+import view.robot.RobotDrawer;
 
 /**
  *
@@ -32,6 +34,12 @@ public abstract class GraphWindow extends Window implements IModeView
     
     protected GraphDrawer graphDrawer;
     protected ButtonPanel buttonPanel;
+    
+    protected Manager manager = null;
+    public void setRobotManager(Manager manager)
+    {
+        this.manager = manager;
+    }
     
     public void setGraph(Graph graph)
     {
@@ -55,7 +63,7 @@ public abstract class GraphWindow extends Window implements IModeView
         NodeDrawer nd = new NodeDrawer();
         EdgeDrawer ed = new EdgeDrawer();
         
-        this.graphDrawer = new GraphDrawer(graph, nd, ed);
+        this.graphDrawer = new GraphDrawer(graph, nd, ed, new RobotDrawer(manager, "robots/bluerobot.png"));
         if(backgroundImage != null && this.graphDrawer.setBackgroundImage(backgroundImage))
         {
             Point size = this.graphDrawer.getBackgroundSize();

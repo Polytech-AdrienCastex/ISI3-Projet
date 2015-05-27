@@ -2,7 +2,9 @@ package model.robot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 import java.util.Random;
+import model.Observable;
 import model.elementary.Fireable;
 import model.graph.Graph;
 import model.graph.Node;
@@ -10,7 +12,7 @@ import model.graph.Node;
 /**
  * Robots Manager
  */
-public class Manager implements Runnable {
+public class Manager extends Observable implements Observer, Runnable {
     private Graph grap;
     private final List<Robot> robots;
            
@@ -30,6 +32,7 @@ public class Manager implements Runnable {
     public void addRobot(Robot r)
     {
         robots.add(r);
+        r.addObserver(this);
     }
     
     /**
@@ -39,6 +42,7 @@ public class Manager implements Runnable {
     public void removeRobot(Robot r)
     {
         robots.remove(r);
+        r.deleteObserver(this);
     }
 
     /**
@@ -140,4 +144,10 @@ public class Manager implements Runnable {
             bestRobot.setDestination(n); //Attribuer cette incendie à ce robot
         }
     }    
+
+    @Override
+    public void update(java.util.Observable o, Object arg)
+    {
+        notifyChanges();
+    }
 }

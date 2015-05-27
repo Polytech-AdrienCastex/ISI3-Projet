@@ -8,14 +8,18 @@ import java.util.Observer;
 import javax.swing.JPanel;
 import model.elementary.Point;
 import model.graph.Graph;
+import model.item.FireHose;
+import model.robot.Robot;
+import model.robot.Robot4x4;
 import view.ImageLoader;
+import view.robot.RobotDrawer;
 
 /**
  *
  */
 public class GraphDrawer extends JPanel implements Observer
 {
-    public GraphDrawer(Graph graph, NodeDrawer nodeDrawer, EdgeDrawer edgeDrawer)
+    public GraphDrawer(Graph graph, NodeDrawer nodeDrawer, EdgeDrawer edgeDrawer, RobotDrawer robotDrawer)
     {
         super();
         
@@ -24,14 +28,21 @@ public class GraphDrawer extends JPanel implements Observer
         
         this.nodeDrawer = nodeDrawer;
         this.edgeDrawer = edgeDrawer;
+        this.robotDrawer = robotDrawer;
         
         this.backgroundImage = null;
+        
+        this.selectedImage = ImageLoader.loadImage("fireline.png");
+        
+        if(robotDrawer != null)
+            robotDrawer.addObserver(this);
     }
     
     protected final Graph graph;
     
     protected final NodeDrawer nodeDrawer;
     protected final EdgeDrawer edgeDrawer;
+    protected final RobotDrawer robotDrawer;
     
     protected Image backgroundImage;
     
@@ -59,16 +70,15 @@ public class GraphDrawer extends JPanel implements Observer
             g.drawImage(backgroundImage, 0, 0, null);
         
         // Draw edges
-        graph.getNodes()
-                .forEach(n -> n.getEdges()
-                        .forEach(e -> edgeDrawer.draw(g, e)));
+        if(edgeDrawer != null)
+            graph.getNodes()
+                    .forEach(n -> n.getEdges()
+                            .forEach(e -> edgeDrawer.draw(g, e)));
         
         // Draw nodes
-        graph.getNodes()
-                .forEach(n -> nodeDrawer.draw(g, n));
-        
-        if(selectedImage == null)
-            selectedImage = ImageLoader.loadImage("fireline.png");
+        if(nodeDrawer != null)
+            graph.getNodes()
+                    .forEach(n -> nodeDrawer.draw(g, n));
         
         if(selectedImage != null && this.getName() != null && this.getName().equals("setfire"))
         {
@@ -78,6 +88,9 @@ public class GraphDrawer extends JPanel implements Observer
             else
                 g.drawImage(selectedImage, 0, this.getParent().getHeight() - h, this.getParent().getWidth(), h, null);
         }
+        
+        if(robotDrawer != null)
+            robotDrawer.draw(g);
     }
     
     @Override
