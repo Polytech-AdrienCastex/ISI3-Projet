@@ -16,7 +16,7 @@ public class FlammableRobot extends FireFighterRobot {
     }
     
     /**
-     * Cannot go through edge in fire
+     * Cannot go through edge in water
      * @param e Edge to test
      * @return true if the robot can go
      */
