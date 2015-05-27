@@ -47,9 +47,9 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
         PathFinding pf = new AstarBirdFly(new BirdFly());
         pf = new BFS();
         
-        manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose()));
-        manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose()));
-        manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose()));
+        manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose(1.0)));
+        manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose(1.0)));
+        manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose(1.0)));
         
         
         

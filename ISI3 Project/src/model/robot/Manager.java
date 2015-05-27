@@ -140,8 +140,11 @@ public class Manager extends Observable implements Observer, Runnable {
                 }
             }
             
-            Robot bestRobot = robots.get(rand.nextInt(bestRobots.size()));
-            bestRobot.setDestination(n); //Attribuer cette incendie à ce robot
+            if(bestRobots.size() > 0)
+            {
+                Robot bestRobot = bestRobots.get(rand.nextInt(bestRobots.size()));
+                bestRobot.setDestination(n); //Attribuer cette incendie à ce robot
+            }
         }
     }    
 

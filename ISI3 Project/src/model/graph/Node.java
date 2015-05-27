@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import model.Observable;
 import model.xml.Serializable;
 import org.w3c.dom.Document;
@@ -114,9 +115,13 @@ public class Node extends Observable implements Serializable
      */
     public List<Edge> getEdges(Node n)
     {
-        return edges.stream()
+        return Stream.concat(
+                edges.stream()
                 .filter(e -> this.equals(e.getStartNode()))
-                .filter(e -> n.equals(e.getStopNode()))
+                .filter(e -> n.equals(e.getStopNode())),
+                edges.stream()
+                .filter(e -> this.equals(e.getStopNode()))
+                .filter(e -> n.equals(e.getStartNode())))
                 .collect(Collectors.toList());
     }
     
@@ -153,5 +158,11 @@ public class Node extends Observable implements Serializable
         Element element = elementBuilder.createElement("node");
         element.setAttribute("id", getId().toString());
         return element;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "{" + this.getId() + "}";
     }
 }

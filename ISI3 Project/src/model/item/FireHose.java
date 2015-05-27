@@ -11,6 +11,11 @@ import model.graph.Node;
 public class FireHose implements IItem {
     private double intensity; //power force of the weapon
     
+    public FireHose(double intensity)
+    {
+        this.intensity = intensity;
+    }
+    
     @Override
     public void actionEdge(Edge e) {
         //none

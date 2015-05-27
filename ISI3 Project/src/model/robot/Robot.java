@@ -149,13 +149,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      * @return true if the robot is busy
      */
     public Boolean isBusy() {
-        if (path.size() > 0)
-        {
-            if (!path.get(path.size()-1).getStopNode().equals(currentNode))
-                return true; //Le robot n'a pas atteint sa destination   
-        }
-        
-        return  false;            
+        return path.size() > 0;            
     }
     
     /**
@@ -174,9 +168,10 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
         if (path.size() > 0)
         {
             Edge nextEdge = path.remove(0);
-            
             Node nextNode = nextEdge.getStopNode().equals(currentNode) ? nextEdge.getStartNode(): nextEdge.getStopNode();
-            if ((nextEdge.getStartNode().equals(currentNode) || nextEdge.getStopNode().equals(currentNode)) && canUseEdge(nextEdge) && canUseNode(nextNode))
+            System.out.println(currentNode + " " + nextNode + " " + nextEdge);
+            
+            if ((nextEdge.getStartNode().equals(currentNode) || nextEdge.getStopNode().equals(currentNode)) && canUseEdge(nextEdge) && (path.size() == 0 || canUseNode(nextNode)))
             {
                 currentNode = nextNode;
             } else {

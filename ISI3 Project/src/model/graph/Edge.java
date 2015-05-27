@@ -59,4 +59,11 @@ public class Edge extends Observable implements Serializable
         element.setAttribute("nd2", end.getId().toString());
         return element;
     }
+    
+
+    @Override
+    public String toString()
+    {
+        return "(" + this.getStartNode().getId() + " ; " + this.getStopNode().getId() + ")";
+    }
 }

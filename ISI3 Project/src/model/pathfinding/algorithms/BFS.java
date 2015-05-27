@@ -31,8 +31,8 @@ public class BFS implements PathFinding
         Queue<Node> discoveredNodes = new LinkedList<>();
         
         Queue<Node> queue = new LinkedList<>();
-        queue.add(dest);
-        discoveredNodes.add(dest);
+        queue.add(origin);
+        discoveredNodes.add(origin);
         
         origin.getGraph().getNodes().forEach(n -> distance.put(n, Double.POSITIVE_INFINITY));
         distance.put(origin, 0.0);
@@ -64,19 +64,19 @@ public class BFS implements PathFinding
         {
             Node nextNode = lastNode.getNextNodes()
                     .stream()
+                    .filter(n -> auth.canUseNode(n) || n.equals(dest))
                     .min(Comparator.comparingDouble(n -> distance.get(n)))
                     .orElse(null);
 
-            Edge edge = lastNode.getEdges(nextNode)
+            edges.add(lastNode.getEdges(nextNode)
                     .stream()
+                    .filter(e -> auth.canUseEdge(e))
                     .filter(e -> e instanceof Valued)
                     .min(Comparator.comparing(e -> ((Valued)e).getValue()))
-                    .orElse(null);
-            if(edge != null)
-                edges.add(edge);
+                    .get());
 
             lastNode = nextNode;
-        } while(origin.equals(lastNode));
+        } while(!origin.equals(lastNode));
         
         Collections.reverse(edges);
         return edges;

@@ -44,7 +44,11 @@ public class NodeDrawer
             
             final int radius = 4;
             g.fillOval(location.x.intValue() - radius, location.y.intValue() - radius, radius*2, radius*2);
-                    g.drawString(String.valueOf(node.getId()), location.x.intValue() - 5, location.y.intValue());
+            
+            /*
+            // Draw node ID
+            g.setColor(Color.black);
+            g.drawString(String.valueOf(node.getId()), location.x.intValue() - 5, location.y.intValue());*/
         }
     }
 }

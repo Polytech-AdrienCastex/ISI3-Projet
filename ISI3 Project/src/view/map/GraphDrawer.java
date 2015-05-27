@@ -62,7 +62,7 @@ public class GraphDrawer extends JPanel implements Observer
         return new Point((double)backgroundImage.getWidth(null), (double)backgroundImage.getHeight(null));
     }
     
-    private static Image selectedImage = null;
+    private final Image selectedImage;
     public void draw(Graphics g)
     {
         // Draw background image
@@ -89,6 +89,7 @@ public class GraphDrawer extends JPanel implements Observer
                 g.drawImage(selectedImage, 0, this.getParent().getHeight() - h, this.getParent().getWidth(), h, null);
         }
         
+        // Draw robots
         if(robotDrawer != null)
             robotDrawer.draw(g);
     }
