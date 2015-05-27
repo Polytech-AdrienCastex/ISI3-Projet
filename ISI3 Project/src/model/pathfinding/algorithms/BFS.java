@@ -1,6 +1,7 @@
 package model.pathfinding.algorithms;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -49,7 +50,7 @@ public class BFS implements PathFinding
                         discoveredNodes.add(n);
                         
                         distance.put(n, distance.get(current) + current.getEdges(n).stream()
-                                .filter(e -> !(e instanceof Valued))
+                                .filter(e -> e instanceof Valued)
                                 .mapToDouble(e -> ((Valued)e).getValue())
                                 .min()
                                 .orElse(1.0));
@@ -66,15 +67,18 @@ public class BFS implements PathFinding
                     .min(Comparator.comparingDouble(n -> distance.get(n)))
                     .orElse(null);
 
-            edges.add(lastNode.getEdges(nextNode)
+            Edge edge = lastNode.getEdges(nextNode)
                     .stream()
-                    .filter(e -> !(e instanceof Valued))
+                    .filter(e -> e instanceof Valued)
                     .min(Comparator.comparing(e -> ((Valued)e).getValue()))
-                    .get());
+                    .orElse(null);
+            if(edge != null)
+                edges.add(edge);
 
             lastNode = nextNode;
         } while(origin.equals(lastNode));
         
+        Collections.reverse(edges);
         return edges;
     }
 }

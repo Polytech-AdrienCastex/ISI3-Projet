@@ -9,6 +9,7 @@ import model.graph.factory.GraphFactory;
 import model.graph.factory.GraphOffsetFactory;
 import model.item.FireHose;
 import model.pathfinding.PathFinding;
+import model.pathfinding.algorithms.BFS;
 import model.pathfinding.algorithms.astar.AstarBirdFly;
 import model.pathfinding.algorithms.astar.BirdFly;
 import model.robot.Manager;
@@ -44,6 +45,7 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
         Manager manager = new Manager(graph);
         Node firstNode = graph.getNodes().iterator().next();
         PathFinding pf = new AstarBirdFly(new BirdFly());
+        pf = new BFS();
         
         manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose()));
         manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose()));

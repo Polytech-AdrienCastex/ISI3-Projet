@@ -175,9 +175,10 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
         {
             Edge nextEdge = path.remove(0);
             
-            if (canUseEdge(nextEdge) && canUseNode(nextEdge.getStopNode()))
+            Node nextNode = nextEdge.getStopNode().equals(currentNode) ? nextEdge.getStartNode(): nextEdge.getStopNode();
+            if ((nextEdge.getStartNode().equals(currentNode) || nextEdge.getStopNode().equals(currentNode)) && canUseEdge(nextEdge) && canUseNode(nextNode))
             {
-                currentNode = nextEdge.getStopNode();
+                currentNode = nextNode;
             } else {
                 //Vider la destination
                 path.clear();

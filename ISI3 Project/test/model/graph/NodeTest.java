@@ -121,7 +121,7 @@ public class NodeTest
         assertArrayEquals(new Node[] { n2 }, result.toArray());
         
         result = n2.getNextNodes();
-        assertArrayEquals(new Edge[] { }, result.toArray());
+        assertArrayEquals(new Node[] { n1 }, result.toArray());
     }
 
     /**
