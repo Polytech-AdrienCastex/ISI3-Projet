@@ -2,7 +2,6 @@ package a_supprimer;
 
 import controller.actionmanagers.MainActionManager;
 import java.io.FileNotFoundException;
-import java.util.TimerTask;
 import model.graph.Graph;
 import model.graph.Node;
 import model.graph.factory.GraphFactory;
@@ -12,15 +11,12 @@ import model.pathfinding.PathFinding;
 import model.pathfinding.algorithms.BFS;
 import model.pathfinding.algorithms.astar.AstarBirdFly;
 import model.pathfinding.algorithms.astar.BirdFly;
-import model.robot.FireFighterRobot;
-import model.robot.Robot;
 import model.robot.Robot4x4;
 import model.robot.manager.FireManager;
 import model.robot.manager.Manager;
 import model.robot.manager.RobotRuntime;
 import view.ImageLoader;
 import view.windows.main.MainWindow;
-import view.windows.Window;
 
 /**
  *
