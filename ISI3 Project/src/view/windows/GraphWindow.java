@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 import model.elementary.Localisable;
 import model.elementary.Point;
 import model.graph.Graph;
-import model.robot.Manager;
+import model.robot.manager.Manager;
 import view.IModeView;
 import view.map.EdgeDrawer;
 import view.map.GraphDrawer;

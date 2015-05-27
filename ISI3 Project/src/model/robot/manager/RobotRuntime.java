@@ -8,7 +8,7 @@ import model.robot.Robot;
  * Thread robot
  */
 public class RobotRuntime extends TimerTask {
-    private Manager m;
+    private final Manager<Robot> m;
     private final Timer t;
     
     public RobotRuntime(Manager m)
@@ -20,7 +20,7 @@ public class RobotRuntime extends TimerTask {
     @Override
     public void run() {
         m.run();
-    
+     
         for (Robot r : m.getRobots())
         {
             r.run();

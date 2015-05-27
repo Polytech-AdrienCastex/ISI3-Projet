@@ -12,9 +12,12 @@ import model.pathfinding.PathFinding;
 import model.pathfinding.algorithms.BFS;
 import model.pathfinding.algorithms.astar.AstarBirdFly;
 import model.pathfinding.algorithms.astar.BirdFly;
-import model.robot.Manager;
+import model.robot.FireFighterRobot;
+import model.robot.Robot;
 import model.robot.Robot4x4;
-import model.robot.RobotRuntime;
+import model.robot.manager.FireManager;
+import model.robot.manager.Manager;
+import model.robot.manager.RobotRuntime;
 import view.ImageLoader;
 import view.windows.main.MainWindow;
 import view.windows.Window;
@@ -42,7 +45,7 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
             graph = new Graph();
         }
         
-        Manager manager = new Manager(graph);
+        Manager manager = new FireManager(graph);
         Node firstNode = graph.getNodes().iterator().next();
         PathFinding pf = new AstarBirdFly(new BirdFly());
         pf = new BFS();
