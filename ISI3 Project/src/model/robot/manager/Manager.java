@@ -2,8 +2,6 @@ package model.robot.manager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
-import model.Observable;
 import model.graph.Graph;
 import model.robot.Robot;
 
@@ -11,7 +9,7 @@ import model.robot.Robot;
  * Robots Manager
  * @param <R> : Type of robot
  */
-public abstract class Manager<R extends Robot> extends Observable implements Observer, Runnable {
+public abstract class Manager<R extends Robot> implements Runnable {
     protected Graph grap;
     protected final List<R> robots;
            
@@ -31,7 +29,6 @@ public abstract class Manager<R extends Robot> extends Observable implements Obs
     public void addRobot(R r)
     {
         robots.add(r);
-        r.addObserver(this);
     }
     
     /**
@@ -41,7 +38,6 @@ public abstract class Manager<R extends Robot> extends Observable implements Obs
     public void removeRobot(R r)
     {
         robots.remove(r);
-        r.deleteObserver(this);
     }
 
     /**
@@ -66,11 +62,5 @@ public abstract class Manager<R extends Robot> extends Observable implements Obs
      */
     public void setGrap(Graph grap) {
         this.grap = grap;
-    }
-    
-    @Override
-    public void update(java.util.Observable o, Object arg)
-    {
-        notifyChanges();
     }
 }

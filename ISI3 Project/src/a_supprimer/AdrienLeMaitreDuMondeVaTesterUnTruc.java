@@ -2,6 +2,7 @@ package a_supprimer;
 
 import controller.actionmanagers.MainActionManager;
 import java.io.FileNotFoundException;
+import javafx.collections.ObservableList;
 import model.graph.Graph;
 import model.graph.Node;
 import model.graph.factory.GraphFactory;
@@ -49,8 +50,6 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
         manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose(1.0)));
         manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose(1.0)));
         manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose(1.0)));
-        
-        
         
         
         

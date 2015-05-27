@@ -63,7 +63,7 @@ public abstract class GraphWindow extends Window implements IModeView
         NodeDrawer nd = new NodeDrawer();
         EdgeDrawer ed = new EdgeDrawer();
         
-        this.graphDrawer = new GraphDrawer(graph, nd, ed, new RobotDrawer(manager, "robots/bluerobot.png"));
+        this.graphDrawer = new GraphDrawer(graph, nd, ed, new RobotDrawer("robots/bluerobot.png"));
         if(backgroundImage != null && this.graphDrawer.setBackgroundImage(backgroundImage))
         {
             Point size = this.graphDrawer.getBackgroundSize();

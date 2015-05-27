@@ -3,7 +3,10 @@ package model.robot;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.Observable;
+import model.ObservableCollection;
 import model.elementary.Fireable;
 import model.graph.Edge;
 import model.graph.Node;
@@ -36,6 +39,8 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
         this.currentNode = currentNode;
         this.pathFinding = pf;
         this.items = new ArrayList<>();
+        
+        addNewRobot(this);
     }
 
     /**
@@ -211,5 +216,26 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
                         .forEach(e -> i.actionEdge(e)));
                            
         notifyChanges();
+    }
+    
+    
+    private static ObservableCollection<Robot> observableRobots = null;
+    public static ObservableCollection<Robot> getRobotList()
+    {
+        if(observableRobots == null)
+            observableRobots = new ObservableCollection(new ArrayList<>());
+        return observableRobots;
+    }
+    protected static void addNewRobot(Robot robot)
+    {
+        getRobotList().add(robot);
+    }
+    protected static void removeRobot(Robot robot)
+    {
+        getRobotList().remove(robot);
+    }
+    protected static void clearRobots()
+    {
+        getRobotList().clear();
     }
 }
