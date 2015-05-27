@@ -2,13 +2,14 @@ package model.robot.manager;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import model.item.IItem;
 import model.robot.Robot;
 
 /**
  * Thread robot
  */
 public class RobotRuntime extends TimerTask {
-    private final Manager<Robot> m;
+    private final Manager<Robot<IItem>> m;
     private final Timer t;
     
     public RobotRuntime(Manager m)
@@ -21,7 +22,7 @@ public class RobotRuntime extends TimerTask {
     public void run() {
         m.run();
      
-        for (Robot r : m.getRobots())
+        for (Robot<IItem> r : m.getRobots())
         {
             r.run();
         }

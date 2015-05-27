@@ -7,6 +7,7 @@ import model.Observable;
 import model.elementary.Point;
 import model.elementary.Localisable;
 import model.graph.Node;
+import model.item.IItem;
 import model.robot.Robot;
 import model.robot.manager.Manager;
 import view.ImageLoader;
@@ -24,7 +25,7 @@ public class RobotDrawer extends Observable implements Observer
         this.defaultRobotImage = ImageLoader.loadImage(defaultRobot);
     }
     
-    private final Manager<Robot> manager;
+    private final Manager<Robot<IItem>> manager;
     
     private final Image defaultRobotImage;
     
