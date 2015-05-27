@@ -8,10 +8,15 @@ import javax.swing.JPanel;
 import view.ImageLoader;
 
 /**
- *
+ * This class is a button displayed on a <i>ButtonPanel</i>.
  */
 public class Button extends JPanel
 {
+    /**
+     * Constructor.
+     * @param actionName Name of the action used in the controller.
+     * @param imageName Name of the resource to use as icon.
+     */
     public Button(String actionName, String imageName)
     {
         super();
@@ -28,8 +33,15 @@ public class Button extends JPanel
         this.setName(actionName);
     }
     
-    protected Image image;
+    /**
+     * Icon of the button.
+     */
+    protected final Image image;
     
+    /**
+     * Draw the button on the graphics <b>g</b>.
+     * @param g Graphics where to draw the button.
+     */
     public void draw(Graphics g)
     {
         if(image != null)

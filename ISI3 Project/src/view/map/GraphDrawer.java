@@ -8,14 +8,11 @@ import java.util.Observer;
 import javax.swing.JPanel;
 import model.elementary.Point;
 import model.graph.Graph;
-import model.item.FireHose;
-import model.robot.Robot;
-import model.robot.Robot4x4;
 import view.ImageLoader;
 import view.robot.RobotDrawer;
 
 /**
- *
+ * Draw a graph.
  */
 public class GraphDrawer extends JPanel implements Observer
 {
