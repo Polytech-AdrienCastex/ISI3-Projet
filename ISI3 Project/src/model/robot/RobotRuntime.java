@@ -18,6 +18,7 @@ public class RobotRuntime extends TimerTask {
     
     @Override
     public void run() {
+        m.run();
         for (Robot r : m.getRobots())
         {
             r.run();

@@ -20,7 +20,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
     protected List<I> items;
     
     private PathFinding pathFinding;
-    private LinkedList<Edge> path;
+    private LinkedList<Edge> path = new LinkedList<>();
 
     /**
      * Constructor

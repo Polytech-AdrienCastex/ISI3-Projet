@@ -2,10 +2,18 @@ package a_supprimer;
 
 import controller.actionmanagers.MainActionManager;
 import java.io.FileNotFoundException;
+import java.util.TimerTask;
 import model.graph.Graph;
+import model.graph.Node;
 import model.graph.factory.GraphFactory;
 import model.graph.factory.GraphOffsetFactory;
+import model.item.FireHose;
+import model.pathfinding.PathFinding;
+import model.pathfinding.algorithms.astar.AstarBirdFly;
+import model.pathfinding.algorithms.astar.BirdFly;
 import model.robot.Manager;
+import model.robot.Robot4x4;
+import model.robot.RobotRuntime;
 import view.ImageLoader;
 import view.windows.main.MainWindow;
 import view.windows.Window;
@@ -32,18 +40,38 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
             System.err.println("Can't load the Graph");
             graph = new Graph();
         }
+        
+        Manager manager = new Manager(graph);
+        Node firstNode = graph.getNodes().iterator().next();
+        PathFinding pf = new AstarBirdFly(new BirdFly());
+        
+        manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose()));
+        manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose()));
+        manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose()));
+        
+        
+        
+        
+        
+        System.out.println("manager " + manager.getRobots().size());
+        
+        
 
         MainActionManager bam = new MainActionManager(graph);
 
         //graphFactory.save("S:\\ISI3\\mapsixieme\\mapsixieme\\mapsixieme2.xml", graph);
 
         MainWindow window = new MainWindow(bam);
-        window.setRobotManager(new Manager(graph));
+        window.setRobotManager(manager);
         window.setGraph(graph, "S:\\ISI3\\mapsixieme\\mapsixieme\\mapsixieme.jpg");
         //window.setGraph(graph, "D:\\Documents\\isi3\\mapsixieme\\mapsixieme.jpg");
         window.initialize();
         
         bam.setView(window);
         window.showWindow();
+        
+        System.out.println("Manager run");
+        RobotRuntime rr = new RobotRuntime(manager);
+        rr.start(1000);
     }
 }
