@@ -5,10 +5,15 @@ import model.graph.Graph;
 import view.windows.main.MainWindow;
 
 /**
- *
+ * This class represents the entry point of the program.
  */
 public abstract class Main
 {
+    /**
+     * Entry point of the program.
+     * @param args Parameters passed by the Operating System and by the user.
+     * @throws Exception 
+     */
     public static void main(String[] args) throws Exception
     {
         Graph graph = new Graph();

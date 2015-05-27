@@ -4,7 +4,11 @@ import java.util.List;
 import model.graph.Edge;
 import model.graph.Node;
 
-public interface PathFinding {
+/**
+ * This interface represents a path finding system.
+ */
+public interface PathFinding
+{
     /**
      * Get the shortest path from origin to dest with the authorize Nodes & Edges
      * @param origin Origin node

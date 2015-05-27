@@ -8,7 +8,7 @@ import javafx.util.Pair;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import model.EdgeType;
+import model.SurfaceType;
 import model.xml.NodeListWrap;
 import model.elementary.Point;
 import model.graph.project.FireableNode;
@@ -19,14 +19,30 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * This class represents a graph factory to manage graph files.
  */
 public class GraphFactory
 {
+    /**
+     * Load a graph file and convert it to a <i>Graph</i>.
+     * @param filePath Path of the file of the graph to load.
+     * @return The loaded graph.
+     * @throws ParserConfigurationException
+     * @throws IOException
+     * @throws SAXException 
+     */
     public Graph load(String filePath) throws ParserConfigurationException, IOException, SAXException
     {
         return load(new File(filePath));
     }
+    /**
+     * Load a graph file and convert it to a <i>Graph</i>.
+     * @param graphFile File of the graph to load.
+     * @return The loaded graph.
+     * @throws ParserConfigurationException
+     * @throws IOException
+     * @throws SAXException 
+     */
     public Graph load(File graphFile) throws ParserConfigurationException, IOException, SAXException
     {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -70,7 +86,7 @@ public class GraphFactory
                     ProjectEdge edge = new ProjectEdge(
                             graph.getNodes().stream().filter(n -> n.getId() == node1).findFirst().get(),
                             graph.getNodes().stream().filter(n -> n.getId() == node2).findFirst().get(),
-                            EdgeType.valueOf(type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase()),
+                            SurfaceType.valueOf(type.substring(0, 1).toUpperCase() + type.substring(1).toLowerCase()),
                             1.0
                     );
                 });
@@ -78,10 +94,24 @@ public class GraphFactory
         return graph;
     }
     
+    /**
+     * Save a <i>graph</i> to the file determined by <i>filePath</i>.
+     * @param filePath File which will contains the graph.
+     * @param graph Graph to save.
+     * @throws ParserConfigurationException
+     * @throws IOException 
+     */
     public void save(String filePath, Graph graph) throws ParserConfigurationException, IOException
     {
         save(new File(filePath), graph);
     }
+    /**
+     * Save a <i>graph</i> to the file determined by <i>graphFile</i>.
+     * @param graphFile File which will contains the graph.
+     * @param graph Graph to save.
+     * @throws ParserConfigurationException
+     * @throws IOException 
+     */
     public void save(File graphFile, Graph graph) throws ParserConfigurationException, IOException
     {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();

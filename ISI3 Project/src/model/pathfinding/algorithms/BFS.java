@@ -15,13 +15,11 @@ import model.pathfinding.Authorizer;
 import model.pathfinding.PathFinding;
 
 /**
- *
+ * This class represents the Best First Search algorithm with a path finding
+ * implementation.
  */
 public class BFS implements PathFinding
 {
-    public BFS()
-    { }
-    
     @Override
     @SuppressWarnings("empty-statement")
     public List<Edge> getShortestPath(Node origin, Node dest, Authorizer auth)

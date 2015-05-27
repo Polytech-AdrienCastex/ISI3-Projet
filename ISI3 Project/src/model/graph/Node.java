@@ -13,14 +13,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
+ * This class represents a node in a graph.
  */
 public class Node extends Observable implements Serializable
 {
     /**
      * Create an node with a specific <i>id</i> in <i>graph</i>.
-     * @param id Unique ID of the node
-     * @param graph Graph which own the node
+     * @param id Unique ID of the node.
+     * @param graph Graph which own the node.
      */
     public Node(Integer id, Graph graph)
     {
@@ -30,7 +30,7 @@ public class Node extends Observable implements Serializable
     }
     /**
      * Create a new node in <i>graph</i>.
-     * @param graph Graph which own the node
+     * @param graph Graph which own the node.
      */
     public Node(Graph graph)
     {
@@ -53,8 +53,10 @@ public class Node extends Observable implements Serializable
     private final Graph graph;
     
     /**
-     * Add a new edge
-     * @param e Edge to add
+     * Add the new edge <b>e</b>.
+     * @deprecated Reserved for internal use.
+     * @param e Edge to add.
+     * @return true if the edge was successfully added.
      */
     Boolean addEdge(Edge e)
     {
@@ -67,6 +69,15 @@ public class Node extends Observable implements Serializable
         return true;
     }
     
+    /**
+     * Remove the edge <b>e</b> from this node.
+     * <p>
+     * It doesn't remove the edge from the other node linked through the edge
+     * <b>e</b>.
+     * @deprecated Reserved for internal use.
+     * @param e Edge to remove.
+     * @return true if the edge was successfully removed.
+     */
     Boolean removeEdge(Edge e)
     {
         if(!edges.contains(e))
@@ -79,7 +90,7 @@ public class Node extends Observable implements Serializable
     
     /**
      * Get the edges linked to the current node.
-     * @return List of Edge
+     * @return Collection of Edge.
      */
     public Collection<Edge> getEdges()
     {
@@ -96,8 +107,8 @@ public class Node extends Observable implements Serializable
     }
     
     /**
-     * Get the list of following nodes.
-     * @return List of Node
+     * Get the collection of following nodes.
+     * @return Collection of Node.
      */
     public List<Node> getNextNodes()
     {
@@ -110,8 +121,8 @@ public class Node extends Observable implements Serializable
      * Return the edges linked to the node <i>n</i>. <i>n</i> has to be a
      * following node of the current one. If <i>n</i> is not a following node,
      * the method will return an empty list.
-     * @param n Following Node
-     * @return List of Edge
+     * @param n Following Node.
+     * @return Collection of Edge.
      */
     public List<Edge> getEdges(Node n)
     {
@@ -127,7 +138,7 @@ public class Node extends Observable implements Serializable
     
     /**
      * Return the graph which own the current node.
-     * @return Graph
+     * @return Graph associated to the node.
      */
     public Graph getGraph()
     {

@@ -6,14 +6,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
+ * This class represents an edge in a graph.
  */
 public class Edge extends Observable implements Serializable
 {
     /**
-     * Create an edge between two nodes of a graph
-     * @param start Start node
-     * @param end End node
+     * Create an edge between two nodes of a graph.
+     * @param start Start node.
+     * @param end End node.
      */
     public Edge(Node start, Node end)
     {

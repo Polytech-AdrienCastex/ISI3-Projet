@@ -9,7 +9,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
+ * This class represents a node which can be put on fire.
  */
 public class FireableNode extends Node implements Fireable, Localisable
 {

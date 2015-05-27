@@ -3,14 +3,16 @@ package model.graph.project;
 import model.elementary.Valued;
 import model.elementary.Typed;
 import model.elementary.Waterable;
-import model.EdgeType;
+import model.SurfaceType;
 import model.graph.Edge;
 import model.graph.Node;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
+ * This class represents an edge which group some interfaces like <i>Valued</i>,
+ * <i>Typed</i> and <i>Waterable</i> to make an edge fully representing the
+ * usable edges of the project.
  */
 public class ProjectEdge extends Edge implements Valued, Typed, Waterable
 {
@@ -21,7 +23,7 @@ public class ProjectEdge extends Edge implements Valued, Typed, Waterable
      * @param type Type of the edge.
      * @param value Value of the edge.
      */
-    public ProjectEdge(Node start, Node end, EdgeType type, Double value)
+    public ProjectEdge(Node start, Node end, SurfaceType type, Double value)
     {
         super(start, end);
         
@@ -37,7 +39,7 @@ public class ProjectEdge extends Edge implements Valued, Typed, Waterable
     /**
      * Type of the edge.
      */
-    private final EdgeType type;
+    private final SurfaceType type;
     /**
      * Value of the edge.
      */
@@ -58,7 +60,7 @@ public class ProjectEdge extends Edge implements Valued, Typed, Waterable
      * @return the type of the edge.
      */
     @Override
-    public EdgeType getType()
+    public SurfaceType getType()
     {
         return type;
     }

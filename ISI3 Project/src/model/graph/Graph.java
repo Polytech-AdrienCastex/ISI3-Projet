@@ -2,10 +2,8 @@ package model.graph;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Observer;
-import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 import model.Observable;
@@ -14,7 +12,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
+ * This class represents a graph.
  */
 public class Graph extends Observable implements Serializable, Observer
 {
@@ -91,6 +89,10 @@ public class Graph extends Observable implements Serializable, Observer
         return result;
     }
     
+    /**
+     * Get the list of the edges involved in the current graph.
+     * @return 
+     */
     public List<Edge> getEdges()
     {
         return getNodes().stream()

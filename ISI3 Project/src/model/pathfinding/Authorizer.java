@@ -3,7 +3,12 @@ package model.pathfinding;
 import model.graph.Edge;
 import model.graph.Node;
 
-public interface Authorizer {
+/**
+ * This interface represents the ability an object has to say if it can go
+ * through a specified node or through a specified edge.
+ */
+public interface Authorizer
+{
     /**
      * If a edge can be used
      * @param e Edge

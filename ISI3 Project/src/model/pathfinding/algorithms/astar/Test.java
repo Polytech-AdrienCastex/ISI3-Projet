@@ -1,7 +1,7 @@
 package model.pathfinding.algorithms.astar;
 
 import java.util.List;
-import static model.EdgeType.Plat;
+import static model.SurfaceType.Plat;
 import model.elementary.Point;
 import model.graph.Edge;
 import model.graph.project.FireableNode;

@@ -3,7 +3,6 @@ package controller.actionmanagers;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import model.elementary.Fireable;
-import model.elementary.Localisable;
 import model.elementary.Point;
 import model.graph.Graph;
 import model.graph.Node;
@@ -11,10 +10,14 @@ import view.windows.main.IMainView;
 import view.windows.editor.EditorWindow;
 
 /**
- *
+ * This class represents the action manager (controller) of the main view.
  */
 public class MainActionManager extends ActionManager<IMainView>
 {
+    /**
+     * Constructor.
+     * @param graph Graph associated to the view.
+     */
     public MainActionManager(Graph graph)
     {
         super(true);
@@ -22,7 +25,18 @@ public class MainActionManager extends ActionManager<IMainView>
         this.mode = "normal";
     }
     
+    /**
+     * Graph associated to the view.
+     */
     protected Graph graph;
+    
+    /**
+     * Previous mode selected.
+     * <p>
+     * It is useful to make toggle systems (if the previous mode is the same as
+     * the one we clicked on, then it means we want to disactivate this mode and
+     * go back to the default mode).
+     */
     protected String mode;
 
     @Override

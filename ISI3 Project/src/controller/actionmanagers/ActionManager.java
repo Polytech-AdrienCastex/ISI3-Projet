@@ -10,12 +10,21 @@ import model.elementary.Localisable;
 import model.elementary.Point;
 import model.graph.Graph;
 import model.graph.Node;
+import view.IView;
 
 /**
- *
+ * This class represents an action manager to control the events occured on the
+ * view.
+ * @param <V> View interface to allow the controller and the view to
+ * communicate.
  */
-public abstract class ActionManager<V> extends WindowAdapter implements ActionListener, MouseListener
+public abstract class ActionManager<V extends IView> extends WindowAdapter implements ActionListener, MouseListener
 {
+    /**
+     * Constructor.
+     * @param exitProcessusOnClosing <b>true</b> if the program has to stop if
+     * a close request is received.
+     */
     public ActionManager(boolean exitProcessusOnClosing)
     {
         super();
@@ -23,20 +32,45 @@ public abstract class ActionManager<V> extends WindowAdapter implements ActionLi
         this.exitProcessusOnClosing = exitProcessusOnClosing;
     }
     
+    /**
+     * View interface which allows the controller and the view to communicate.
+     */
     private V view;
 
+    /**
+     * Get the view interface.
+     * @return The view interface.
+     */
     public V getView()
     {
         return view;
     }
+    /**
+     * Set the view interface to use.
+     * @param view The view interface to use.
+     */
     public void setView(V view)
     {
         this.view = view;
     }
     
+    /**
+     * Determines if the program has to stop if a close request is received.
+     */
     private final boolean exitProcessusOnClosing;
     
+    /**
+     * Action to perform when an ActionEvent is received.
+     * @param command Command received.
+     * @param e ActionEvent received.
+     */
     protected abstract void action(String command, ActionEvent e);
+    /**
+     * Action to perform when an MouseEvent is received.
+     * @param command Command received.
+     * @param e MouseEvent received.
+     * @param clkLocation Location of the click formated to a <i>Point</i>.
+     */
     protected abstract void action(String command, MouseEvent e, Point clkLocation);
 
     @Override
@@ -88,6 +122,20 @@ public abstract class ActionManager<V> extends WindowAdapter implements ActionLi
     { }
     
     
+    /**
+     * Find a node in the <i>graph</i> on the specified <i>location</i> with a
+     * certain <i>radius</i>.
+     * <p>
+     * The <i>radius</i> specified is used as X and Y radius (not <b>cos</b> and
+     * <b>sin</b>), which means the search will be performed in a rectangle
+     * instead of a circle.
+     * @param graph Graph to serach in to find the node on the specified
+     * location.
+     * @param location Location where to search the node.
+     * @param radius Radius to use as allowed error to find the node in a wider
+     * rectangle.
+     * @return The node found on the specified location in the specified radius.
+     */
     protected static Node findNodeFromLocation(Graph graph, Point location, int radius)
     {
         return graph.getNodes().stream()

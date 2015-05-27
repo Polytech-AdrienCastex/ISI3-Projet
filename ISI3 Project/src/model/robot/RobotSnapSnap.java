@@ -1,6 +1,6 @@
 package model.robot;
 
-import model.EdgeType;
+import model.SurfaceType;
 import model.graph.Edge;
 import model.graph.Node;
 import model.elementary.Typed;
@@ -22,7 +22,7 @@ public class RobotSnapSnap extends FlammableRobot {
     public Boolean canUseEdge(Edge e) {
         //impossible chemin escarpé
         if (e instanceof Typed)
-            return ((Typed)e).getType() == EdgeType.Escarpe;
+            return ((Typed)e).getType() == SurfaceType.Escarpe;
         
         return super.canUseEdge(e);
     }    
