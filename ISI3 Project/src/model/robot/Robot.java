@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import model.Observable;
+import model.elementary.Fireable;
 import model.graph.Edge;
 import model.graph.Node;
 import model.elementary.Valued;
@@ -14,7 +15,8 @@ import model.pathfinding.PathFinding;
 /**
  * Robot general
  */
-public abstract class Robot<I extends IItem> extends Observable implements Authorizer, Runnable {
+public abstract class Robot<I extends IItem> extends Observable implements Authorizer, Runnable
+{
     protected Double speed;
     protected Node currentNode;
     protected List<I> items;
@@ -28,7 +30,8 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      * @param currentNode current node where the robot is
      * @param pf Search path algo
      */
-    public Robot(Double speed, Node currentNode, PathFinding pf) {
+    public Robot(Double speed, Node currentNode, PathFinding pf)
+    {
         this.speed = speed;
         this.currentNode = currentNode;
         this.pathFinding = pf;
@@ -39,7 +42,8 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      * Get the robot items
      * @return 
      */
-    public List<I> getItems() {
+    public List<I> getItems()
+    {
         return items;
     }
 
@@ -47,7 +51,8 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      * Set a list of items for the robot
      * @param items 
      */
-    public void setItems(List<I> items) {
+    public void setItems(List<I> items)
+    {
         this.items = items;
     }
     
@@ -77,7 +82,8 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      * Getter current node
      * @return current Node
      */
-    public Node getCurrentNode() {
+    public Node getCurrentNode()
+    {
         return currentNode;
     }
 
@@ -85,7 +91,8 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      * Setter current node
      * @param currentNode current node to set
      */
-    public void setCurrentNode(Node currentNode) {
+    public void setCurrentNode(Node currentNode)
+    {
         this.currentNode = currentNode;
         notifyChanges();
     }
@@ -94,7 +101,8 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      * Getter speed
      * @return speed double
      */
-    public Double getSpeed() {
+    public Double getSpeed()
+    {
         return speed;
     }
 
@@ -102,7 +110,8 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      * Setter speed
      * @param speed double speed
      */
-    public void setSpeed(Double speed) {
+    public void setSpeed(Double speed)
+    {
         this.speed = speed;
     }
 
@@ -110,7 +119,8 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      * Getter algo path finding
      * @return PathFinding
      */
-    public PathFinding getPathFinding() {
+    public PathFinding getPathFinding()
+    {
         return pathFinding;
     }
 
@@ -118,7 +128,8 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      * Setter algo path finding
      * @param pathFinding algo path finding
      */
-    public void setPathFinding(PathFinding pathFinding) {
+    public void setPathFinding(PathFinding pathFinding)
+    {
         this.pathFinding = pathFinding;
     }   
        
@@ -148,8 +159,9 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      * The robot is busy when he didnt reach his destination yet 
      * @return true if the robot is busy
      */
-    public Boolean isBusy() {
-        return path.size() > 0;            
+    public Boolean isBusy()
+    {
+        return path.size() > 0 || (currentNode instanceof Fireable && ((Fireable)currentNode).isOnFire());            
     }
     
     /**
@@ -164,7 +176,8 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
     /**
      * Move forward to the next node in the path list
      */
-    public void moveForward() {
+    public void moveForward()
+    {
         if (path.size() > 0)
         {
             Edge nextEdge = path.remove(0);
@@ -185,17 +198,17 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      * Run action
      */
     @Override
-    public void run() {
+    public void run()
+    {
         moveForward();    
         
         //Items action
-        for (IItem i : items)
-        {
-            i.actionNode(currentNode);
-            
-            for (Edge e : currentNode.getEdges())
-                i.actionEdge(e);
-        }
+        items.stream()
+                .filter(i -> i.actionNode(currentNode))
+                .forEach(i ->
+                        currentNode
+                        .getEdges()
+                        .forEach(e -> i.actionEdge(e)));
                            
         notifyChanges();
     }

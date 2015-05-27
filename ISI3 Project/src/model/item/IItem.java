@@ -17,5 +17,5 @@ public interface IItem {
      * Action that need to be done on the node in parameter
      * @param n Node
      */
-    public void actionNode(Node n);
+    public boolean actionNode(Node n);
 }

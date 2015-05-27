@@ -2,22 +2,20 @@ package model.item;
 
 import java.util.Random;
 import model.elementary.Fireable;
-import model.elementary.Waterable;
 import model.graph.Edge;
 import model.graph.Node;
 
 /**
- * FireHose
- * Firefighters will appreciate it
+ * FireThrower
  */
-public class FireHose implements IItem
+public class FireThrower implements IItem
 {
-    private final static int WATER_EDGE_PROBABILITY = 20; // %
+    private final static int FIRE_NODE_PROBABILITY = 20; // %
     
     private final double intensity; //power force of the weapon
     private final Random rnd;
     
-    public FireHose(double intensity)
+    public FireThrower(double intensity)
     {
         this.intensity = intensity;
         this.rnd = new Random();
@@ -26,15 +24,11 @@ public class FireHose implements IItem
     @Override
     public void actionEdge(Edge e)
     {
-        if(e instanceof Waterable)
-        {
-            Waterable we = (Waterable)e;
-            we.setUnderWater(we.isUnderWater() || rnd.nextInt(100) < WATER_EDGE_PROBABILITY);
-        }
+        // nothing
     }
 
     /**
-     * Reduce intensity on the fire in the node in parameter
+     * Increase intensity on the fire in the node in parameter
      * @param n Node in fire
      * @return true if the action has been performed
      */
@@ -44,10 +38,13 @@ public class FireHose implements IItem
         if (n instanceof Fireable && ((Fireable)n).isOnFire())
         {
             Fireable f = (Fireable)n;
-            f.setFireIntensity(f.getFireIntensity() - intensity);
-            return true;
+            if(rnd.nextInt(100) < FIRE_NODE_PROBABILITY)
+            {
+                f.setFireIntensity(f.getFireIntensity() + intensity);
+                return true;
+            }
         }
-        else
-            return false;
+        
+        return false;
     }    
 }
