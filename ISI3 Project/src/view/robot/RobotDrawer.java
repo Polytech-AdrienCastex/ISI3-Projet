@@ -12,10 +12,14 @@ import model.robot.manager.Manager;
 import view.ImageLoader;
 
 /**
- *
+ * This class allow the view to draw robots.
  */
 public class RobotDrawer extends Observable implements Observer
 {
+    /**
+     * Constructor.
+     * @param defaultRobot 
+     */
     public RobotDrawer(Manager manager, String defaultRobot)
     {
         this.manager = manager;
