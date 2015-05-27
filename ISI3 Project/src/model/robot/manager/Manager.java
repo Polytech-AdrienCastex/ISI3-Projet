@@ -5,14 +5,13 @@ import java.util.List;
 import java.util.Observer;
 import model.Observable;
 import model.graph.Graph;
-import model.item.IItem;
 import model.robot.Robot;
 
 /**
  * Robots Manager
  * @param <R> : Type of robot
  */
-public abstract class Manager<R extends Robot<IItem>> extends Observable implements Observer, Runnable {
+public abstract class Manager<R extends Robot> extends Observable implements Observer, Runnable {
     protected Graph grap;
     protected final List<R> robots;
            
