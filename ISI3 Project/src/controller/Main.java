@@ -18,7 +18,7 @@ public abstract class Main
     {
         Graph graph = new Graph();
         
-        MainActionManager bam = new MainActionManager(graph);
+        MainActionManager bam = new MainActionManager(graph, null);
         
         MainWindow window = new MainWindow(bam);
         window.setGraph(graph, "S:\\ISI3\\mapsixieme\\mapsixieme\\mapsixieme.jpg");

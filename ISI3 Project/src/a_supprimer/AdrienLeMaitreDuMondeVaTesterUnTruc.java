@@ -57,9 +57,10 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
         
         System.out.println("manager " + manager.getRobots().size());
         
+        RobotRuntime rr = new RobotRuntime(manager);
         
 
-        MainActionManager bam = new MainActionManager(graph);
+        MainActionManager bam = new MainActionManager(graph, rr);
 
         //graphFactory.save("S:\\ISI3\\mapsixieme\\mapsixieme\\mapsixieme2.xml", graph);
 
@@ -72,9 +73,6 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
         bam.setView(window);
         window.showWindow();
         
-        System.out.println("Manager run");
-        RobotRuntime rr = new RobotRuntime(manager);
-        rr.start(1000);
         //manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose(1.0)));
     }
 }

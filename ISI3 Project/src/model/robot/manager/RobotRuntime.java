@@ -9,7 +9,7 @@ import model.robot.Robot;
  */
 public class RobotRuntime extends TimerTask {
     private final Manager<Robot> m;
-    private final Timer t;
+    private Timer t;
     
     public RobotRuntime(Manager m)
     {
@@ -19,12 +19,6 @@ public class RobotRuntime extends TimerTask {
     
     @Override
     public void run() {
-        m.run();
-     
-        for (Robot r : m.getRobots())
-        {
-            r.run();
-        }
     }    
     
     /**
@@ -32,6 +26,24 @@ public class RobotRuntime extends TimerTask {
      * @param intervalTime Run every intervalTime milliseconds
      */
     public void start(int intervalTime) {
-        t.schedule(this, 0, intervalTime); 
+        t.purge();
+        t.schedule(new TimerTask()
+        {
+
+            @Override
+            public void run() {
+        m.run();
+     
+        for (Robot r : m.getRobots())
+        {
+            r.run();
+        }
+            }
+        }, 0, intervalTime); 
+    }
+    
+    public void stop()
+    {
+        t.cancel();
     }
 }

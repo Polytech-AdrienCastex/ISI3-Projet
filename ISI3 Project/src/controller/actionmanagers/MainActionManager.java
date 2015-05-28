@@ -6,6 +6,7 @@ import model.elementary.Fireable;
 import model.elementary.Point;
 import model.graph.Graph;
 import model.graph.Node;
+import model.robot.manager.RobotRuntime;
 import view.windows.main.IMainView;
 import view.windows.editor.EditorWindow;
 
@@ -18,10 +19,11 @@ public class MainActionManager extends ActionManager<IMainView>
      * Constructor.
      * @param graph Graph associated to the view.
      */
-    public MainActionManager(Graph graph)
+    public MainActionManager(Graph graph, RobotRuntime runtime)
     {
         super(true);
         this.graph = graph;
+        this.runtime = runtime;
         this.mode = "normal";
     }
     
@@ -38,6 +40,11 @@ public class MainActionManager extends ActionManager<IMainView>
      * go back to the default mode).
      */
     protected String mode;
+    
+    /**
+     * Runtime to play when the "game" has to start.
+     */
+    protected RobotRuntime runtime;
 
     @Override
     protected void action(String command, ActionEvent e)
@@ -55,6 +62,23 @@ public class MainActionManager extends ActionManager<IMainView>
     {
         switch(command)
         {
+            case "play":
+                System.out.println("AAAAAAAAAa");
+                if(runtime != null)
+                    if(!mode.equals(command))
+                    {
+                System.out.println("BBBBBBBBb");
+                        runtime.start(1000);
+                        mode = command;
+                    }
+                    else
+                    {
+                System.out.println("CCCCCCCCCCCCCC");
+                        runtime.stop();
+                        mode = "normal";
+                    }
+                break;
+                
             case "edit":
                 EditorActionManager eam = new EditorActionManager(graph);
                 EditorWindow editorWindow = new EditorWindow(eam);
