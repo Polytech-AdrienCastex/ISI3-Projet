@@ -40,36 +40,14 @@ public class GraphDrawer extends JPanel implements Observer
     }
     
     private Runtime runtime = null;
-    protected class Runtime extends TimerTask
+    protected class Runtime extends model.Runtime
     {
-        /**
-         * Internal timer.
-         */
-        private final Timer t;
-
-        /**
-         * Constructor.
-         */
-        public Runtime()
-        {
-            this.t = new Timer();
-        }
-
         @Override
-        public void run()
+        public void runtime()
         {
             getParent().repaint();
             nodeDrawer.updateResources();
             robotDrawer.updateResources();
-        }    
-
-        /**
-         * Start timer with an interval time in milliseconds
-         * @param intervalTime Run every intervalTime milliseconds
-         */
-        public void start(int intervalTime)
-        {
-            t.schedule(this, 0, intervalTime); 
         }
     }
     

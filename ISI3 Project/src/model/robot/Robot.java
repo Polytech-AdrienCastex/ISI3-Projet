@@ -1,6 +1,7 @@
 package model.robot;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -145,7 +146,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      */
     public Double getPathValue(Node dest)
     {                                
-        List<Edge> path = pathFinding.getShortestPath(currentNode, dest, this);
+        Collection<Edge> path = pathFinding.getShortestPath(currentNode, dest, this);
         
         if(path.isEmpty())
             return -1.0;
@@ -165,13 +166,25 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
         return path.size() > 0 || (currentNode instanceof Fireable && ((Fireable)currentNode).isOnFire());            
     }
     
+    
+    private Node dest;
+    
     /**
      * Define the destination of the robot from the dest node
      * @param dest Destination node 
      */
     public void setDestination(Node dest)
     {
+        this.dest = dest;
         this.path = new LinkedList<>(pathFinding.getShortestPath(currentNode, dest, this));
+    }
+
+    public Node getDestination()
+    {
+        if(this.path.isEmpty())
+            return null;
+        
+        return dest;
     }
     
     /**

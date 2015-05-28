@@ -50,6 +50,17 @@ public class Edge extends Observable implements Serializable
     {
         return end;
     }
+    
+    /**
+     * Dispose the current edge.
+     * <p>
+     * It will remove the link between the two linked nodes.
+     */
+    public void unlink()
+    {
+        getStartNode().removeEdge(this);
+        getStopNode().removeEdge(this);
+    }
 
     @Override
     public Element toXML(Document elementBuilder)

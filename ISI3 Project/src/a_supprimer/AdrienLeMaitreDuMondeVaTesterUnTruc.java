@@ -9,7 +9,7 @@ import model.graph.factory.GraphFactory;
 import model.graph.factory.GraphOffsetFactory;
 import model.item.FireHose;
 import model.pathfinding.PathFinding;
-import model.pathfinding.algorithms.BFS;
+import model.pathfinding.algorithms.Dijkstra;
 import model.pathfinding.algorithms.astar.AstarBirdFly;
 import model.pathfinding.algorithms.astar.BirdFly;
 import model.robot.Robot4x4;
@@ -47,7 +47,7 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
         Manager manager = new FireFighterManager(graph);
         Node firstNode = graph.getNodes().iterator().next();
         PathFinding pf = new AstarBirdFly(new BirdFly());
-        pf = new BFS();
+        pf = new Dijkstra();
         
         manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose(1.0)));
         manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose(1.0)));

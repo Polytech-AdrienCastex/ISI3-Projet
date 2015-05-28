@@ -18,6 +18,7 @@ public class MainActionManager extends ActionManager<IMainView>
     /**
      * Constructor.
      * @param graph Graph associated to the view.
+     * @param runtime Runtime.
      */
     public MainActionManager(Graph graph, RobotRuntime runtime)
     {
@@ -63,20 +64,22 @@ public class MainActionManager extends ActionManager<IMainView>
         switch(command)
         {
             case "play":
-                System.out.println("AAAAAAAAAa");
                 if(runtime != null)
                     if(!mode.equals(command))
                     {
-                System.out.println("BBBBBBBBb");
                         runtime.start(1000);
                         mode = command;
                     }
                     else
                     {
-                System.out.println("CCCCCCCCCCCCCC");
-                        runtime.stop();
+                        runtime.pause();
                         mode = "normal";
                     }
+                break;
+                
+            case "step":
+                if(runtime != null)
+                    runtime.runtime();
                 break;
                 
             case "edit":

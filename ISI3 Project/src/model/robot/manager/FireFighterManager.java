@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import model.elementary.Fireable;
 import model.graph.Graph;
 import model.graph.Node;
@@ -23,7 +22,7 @@ public class FireFighterManager extends Manager<FireFighterRobot> {
                 .filter(n -> n instanceof Fireable)
                 .map(n -> (Fireable)n)
                 .filter(n -> n.isOnFire())
-                .filter(n -> mustBeNotOccuped && robots.stream().noneMatch(ffr -> ffr.getCurrentNode().equals(n)))
+                .filter(n -> !mustBeNotOccuped || robots.stream().noneMatch(ffr -> ffr.getCurrentNode().equals(n) || ffr.getDestination() != null && ffr.getDestination().equals(n)))
                 .map(n -> (Node)n)
                 .collect(Collectors.toList());
     }
@@ -44,12 +43,13 @@ public class FireFighterManager extends Manager<FireFighterRobot> {
         {
             List<FireFighterRobot> bestRobots = new ArrayList<>();
             double bestValue = Double.MAX_VALUE;
-            
+            System.out.println("************************************");
             for (FireFighterRobot r : robots)
             {
                 if (!r.isBusy())
                 {
                     double value = r.getPathValue(n);
+                    System.out.println(value);
                     if(value >= 0)
                     {
                         if (value < bestValue)
@@ -65,6 +65,7 @@ public class FireFighterManager extends Manager<FireFighterRobot> {
                     }
                 }
             }
+            System.out.println("************************************");
             
             if(bestRobots.size() > 0)
             {

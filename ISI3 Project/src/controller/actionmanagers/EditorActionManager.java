@@ -3,6 +3,7 @@ package controller.actionmanagers;
 import static controller.actionmanagers.ActionManager.findNodeFromLocation;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import model.elementary.Fireable;
 import model.elementary.Point;
 import model.graph.Edge;
 import model.graph.Graph;
@@ -97,6 +98,38 @@ public class EditorActionManager extends ActionManager<IEditorView>
                     graph.removeNode(node);
                 break;
                 
+            case "setremove_edge":
+                selectedNode = findNodeFromLocation(graph, clkLocation, 10);
+                if(selectedNode != null)
+                    this.getView().setMode("remove_edge_2");
+                break;
+                
+            case "setremove_edge_2":
+                node = findNodeFromLocation(graph, clkLocation, 10);
+                if(node != null)
+                {
+                    selectedNode.getEdges(node).forEach(ed -> ed.unlink());
+                    
+                    this.getView().setMode("remove_edge");
+                }
+                break;
+                
+            case "setfire":
+                node = findNodeFromLocation(graph, clkLocation, 10);
+                if(node != null)
+                {
+                    if(node instanceof Fireable)
+                    {
+                        Fireable fireNode = (Fireable)node;
+                        if(fireNode.isOnFire())
+                            fireNode.setFireIntensity(0.0);
+                        else
+                            fireNode.setFireIntensity(10.0);
+                    }
+                }
+                break;
+                
+            case "fire":
             case "remove_node":
             case "remove_edge":
             case "add_node":
