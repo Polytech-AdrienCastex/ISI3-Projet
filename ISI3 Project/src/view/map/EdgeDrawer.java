@@ -16,7 +16,7 @@ public class EdgeDrawer
     private final static Color DEFAULT_COLOR = Color.BLACK;
     private final static Color UNDER_WATER_COLOR = Color.cyan;
     private final static Color PLAT_COLOR = Color.BLACK;
-    private final static Color ESCARPE_COLOR = Color.ORANGE;
+    private final static Color ESCARPE_COLOR = Color.MAGENTA;
     
     /**
      * Size of the line representing the edge.

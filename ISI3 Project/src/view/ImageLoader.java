@@ -42,6 +42,9 @@ public class ImageLoader
      */
     public static Image loadImage(String imageName)
     {
+        if(imageName == null)
+            return null;
+        
         File f = new File(imageFolder + imageName);
         if(f.exists())
             return loadImage(f);
@@ -55,6 +58,9 @@ public class ImageLoader
      */
     public static Image loadImage(File imageFile)
     {
+        if(imageFile == null)
+            return null;
+        
         try
         {
             return loadImage(new FileInputStream(imageFile));
@@ -71,6 +77,9 @@ public class ImageLoader
      */
     public static Image loadImage(InputStream imageStream)
     {
+        if(imageStream == null)
+            return null;
+        
         try
         {
             return ImageIO.read(imageStream);

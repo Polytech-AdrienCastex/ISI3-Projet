@@ -85,12 +85,18 @@ public class MainActionManager extends ActionManager<IMainView>
         {
             case "play":
                 if(runtime != null)
+                {
                     runtime.start(1000);
+                    this.getView().setMode(command);
+                }
                 break;
                 
             case "pause":
                 if(runtime != null)
+                {
                     runtime.pause();
+                    this.getView().setMode(command);
+                }
                 break;
                 
             case "step":

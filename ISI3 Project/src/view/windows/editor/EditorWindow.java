@@ -20,12 +20,12 @@ public class EditorWindow extends GraphWindow implements IEditorView
     {
         super.initialize();
         
-        addButton("add_node", "addNode.png");
-        addButton("add_edge", "addEdge.png");
+        addButton("add_node", "buttons/addNode.png", "buttons/addNode_selected.png");
+        addButton("add_edge", "buttons/addEdge.png", "buttons/addEdge_selected.png");
         addSeparator();
-        addButton("remove_node", "removeNode.png");
-        addButton("remove_edge", "removeEdge.png");
+        addButton("remove_node", "buttons/removeNode.png", "buttons/removeNode_selected.png");
+        addButton("remove_edge", "buttons/removeEdge.png", "buttons/removeEdge_selected.png");
         addSeparator();
-        addButton("fire", "fire.png");
+        addButton("fire", "buttons/fire.png", "buttons/fire_selected.png");
     }
 }

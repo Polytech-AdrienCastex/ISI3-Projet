@@ -96,7 +96,11 @@ public abstract class GraphWindow extends Window implements IModeView
     
     protected Button addButton(String action, String imageName)
     {
-        Button btn = new Button(action, imageName);
+        return addButton(action, imageName, null);
+    }
+    protected Button addButton(String action, String imageName, String selectionImageName)
+    {
+        Button btn = new Button(action, imageName, selectionImageName);
         btn.addMouseListener(this.actionManager);
         this.buttonPanel.add(btn);
         return btn;
@@ -131,6 +135,9 @@ public abstract class GraphWindow extends Window implements IModeView
     {
         System.out.println("MODE : set" + mode);
         this.graphDrawer.setName("set" + mode);
+        
+        this.buttonPanel.setSelection(mode);
+        
         this.repaint();
     }
 }

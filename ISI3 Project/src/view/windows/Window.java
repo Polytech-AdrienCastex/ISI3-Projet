@@ -2,14 +2,24 @@ package view.windows;
 
 import controller.actionmanagers.ActionManager;
 import java.awt.Color;
+import java.awt.Image;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import view.IView;
+import view.ImageLoader;
 
 /**
  * This class represents a window.
  */
 public abstract class Window extends JDialog implements IView
 {
+    private static final List<Image> ICONS = Arrays.asList(
+            new ImageIcon(ImageLoader.loadImage("icon/icon_16.png")).getImage(),
+            new ImageIcon(ImageLoader.loadImage("icon/icon_32.png")).getImage(),
+            new ImageIcon(ImageLoader.loadImage("icon/icon_64.png")).getImage());
+    
     /**
      * Constructor.
      */
@@ -25,6 +35,7 @@ public abstract class Window extends JDialog implements IView
     public Window(ActionManager actionManager)
     {
         super((JDialog)null);
+        setIconImages(ICONS);
         
         this.actionManager = actionManager;
         

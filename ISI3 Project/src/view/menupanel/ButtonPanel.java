@@ -3,6 +3,7 @@ package view.menupanel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
+import java.util.stream.Stream;
 import javax.swing.JPanel;
 
 /**
@@ -38,6 +39,15 @@ public class ButtonPanel extends JPanel
      * added button be displayed.
      */
     private int currentX;
+    
+
+    public void setSelection(String mode)
+    {
+        Stream.of(this.getComponents())
+                .filter(c -> c instanceof Button)
+                .map(c -> (Button)c)
+                .forEach(b -> b.setSelected(mode.contains(b.getName())));
+    }
 
     @Override
     public void paint(Graphics g)
