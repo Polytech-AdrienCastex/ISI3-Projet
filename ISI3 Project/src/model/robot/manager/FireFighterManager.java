@@ -11,9 +11,9 @@ import model.graph.Node;
 import model.robot.FireFighterRobot;
 import model.robot.Robot;
 
-public class FireManager extends Manager<FireFighterRobot> {
+public class FireFighterManager extends Manager<FireFighterRobot> {
 
-    public FireManager(Graph grap) {
+    public FireFighterManager(Graph grap) {
         super(grap);
     }
     
