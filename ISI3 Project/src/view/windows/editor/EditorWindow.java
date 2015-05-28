@@ -10,7 +10,7 @@ public class EditorWindow extends GraphWindow implements IEditorView
 {
     public EditorWindow(EditorActionManager actionManager)
     {
-        super(actionManager);
+        super(actionManager, false);
         
         this.setTitle("Editor");
     }

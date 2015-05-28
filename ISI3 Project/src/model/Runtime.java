@@ -79,4 +79,13 @@ public abstract class Runtime extends TimerTask
         running = false;
         this.cancel();
     }
+    
+    /**
+     * Get if the runtime is running or not.
+     * @return <b>true</b> if the runtime is running. <b>false</b> otherwise.
+     */
+    public boolean isRunning()
+    {
+        return running;
+    }
 }

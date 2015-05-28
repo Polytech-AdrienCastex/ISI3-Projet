@@ -46,8 +46,11 @@ public class GraphDrawer extends JPanel implements Observer
         public void runtime()
         {
             getParent().repaint();
-            nodeDrawer.updateResources();
-            robotDrawer.updateResources();
+            if(nodeDrawer != null)
+                nodeDrawer.updateResources();
+            
+            if(robotDrawer != null)
+                robotDrawer.updateResources();
         }
     }
     

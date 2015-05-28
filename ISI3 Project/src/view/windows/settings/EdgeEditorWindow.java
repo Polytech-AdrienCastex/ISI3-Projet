@@ -1,4 +1,4 @@
-package view.windows.edge;
+package view.windows.settings;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -31,7 +31,7 @@ public class EdgeEditorWindow extends PopupWindow
         
         addLabel("Value", 1);
         
-        value = new JTextField("0.0");
+        value = new JTextField("5.0");
         this.add(format(value), 1, 1);
         
         this.pack();
@@ -43,6 +43,13 @@ public class EdgeEditorWindow extends PopupWindow
     }
     public Double getEdgeValue()
     {
-        return Double.parseDouble(value.getText());
+        try
+        {
+            return Double.parseDouble(value.getText());
+        }
+        catch(NumberFormatException ex)
+        {
+            return 5.0;
+        }
     }
 }

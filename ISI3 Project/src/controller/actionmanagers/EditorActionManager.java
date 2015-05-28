@@ -10,9 +10,8 @@ import model.graph.Graph;
 import model.graph.Node;
 import model.graph.project.FireableNode;
 import model.graph.project.ProjectEdge;
-import model.robot.manager.RobotRuntime;
-import view.windows.edge.EdgeEditorWindow;
-import view.windows.edge.NodeEditorWindow;
+import view.windows.settings.EdgeEditorWindow;
+import view.windows.settings.NodeEditorWindow;
 import view.windows.editor.IEditorView;
 
 /**

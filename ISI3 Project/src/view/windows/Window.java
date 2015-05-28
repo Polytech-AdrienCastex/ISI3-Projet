@@ -3,11 +3,12 @@ package view.windows;
 import controller.actionmanagers.ActionManager;
 import java.awt.Color;
 import javax.swing.JDialog;
+import view.IView;
 
 /**
  * This class represents a window.
  */
-public abstract class Window extends JDialog
+public abstract class Window extends JDialog implements IView
 {
     /**
      * Constructor.
@@ -23,7 +24,7 @@ public abstract class Window extends JDialog
      */
     public Window(ActionManager actionManager)
     {
-        super();
+        super((JDialog)null);
         
         this.actionManager = actionManager;
         

@@ -30,8 +30,17 @@ public abstract class GraphWindow extends Window implements IModeView
         super(actionManager);
         
         this.setResizable(false);
+        this.displayRobots = true;
+    }
+    public GraphWindow(ActionManager actionManager, boolean displayRobots)
+    {
+        super(actionManager);
+        
+        this.setResizable(false);
+        this.displayRobots = displayRobots;
     }
     
+    protected final boolean displayRobots;
     protected GraphDrawer graphDrawer;
     protected ButtonPanel buttonPanel;
     
@@ -63,7 +72,7 @@ public abstract class GraphWindow extends Window implements IModeView
         NodeDrawer nd = new NodeDrawer();
         EdgeDrawer ed = new EdgeDrawer();
         
-        this.graphDrawer = new GraphDrawer(graph, nd, ed, new RobotDrawer("robots/bluerobot.png"));
+        this.graphDrawer = new GraphDrawer(graph, nd, ed, displayRobots ? new RobotDrawer("robots/bluerobot.png") : null);
         if(backgroundImage != null && this.graphDrawer.setBackgroundImage(backgroundImage))
         {
             Point size = this.graphDrawer.getBackgroundSize();

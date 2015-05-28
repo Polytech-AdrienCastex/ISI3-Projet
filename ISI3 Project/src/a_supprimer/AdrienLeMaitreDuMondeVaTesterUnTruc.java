@@ -2,7 +2,6 @@ package a_supprimer;
 
 import controller.actionmanagers.MainActionManager;
 import java.io.FileNotFoundException;
-import javafx.collections.ObservableList;
 import model.graph.Graph;
 import model.graph.Node;
 import model.graph.factory.GraphFactory;
@@ -13,8 +12,6 @@ import model.pathfinding.algorithms.Dijkstra;
 import model.pathfinding.algorithms.astar.AstarBirdFly;
 import model.pathfinding.algorithms.astar.BirdFly;
 import model.robot.Robot4x4;
-import model.robot.RobotPafPaf;
-import model.robot.RobotSnapSnap;
 import model.robot.manager.FireFighterManager;
 import model.robot.manager.Manager;
 import model.robot.manager.RobotRuntime;
@@ -60,7 +57,7 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
         RobotRuntime rr = new RobotRuntime(manager);
         
 
-        MainActionManager bam = new MainActionManager(graph, rr);
+        MainActionManager bam = new MainActionManager(graph, rr, pf, new Manager[] { manager });
 
         //graphFactory.save("S:\\ISI3\\mapsixieme\\mapsixieme\\mapsixieme2.xml", graph);
 

@@ -20,8 +20,11 @@ public class MainWindow extends GraphWindow implements IMainView
         super.initialize();
         
         addButton("play", "play.png");
+        addButton("pause", "pause.png");
         addButton("step", "step.png");
+        addSeparator();
         addButton("fire", "fire.png");
+        addButton("add_robot", "robots/robot.png");
         addSeparator();
         addButton("edit", "edit.png");
     }

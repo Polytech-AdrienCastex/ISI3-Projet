@@ -6,9 +6,15 @@ import model.elementary.Fireable;
 import model.elementary.Point;
 import model.graph.Graph;
 import model.graph.Node;
+import model.item.FireHose;
+import model.pathfinding.PathFinding;
+import model.pathfinding.algorithms.Dijkstra;
+import model.robot.Robot4x4;
+import model.robot.manager.Manager;
 import model.robot.manager.RobotRuntime;
 import view.windows.main.IMainView;
 import view.windows.editor.EditorWindow;
+import view.windows.settings.RobotEditorWindow;
 
 /**
  * This class represents the action manager (controller) of the main view.
@@ -19,19 +25,31 @@ public class MainActionManager extends ActionManager<IMainView>
      * Constructor.
      * @param graph Graph associated to the view.
      * @param runtime Runtime.
+     * @param pathFinding Path finding algorithm to use.
+     * @param managers Array containing the different managers.
      */
-    public MainActionManager(Graph graph, RobotRuntime runtime)
+    public MainActionManager(Graph graph, RobotRuntime runtime, PathFinding pathFinding, Manager[] managers)
     {
         super(true);
         this.graph = graph;
         this.runtime = runtime;
         this.mode = "normal";
+        
+        this.managers = managers;
+        this.pathFinding = pathFinding;
     }
     
     /**
      * Graph associated to the view.
      */
     protected Graph graph;
+    
+    protected final PathFinding pathFinding;
+    
+    /**
+     * Array containing the different managers.
+     */
+    protected Manager[] managers;
     
     /**
      * Previous mode selected.
@@ -61,20 +79,18 @@ public class MainActionManager extends ActionManager<IMainView>
     @Override
     protected void action(String command, MouseEvent e, Point clkLocation)
     {
+        Node node;
+        
         switch(command)
         {
             case "play":
                 if(runtime != null)
-                    if(!mode.equals(command))
-                    {
-                        runtime.start(1000);
-                        mode = command;
-                    }
-                    else
-                    {
-                        runtime.pause();
-                        mode = "normal";
-                    }
+                    runtime.start(1000);
+                break;
+                
+            case "pause":
+                if(runtime != null)
+                    runtime.pause();
                 break;
                 
             case "step":
@@ -88,11 +104,22 @@ public class MainActionManager extends ActionManager<IMainView>
                 editorWindow.setGraph(graph, this.getView().getGraphBackground());
                 editorWindow.initialize();
                 eam.setView(editorWindow);
+                
+                boolean isRuntimeRunning = runtime.isRunning();
+                
+                if(isRuntimeRunning)
+                    runtime.pause();
+                
+                getView().setVisible(false);
                 editorWindow.showDialog();
+                getView().setVisible(true);
+                
+                if(isRuntimeRunning)
+                    runtime.resume();
                 break;
                 
             case "setfire":
-                Node node = findNodeFromLocation(graph, clkLocation, 10);
+                node = findNodeFromLocation(graph, clkLocation, 10);
                 if(node != null)
                 {
                     if(node instanceof Fireable)
@@ -107,6 +134,31 @@ public class MainActionManager extends ActionManager<IMainView>
                 break;
                 
             case "fire":
+                if(mode.equals(command))
+                {
+                    this.getView().setMode("normal");
+                    mode = "normal";
+                }
+                else
+                {
+                    this.getView().setMode(command);
+                    mode = command;
+                }
+                break;
+                
+            case "setadd_robot":
+                node = findNodeFromLocation(graph, clkLocation, 10);
+                if(node != null)
+                {
+                    RobotEditorWindow rew = new RobotEditorWindow();
+                    rew.initialize();
+                    rew.showDialog();
+                    
+                    //managers[0].addRobot(new Robot4x4(rew.getSpeed(), node, pathFinding, rew.getWeapon()));
+                }
+                break;
+                
+            case "add_robot":
                 if(mode.equals(command))
                 {
                     this.getView().setMode("normal");

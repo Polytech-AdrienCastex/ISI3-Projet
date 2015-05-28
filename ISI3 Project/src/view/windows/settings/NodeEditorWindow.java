@@ -1,4 +1,4 @@
-package view.windows.edge;
+package view.windows.settings;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -33,6 +33,13 @@ public class NodeEditorWindow extends PopupWindow
     
     public Double getFireIntensity()
     {
-        return Double.parseDouble(fireIntensity.getText());
+        try
+        {
+            return Double.parseDouble(fireIntensity.getText());
+        }
+        catch(NumberFormatException ex)
+        {
+            return 0.0;
+        }
     }
 }
