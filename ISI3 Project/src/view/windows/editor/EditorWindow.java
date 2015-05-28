@@ -27,5 +27,7 @@ public class EditorWindow extends GraphWindow implements IEditorView
         addButton("remove_edge", "buttons/removeEdge.png", "buttons/removeEdge_selected.png");
         addSeparator();
         addButton("fire", "buttons/fire.png", "buttons/fire_selected.png");
+        addSeparator();
+        addButton("save", "buttons/save.png");
     }
 }

@@ -1,13 +1,21 @@
 package controller.actionmanagers;
 
 import static controller.actionmanagers.ActionManager.findNodeFromLocation;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.xml.parsers.ParserConfigurationException;
 import model.elementary.Fireable;
 import model.elementary.Point;
 import model.graph.Edge;
 import model.graph.Graph;
 import model.graph.Node;
+import model.graph.factory.GraphFactory;
 import model.graph.project.FireableNode;
 import model.graph.project.ProjectEdge;
 import view.windows.settings.EdgeEditorWindow;
@@ -59,6 +67,7 @@ public class EditorActionManager extends ActionManager<IEditorView>
     {
         Node node;
         Edge edge;
+        JFileChooser fc;
         
         switch(command)
         {
@@ -124,6 +133,24 @@ public class EditorActionManager extends ActionManager<IEditorView>
                             fireNode.setFireIntensity(0.0);
                         else
                             fireNode.setFireIntensity(10.0);
+                    }
+                }
+                break;
+                
+            case "save":
+                fc = new JFileChooser();
+                if(fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+                {
+                    File f = fc.getSelectedFile();
+                    GraphFactory gf = new GraphFactory();
+                    try
+                    {
+                        gf.save(f, graph);
+                        System.out.println("Graph saved.");
+                    }
+                    catch (ParserConfigurationException | IOException ex)
+                    {
+                        System.out.println("Couldn't save the graph.");
                     }
                 }
                 break;

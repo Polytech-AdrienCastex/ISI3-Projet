@@ -40,6 +40,16 @@ public class GraphDrawer extends JPanel implements Observer
     }
     
     private Runtime runtime = null;
+
+    public void setGraph(Graph graph)
+    {
+        if(this.graph != null)
+            this.graph.deleteObserver(this);
+        
+        this.graph = graph;
+        graph.addObserver(this);
+    }
+    
     protected class Runtime extends model.Runtime
     {
         @Override
@@ -54,7 +64,7 @@ public class GraphDrawer extends JPanel implements Observer
         }
     }
     
-    protected final Graph graph;
+    protected Graph graph = null;
     
     protected final NodeDrawer nodeDrawer;
     protected final EdgeDrawer edgeDrawer;

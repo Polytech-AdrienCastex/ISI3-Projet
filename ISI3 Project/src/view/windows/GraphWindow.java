@@ -50,35 +50,58 @@ public abstract class GraphWindow extends Window implements IModeView
         this.manager = manager;
     }
     
+    @Override
     public void setGraph(Graph graph)
     {
         setGraph(graph, (Image)null);
     }
+    @Override
     public void setGraph(Graph graph, String backgroundPath)
     {
         if(backgroundPath == null)
+        {
             setGraph(graph, (Image)null);
+            return;
+        }
+        
+        setGraph(graph, new File(backgroundPath));
+    }
+    @Override
+    public void setGraph(Graph graph, File backgroundFile)
+    {
+        if(backgroundFile == null)
+        {
+            setGraph(graph, (Image)null);
+            return;
+        }
             
         try
         {
-            Image image = ImageIO.read(new File(backgroundPath));
+            Image image = ImageIO.read(backgroundFile);
             setGraph(graph, image);
         }
         catch (IOException e)
         { }
     }
+    @Override
     public void setGraph(Graph graph, Image backgroundImage)
     {
         NodeDrawer nd = new NodeDrawer();
         EdgeDrawer ed = new EdgeDrawer();
         
-        this.graphDrawer = new GraphDrawer(graph, nd, ed, displayRobots ? new RobotDrawer("robots/bluerobot.png") : null);
+        if(this.graphDrawer == null)
+            this.graphDrawer = new GraphDrawer(graph, nd, ed, displayRobots ? new RobotDrawer("robots/bluerobot.png") : null);
+        else
+            this.graphDrawer.setGraph(graph);
         if(backgroundImage != null && this.graphDrawer.setBackgroundImage(backgroundImage))
         {
             Point size = this.graphDrawer.getBackgroundSize();
             this.setMinimumSize(new Dimension(size.x.intValue(), size.y.intValue()));
         }
         else
+        {
+            this.graphDrawer.setBackgroundImage((Image)null);
+            
             this.setMinimumSize(new Dimension(
                     (int)graph.getNodes().stream()
                             .filter(n -> n instanceof Localisable)
@@ -92,6 +115,7 @@ public abstract class GraphWindow extends Window implements IModeView
                             .max()
                             .orElse(600.0) + 100
             ));
+        }
     }
     
     protected Button addButton(String action, String imageName)

@@ -41,7 +41,6 @@ public class Button extends JPanel
             this.setSize(new Dimension(image.getWidth(null), image.getHeight(null)));
         
         selectionImage = ImageLoader.loadImage(selectionImageName);
-        System.out.println(actionName + " : " + selectionImage);
         
         this.setName(actionName);
     }

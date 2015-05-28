@@ -2,16 +2,24 @@ package controller.actionmanagers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.xml.parsers.ParserConfigurationException;
 import model.elementary.Fireable;
 import model.elementary.Point;
 import model.graph.Graph;
 import model.graph.Node;
+import model.graph.factory.GraphFactory;
 import model.item.FireHose;
 import model.pathfinding.PathFinding;
 import model.pathfinding.algorithms.Dijkstra;
 import model.robot.Robot4x4;
 import model.robot.manager.Manager;
 import model.robot.manager.RobotRuntime;
+import org.xml.sax.SAXException;
 import view.windows.main.IMainView;
 import view.windows.editor.EditorWindow;
 import view.windows.settings.RobotEditorWindow;
@@ -80,6 +88,7 @@ public class MainActionManager extends ActionManager<IMainView>
     protected void action(String command, MouseEvent e, Point clkLocation)
     {
         Node node;
+        JFileChooser fc;
         
         switch(command)
         {
@@ -174,6 +183,30 @@ public class MainActionManager extends ActionManager<IMainView>
                 {
                     this.getView().setMode(command);
                     mode = command;
+                }
+                break;
+                
+                
+            case "load":
+                fc = new JFileChooser();
+                if(fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+                {
+                    File f = fc.getSelectedFile();
+                    
+                    File backgroundImage = null;
+                    if(fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+                        backgroundImage = fc.getSelectedFile();
+                    
+                    GraphFactory gf = new GraphFactory();
+                    try
+                    {
+                        getView().setGraph(gf.load(f), backgroundImage);
+                        System.out.println("Graph loaded.");
+                    }
+                    catch (ParserConfigurationException | IOException | SAXException ex)
+                    {
+                        System.out.println("Couldn't load the graph.");
+                    }
                 }
                 break;
                 

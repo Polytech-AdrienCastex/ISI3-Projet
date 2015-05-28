@@ -28,6 +28,7 @@ public class MainWindow extends GraphWindow implements IMainView
         addButton("fire", "buttons/fire.png", "buttons/fire_selected.png");
         addButton("add_robot", "buttons/robot.png", "buttons/robot_selected.png");
         addSeparator();
+        addButton("load", "buttons/load.png");
         addButton("edit", "buttons/edit.png");
         
         pauseButton.setSelected(true);
