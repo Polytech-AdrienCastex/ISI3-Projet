@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import model.Observable;
 import model.ObservableCollection;
 import model.elementary.Fireable;
@@ -13,19 +11,20 @@ import model.graph.Edge;
 import model.graph.Node;
 import model.elementary.Valued;
 import model.item.IItem;
-import model.pathfinding.Authorizer;
+import model.authorizer.Authorizer;
 import model.pathfinding.PathFinding;
 
 /**
  * Robot general
  */
-public abstract class Robot<I extends IItem> extends Observable implements Authorizer, Runnable
+public abstract class Robot<I extends IItem> extends Observable implements Runnable
 {
     protected Double speed;
     protected Node currentNode;
     protected List<I> items;
     
     private PathFinding pathFinding;
+    private final Authorizer type;
     private LinkedList<Edge> path = new LinkedList<>();
 
     /**
@@ -33,16 +32,27 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      * @param speed speed
      * @param currentNode current node where the robot is
      * @param pf Search path algo
+     * @param typeRobot Authorizer type robot
      */
-    public Robot(Double speed, Node currentNode, PathFinding pf)
+    public Robot(Double speed, Node currentNode, PathFinding pf, Authorizer typeRobot)
     {
         this.speed = speed;
         this.currentNode = currentNode;
         this.pathFinding = pf;
         this.items = new ArrayList<>();
+        this.type = typeRobot;
         
         addNewRobot(this);
     }
+
+    /**
+     * Get the type of the robot (Authorizer)
+     * @return Authorizer type of robot
+     */
+    public Authorizer getType() {
+        return type;
+    }
+    
 
     /**
      * Get the robot items
@@ -146,7 +156,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
      */
     public Double getPathValue(Node dest)
     {                                
-        Collection<Edge> path = pathFinding.getShortestPath(currentNode, dest, this);
+        Collection<Edge> path = pathFinding.getShortestPath(currentNode, dest, type);
         
         if(path.isEmpty())
             return -1.0;
@@ -176,7 +186,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
     public void setDestination(Node dest)
     {
         this.dest = dest;
-        this.path = new LinkedList<>(pathFinding.getShortestPath(currentNode, dest, this));
+        this.path = new LinkedList<>(pathFinding.getShortestPath(currentNode, dest, type));
     }
 
     public Node getDestination()
@@ -197,7 +207,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Autho
             Edge nextEdge = path.remove(0);
             Node nextNode = nextEdge.getStopNode().equals(currentNode) ? nextEdge.getStartNode(): nextEdge.getStopNode();
             
-            if ((nextEdge.getStartNode().equals(currentNode) || nextEdge.getStopNode().equals(currentNode)) && canUseEdge(nextEdge) && (path.size() == 0 || canUseNode(nextNode)))
+            if ((nextEdge.getStartNode().equals(currentNode) || nextEdge.getStopNode().equals(currentNode)) && type.canUseEdge(nextEdge) && (path.size() == 0 || type.canUseNode(nextNode)))
             {
                 currentNode = nextNode;
             } else {

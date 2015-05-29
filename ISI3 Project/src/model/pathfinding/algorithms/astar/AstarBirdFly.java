@@ -8,7 +8,7 @@ import model.graph.Edge;
 import model.graph.project.FireableNode;
 import model.graph.Node;
 import model.graph.project.ProjectEdge;
-import model.pathfinding.Authorizer;
+import model.authorizer.Authorizer;
 
 /**
  *

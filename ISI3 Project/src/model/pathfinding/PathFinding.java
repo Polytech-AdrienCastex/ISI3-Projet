@@ -1,5 +1,6 @@
 package model.pathfinding;
 
+import model.authorizer.Authorizer;
 import java.util.Collection;
 import model.graph.Edge;
 import model.graph.Node;

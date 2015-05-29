@@ -14,7 +14,7 @@ import java.util.Stack;
 import model.elementary.Valued;
 import model.graph.Edge;
 import model.graph.Node;
-import model.pathfinding.Authorizer;
+import model.authorizer.Authorizer;
 import model.pathfinding.PathFinding;
 
 /**

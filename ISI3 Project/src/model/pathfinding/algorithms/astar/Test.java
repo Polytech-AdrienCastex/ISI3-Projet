@@ -2,6 +2,7 @@ package model.pathfinding.algorithms.astar;
 
 import java.util.List;
 import static model.SurfaceType.Plat;
+import model.authorizer.Auth4x4;
 import model.elementary.Point;
 import model.graph.Edge;
 import model.graph.project.FireableNode;
@@ -9,7 +10,8 @@ import model.graph.Graph;
 import model.graph.Node;
 import model.graph.project.ProjectEdge;
 import model.robot.Robot;
-import model.robot.RobotPafPaf;
+import model.authorizer.AuthPafPaf;
+import model.robot.FireFighterRobot;
 
 
 public class Test {
@@ -71,8 +73,8 @@ public class Test {
         System.out.println("*** FIN GRAPH ***");
         
                     
-        Robot robert = new RobotPafPaf(5.0, nA, as, null);
-        List<Edge> list = as.getShortestPath(nA , nC, robert);
+        Robot robert = new FireFighterRobot(5.0, nA, as, new Auth4x4(), null);
+        List<Edge> list = as.getShortestPath(nA , nC, robert.getType());
         if(list == null || list.isEmpty())
             System.out.println("outch!");
         for(Edge ed : list)

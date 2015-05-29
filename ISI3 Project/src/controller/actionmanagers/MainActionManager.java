@@ -16,7 +16,7 @@ import model.graph.factory.GraphFactory;
 import model.item.FireHose;
 import model.pathfinding.PathFinding;
 import model.pathfinding.algorithms.Dijkstra;
-import model.robot.Robot4x4;
+import model.authorizer.Auth4x4;
 import model.robot.manager.Manager;
 import model.robot.manager.RobotRuntime;
 import org.xml.sax.SAXException;

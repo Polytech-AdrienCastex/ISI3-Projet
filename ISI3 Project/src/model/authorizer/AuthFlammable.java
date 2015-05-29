@@ -1,23 +1,16 @@
 
-package model.robot;
+package model.authorizer;
 
 import model.elementary.Fireable;
 import model.graph.Edge;
 import model.graph.Node;
-import model.item.FireHose;
-import model.pathfinding.PathFinding;
 
 
-public class FlammableRobot extends FireFighterRobot {
-
-    public FlammableRobot(Double speed, Node currentNode, PathFinding pf, FireHose fh) {
-        super(speed, currentNode, pf, fh);
-    }
-    
+public class AuthFlammable implements Authorizer {
     /**
      * Cannot go through edge in water
      * @param e Edge to test
-     * @return true if the robot can go
+     * @return true if the thing can go
      */
     @Override
     public Boolean canUseEdge(Edge e) {        
@@ -27,7 +20,7 @@ public class FlammableRobot extends FireFighterRobot {
     /**
      * Cannot go through node in fire
      * @param n Node to test
-     * @return true if the robot can go
+     * @return true if the thing can go
      */
     @Override
     public Boolean canUseNode(Node n) {

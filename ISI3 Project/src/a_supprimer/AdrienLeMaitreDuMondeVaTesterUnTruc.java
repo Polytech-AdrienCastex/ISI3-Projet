@@ -11,7 +11,8 @@ import model.pathfinding.PathFinding;
 import model.pathfinding.algorithms.Dijkstra;
 import model.pathfinding.algorithms.astar.AstarBirdFly;
 import model.pathfinding.algorithms.astar.BirdFly;
-import model.robot.Robot4x4;
+import model.authorizer.Auth4x4;
+import model.robot.FireFighterRobot;
 import model.robot.manager.FireFighterManager;
 import model.robot.manager.Manager;
 import model.robot.manager.RobotRuntime;
@@ -46,9 +47,10 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
         PathFinding pf = new AstarBirdFly(new BirdFly());
         pf = new Dijkstra();
         
-        manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose(1.0)));
-        manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose(1.0)));
-        manager.addRobot(new Robot4x4(10.0, firstNode, pf, new FireHose(1.0)));
+        Auth4x4 type4x4 = new Auth4x4();
+        manager.addRobot(new FireFighterRobot(10.0, firstNode, pf, type4x4, new FireHose(1.0)));
+        manager.addRobot(new FireFighterRobot(10.0, firstNode, pf, type4x4, new FireHose(1.0)));
+        manager.addRobot(new FireFighterRobot(10.0, firstNode, pf, type4x4, new FireHose(1.0)));
         
         
         

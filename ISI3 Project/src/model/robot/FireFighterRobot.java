@@ -3,19 +3,21 @@ package model.robot;
 import model.elementary.Fireable;
 import model.graph.Node;
 import model.item.FireHose;
+import model.authorizer.Authorizer;
 import model.pathfinding.PathFinding;
 
-public abstract class FireFighterRobot extends Robot<FireHose> {
+public class FireFighterRobot extends Robot<FireHose> {
 
     /**
      * Contructor : By default the FireFighter has 1 FireHose item
      * @param speed speed of the robot
      * @param currentNode currentNode
      * @param pf pathfinding algo
+     * @param typeRobot Authorizer type robot
      * @param fh First FireHose to add
      */
-    public FireFighterRobot(Double speed, Node currentNode, PathFinding pf, FireHose fh) {
-        super(speed, currentNode, pf);
+    public FireFighterRobot(Double speed, Node currentNode, PathFinding pf, Authorizer typeRobot, FireHose fh) {
+        super(speed, currentNode, pf, typeRobot);
         
         this.addItem(fh); 
     }

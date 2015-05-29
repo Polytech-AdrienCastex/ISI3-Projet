@@ -1,19 +1,12 @@
-package model.robot;
+package model.authorizer;
 
 import model.graph.Edge;
 import model.graph.Node;
-import model.item.FireHose;
-import model.pathfinding.PathFinding;
 
 /**
- * Robot all ground
+ * Thing all ground
  */
-public class Robot4x4 extends FireFighterRobot {
-
-    public Robot4x4(Double speed, Node currentNode, PathFinding pf, FireHose fh) {
-        super(speed, currentNode, pf, fh);
-    }
-
+public class Auth4x4 implements Authorizer {
     /**
      * Can go through everything
      * @param e
