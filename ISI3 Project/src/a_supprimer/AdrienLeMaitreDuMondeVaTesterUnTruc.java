@@ -12,6 +12,11 @@ import model.pathfinding.algorithms.Dijkstra;
 import model.pathfinding.algorithms.astar.AstarBirdFly;
 import model.pathfinding.algorithms.astar.BirdFly;
 import model.authorizer.Auth4x4;
+import model.authorizer.AuthFlammable_TO_REMOVE;
+import model.authorizer.AuthPafPaf;
+import model.authorizer.AuthSnapSnap;
+import model.authorizer.Authorizer;
+import model.pathfinding.algorithms.astar.AstarBirdFlyAdrien;
 import model.robot.FireFighterRobot;
 import model.robot.manager.FireFighterManager;
 import model.robot.manager.Manager;
@@ -33,8 +38,8 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
         try
         {
             GraphFactory graphFactory = new GraphOffsetFactory(10, 10);
-            graph = graphFactory.load("S:\\ISI3\\mapsixieme\\mapsixieme\\mapsixieme.xml");
-            //graph = graphFactory.load("D:\\Documents\\isi3\\mapsixieme\\mapsixieme.xml");
+            //graph = graphFactory.load("S:\\ISI3\\mapsixieme\\mapsixieme\\mapsixieme.xml");
+            graph = graphFactory.load("D:\\Documents\\isi3\\mapsixieme\\mapsixieme.xml");
         }
         catch (FileNotFoundException ex)
         {
@@ -45,12 +50,13 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
         Manager manager = new FireFighterManager(graph);
         Node firstNode = graph.getNodes().iterator().next();
         PathFinding pf = new AstarBirdFly(new BirdFly());
-        pf = new Dijkstra();
+        //pf = new Dijkstra();
+        pf = new AstarBirdFlyAdrien(new BirdFly());
         
-        Auth4x4 type4x4 = new Auth4x4();
-        manager.addRobot(new FireFighterRobot(10.0, firstNode, pf, type4x4, new FireHose(1.0)));
-        manager.addRobot(new FireFighterRobot(10.0, firstNode, pf, type4x4, new FireHose(1.0)));
-        manager.addRobot(new FireFighterRobot(10.0, firstNode, pf, type4x4, new FireHose(1.0)));
+        Authorizer auth = new AuthPafPaf();
+        manager.addRobot(new FireFighterRobot(10.0, firstNode, pf, auth, new FireHose(1.0)));
+        manager.addRobot(new FireFighterRobot(10.0, firstNode, pf, auth, new FireHose(1.0)));
+        manager.addRobot(new FireFighterRobot(10.0, firstNode, pf, auth, new FireHose(1.0)));
         
         
         
@@ -65,8 +71,8 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
 
         MainWindow window = new MainWindow(bam);
         window.setRobotManager(manager);
-        window.setGraph(graph, "S:\\ISI3\\mapsixieme\\mapsixieme\\mapsixieme.jpg");
-        //window.setGraph(graph, "D:\\Documents\\isi3\\mapsixieme\\mapsixieme.jpg");
+        //window.setGraph(graph, "S:\\ISI3\\mapsixieme\\mapsixieme\\mapsixieme.jpg");
+        window.setGraph(graph, "D:\\Documents\\isi3\\mapsixieme\\mapsixieme.jpg");
         window.initialize();
         
         bam.setView(window);

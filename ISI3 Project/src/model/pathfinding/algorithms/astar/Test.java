@@ -72,13 +72,13 @@ public class Test {
         
         System.out.println("*** FIN GRAPH ***");
         
-                    
+                    /*
         Robot robert = new FireFighterRobot(5.0, nA, as, new Auth4x4(), null);
         List<Edge> list = as.getShortestPath(nA , nC, robert.getType());
         if(list == null || list.isEmpty())
             System.out.println("outch!");
         for(Edge ed : list)
             if(ed != null)
-                System.out.println(ed.getStartNode().getId() + " TO " + ed.getStopNode().getId());
+                System.out.println(ed.getStartNode().getId() + " TO " + ed.getStopNode().getId());*/
     }
 }

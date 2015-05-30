@@ -1,8 +1,8 @@
 package model.pathfinding.algorithms.astar;
 
-import model.graph.project.FireableNode;
+import model.graph.Node;
 
-public interface Heuristique {
-    public double getH(FireableNode dep, FireableNode arr); 
-    
+public interface Heuristique
+{
+    public double getH(Node dep, Node arr);
 }

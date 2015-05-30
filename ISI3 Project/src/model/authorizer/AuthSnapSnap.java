@@ -1,5 +1,6 @@
 package model.authorizer;
 
+import java.util.Arrays;
 import model.SurfaceType;
 import model.graph.Edge;
 import model.elementary.Typed;
@@ -7,13 +8,27 @@ import model.elementary.Typed;
 /**
  * Truc à chenilles
  */
-public class AuthSnapSnap extends AuthFlammable {
+public class AuthSnapSnap extends AuthRobot
+{
     @Override
-    public Boolean canUseEdge(Edge e) {
-        //impossible chemin escarpé
-        if (e instanceof Typed)
-            return ((Typed)e).getType() == SurfaceType.Escarpe;
-        
-        return super.canUseEdge(e);
-    }    
+    protected SurfaceType[] getAllowedSurfaceTypes()
+    {
+        return new SurfaceType[]
+        {
+            SurfaceType.Plat,
+            SurfaceType.Escarpe
+        };
+    }
+
+    @Override
+    protected Boolean canGoThroughWater()
+    {
+        return false;
+    }
+
+    @Override
+    protected Boolean canGoThroughFire()
+    {
+        return false;
+    }
 }

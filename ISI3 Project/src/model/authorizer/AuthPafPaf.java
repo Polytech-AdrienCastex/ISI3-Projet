@@ -1,18 +1,30 @@
 package model.authorizer;
 
-import model.graph.Edge;
-import model.elementary.Waterable;
+import model.SurfaceType;
 
 /**
  * Truc à pattes
  */
-public class AuthPafPaf extends AuthFlammable {
+public class AuthPafPaf extends AuthRobot
+{
     @Override
-    public Boolean canUseEdge(Edge e) {       
-        //impossible chemin inondé
-        if (e instanceof Waterable)
-            return ((Waterable)e).isUnderWater();
-        
-        return super.canUseEdge(e);
-    }        
+    protected SurfaceType[] getAllowedSurfaceTypes()
+    {
+        return new SurfaceType[]
+        {
+            SurfaceType.Plat
+        };
+    }
+
+    @Override
+    protected Boolean canGoThroughWater()
+    {
+        return true;
+    }
+
+    @Override
+    protected Boolean canGoThroughFire()
+    {
+        return false;
+    }
 }

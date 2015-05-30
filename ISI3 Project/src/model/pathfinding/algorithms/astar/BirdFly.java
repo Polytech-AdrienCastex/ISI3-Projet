@@ -1,15 +1,20 @@
 package model.pathfinding.algorithms.astar;
 
+import model.elementary.Localisable;
 import model.elementary.Point;
+import model.graph.Node;
 import model.graph.project.FireableNode;
 
 
 public class BirdFly implements FlyHeuristique {
  
     @Override
-    public double getH(FireableNode n1, FireableNode n2) {
-        Point dep = n1.getLocation();
-        Point arr = n2.getLocation();
+    public double getH(Node n1, Node n2) {
+        if(!(n1 instanceof Localisable && n2 instanceof Localisable))
+            return -1.0;
+        
+        Point dep = ((Localisable)n1).getLocation();
+        Point arr = ((Localisable)n2).getLocation();
         return distEuclide(dep, arr);
     }
     

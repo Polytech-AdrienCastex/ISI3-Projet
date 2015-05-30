@@ -33,7 +33,7 @@ public class GraphDrawer extends JPanel implements Observer
         
         this.backgroundImage = null;
         
-        this.selectedImage = ImageLoader.loadImage("fireline.png");
+        this.fileSelecteionImage = ImageLoader.loadImage("fireline.png");
         
         if(robotDrawer != null)
             robotDrawer.addObserver(this);
@@ -88,7 +88,7 @@ public class GraphDrawer extends JPanel implements Observer
         return new Point((double)backgroundImage.getWidth(null), (double)backgroundImage.getHeight(null));
     }
     
-    private final Image selectedImage;
+    private final Image fileSelecteionImage;
     public void draw(Graphics g)
     {
         // Draw background image
@@ -106,13 +106,13 @@ public class GraphDrawer extends JPanel implements Observer
             graph.getNodes()
                     .forEach(n -> nodeDrawer.draw(g, n));
         
-        if(selectedImage != null && this.getName() != null && this.getName().equals("setfire"))
+        if(fileSelecteionImage != null && this.getName() != null && this.getName().equals("setfire"))
         {
             final int h = 100;
             if(backgroundImage != null)
-                g.drawImage(selectedImage, 0, backgroundImage.getHeight(null) - h, backgroundImage.getWidth(null), h, null);
+                g.drawImage(fileSelecteionImage, 0, backgroundImage.getHeight(null) - h, backgroundImage.getWidth(null), h, null);
             else
-                g.drawImage(selectedImage, 0, this.getParent().getHeight() - h, this.getParent().getWidth(), h, null);
+                g.drawImage(fileSelecteionImage, 0, this.getParent().getHeight() - h, this.getParent().getWidth(), h, null);
         }
         
         // Draw robots

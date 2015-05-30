@@ -1,9 +1,12 @@
 package model.pathfinding.algorithms.astar;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import model.elementary.Fireable;
 import model.graph.Edge;
 import model.graph.project.FireableNode;
 import model.graph.Node;
@@ -14,20 +17,21 @@ import model.authorizer.Authorizer;
  *
  */
 
-public class AstarBirdFly extends Astar{
-
-    private ArrayList<VisitedNode> openList;
-    private ArrayList<VisitedNode> closeList;
-    private ArrayList<Edge> eds;
+public class AstarBirdFly extends Astar
+{
+    //private ArrayList<VisitedNode> openList;
+    //private ArrayList<VisitedNode> closeList;
     
-    public AstarBirdFly(FlyHeuristique h){
-        openList = new ArrayList<VisitedNode>();
-        closeList = new ArrayList<VisitedNode>();
-        this.h = h;
+    public AstarBirdFly(FlyHeuristique h)
+    {
+        //openList = new ArrayList<>();
+        //closeList = new ArrayList<>();
+        this.heuristique = h;
     }
 
     
-    private class VisitedNode{//extends Node
+    private class VisitedNode
+    {
         private double quality;
         private double cost;
         private Node currentNode;
@@ -38,47 +42,50 @@ public class AstarBirdFly extends Astar{
             this.cost = cost;
             currentNode = current;
             previousPath = path;
-            baned = new ArrayList<Node>();
+            baned = new ArrayList<>();
         }
         
-        public void addBaned(Node nd){
+        public void addBaned(Node nd)
+        {
             if(!baned.contains(nd))
                 baned.add(nd);
         }
         
-        public List<Node> getBaned(){
+        public List<Node> getBaned()
+        {
             return baned;
         }
         
-        public Node getCurrentNode() {
+        public Node getCurrentNode()
+        {
             return currentNode;
         }
         
-        public double getCost() {
+        public double getCost()
+        {
             return cost;
         }
 
-        public double getQuality() {
+        public double getQuality()
+        {
             return quality;
         }
 
-        public Edge getPreviousPath() {
+        public Edge getPreviousPath()
+        {
             return previousPath;
         }
         
-        public void update(double cost, double quality, Edge edge){
+        public void update(double cost, double quality, Edge edge)
+        {
             this.cost = cost;
             this.quality = quality;
             this.previousPath = edge;
-            
         }
-        /*
-        public boolean isCurrent(Node cur){
-            return currentnNode.(Node)
-        }
-        */
+        
         @Override
-        public boolean equals(Object o){
+        public boolean equals(Object o)
+        {
             if(o instanceof Node)
             {
                 Node ptr = (Node)o;
@@ -93,7 +100,8 @@ public class AstarBirdFly extends Astar{
         }
 
         @Override
-        public int hashCode() {
+        public int hashCode()
+        {
             int hash = 3;
             hash = 67 * hash + Objects.hashCode(this.currentNode);
             return hash;
@@ -101,201 +109,97 @@ public class AstarBirdFly extends Astar{
         
     }
     
-    //public getShortestPath(Graph g, Node init, Node goal, Heuristique h){
-    
     @Override
-    public List<Edge> getShortestPath(Node init, Node goal, Authorizer auth){
+    public Collection<Edge> getShortestPath(Node init, Node goal, Authorizer auth)
+    {
         //O <- {s}; F <- Ø; g(s) <- 0; f(s) <- h(s);
           //Tant que O <> Ø faire
+        List<VisitedNode> openList = new ArrayList<>();
+        List<VisitedNode> closeList = new ArrayList<>();
         Node current = init;
-        Node baned = null;
+        Node previous = null;
         boolean hasSuccessor = true;
-        double road = 0.0;
         openList.add(new VisitedNode(init, 0, 0, null));
-        while(!openList.isEmpty())
+        openList.get(openList.size() - 1).addBaned(current);
+        do
         {
-            
-            if(hasSuccessor){
-                //Extraire de O l'élément x tq f(x) est minimale;    Insérer x dans F;
+            System.out.println("here");
+            //Extraire de la liste ouverte l'élément x de meileeure qualité et l'insére dans la liste fermée
+            if(hasSuccessor)
+            {
                 openList.sort(new Comparator() {
                     @Override
                     public int compare(Object o1, Object o2) {
-                        //if(o1 instanceof VisitedNode && o2 instanceof VisitedNode)
-                            return ((VisitedNode)o1).quality < ((VisitedNode)o2).quality ? -1:
-                                ( ((VisitedNode)o1).quality == ((VisitedNode)o2).quality ? 0 : 1);
+                        return ((VisitedNode)o1).quality < ((VisitedNode)o2).quality ? -1:
+                            ( ((VisitedNode)o1).quality == ((VisitedNode)o2).quality ? 0 : 1);
                     }
-                });/*
-                VisitedNode vn = openList.remove(0);
-                if(closeList.contains(vn))
-                {
-                   closeList.
-                }*/
+                });
                 closeList.add(openList.remove(0));
+                previous = current;
                 current = closeList.get(closeList.size()-1).getCurrentNode();
-            }
-            else // chemin sans issue
+            } 
+            else if(!closeList.isEmpty())   // chemin sans issue, on remonte le chemin
             {
-                System.out.println("nosucc");
-                if(!closeList.isEmpty())
+                previous = closeList.remove(closeList.size()-1).getCurrentNode();
+                if(closeList.size() > 0)
                 {
-                    baned = closeList.remove(closeList.size()-1).getCurrentNode();
-                    closeList.get(closeList.size()-1).addBaned(baned);
+                    closeList.get(closeList.size()-1).addBaned(previous);
                     current = closeList.get(closeList.size()-1).getCurrentNode();
                 }
-                //return null;
             }
-            //Si x appartient à T alors Fini : Solution trouvée
-            if(current.equals(goal))
-                break;
-            else
+            //Si x appartient à la liste finie alors Fin : Solution trouvée
+            if(!current.equals(goal))
             {
                 hasSuccessor = false;
-                //Pour tout y successeur de x faire
+                //Pour tout y successeur de x...
                 for(Node next : current.getNextNodes())
                 {
-                    if(!closeList.get(closeList.size()-1).getBaned().contains(next) && !openList.contains(next))
-                    {
-                        hasSuccessor = true;
-                        double H = ((FlyHeuristique)h).getH((FireableNode)current, (FireableNode)next, (FireableNode)goal);
-                        System.out.println("H:" + H);
-// plus courte arrete
-                        Edge tempEd = null;
-                        double tempVal = Double.MAX_VALUE;
-                        if(!current.getEdges(next).isEmpty())
+                    if(auth.canUseNode(next))
+                        if(!closeList.isEmpty() && !closeList.get(closeList.size()-1).getBaned().contains(next) && !openList.contains(next) && !next.equals(previous))
                         {
-                            for(Edge ed : current.getEdges(next))
+                            double H = ((FlyHeuristique)heuristique).getH((FireableNode)current, (FireableNode)next, (FireableNode)goal);
+                            Edge tempEd = null;
+                            double tempVal = Double.MAX_VALUE;
+                            if(!current.getEdges(next).isEmpty())
                             {
-                                //if(auth.canUseEdge(ed))
-                                System.out.println("INTO" + ((ProjectEdge)(ed)).getValue());
-                                if(((ProjectEdge)(ed)).getValue() < tempVal)
+                                for(Edge ed : current.getEdges(next))
                                 {
-                                    tempVal = ((ProjectEdge)(ed)).getValue();
-                                    tempEd = ed;
+                                    if(auth.canUseEdge(ed))
+                                    {
+                                        if(((ProjectEdge)(ed)).getValue() < tempVal)
+                                        {
+                                            tempVal = ((ProjectEdge)(ed)).getValue();
+                                            tempEd = ed;
+                                        }
+                                        hasSuccessor = true;
+                                    }
                                 }
-                            }//Si y n'appartient pas à F U O ou g(y) > g(x) + k(x,y) alors g(y) <- g(x) + k(x,y); f(y) <- g(y) + h(y); père(y) <- x; Insérer y dans O;
-                           
-                            double c = closeList.get(closeList.size()-1).getCost();
-                            c += tempVal;
-                            if(! (closeList.contains(next) || openList.contains(next))) //|| road )
-                            {
-                                openList.add(new VisitedNode(next, c, c + H, tempEd));
-                            }
-                            else if(openList.contains(next))
-                            {
-                                if(openList.get(openList.indexOf(next)).cost > c + tempVal)
+                                //Si y n'appartient pas à F U O ou g(y) > g(x) + k(x,y) alors g(y) <- g(x) + k(x,y); f(y) <- g(y) + h(y); père(y) <- x; Insérer y dans O;
+
+                                double c = closeList.get(closeList.size()-1).getCost();
+                                c += tempVal;
+                                if(! (closeList.contains(next) || openList.contains(next)))
+                                    openList.add(new VisitedNode(next, c, c + H, tempEd));
+                                else if(openList.contains(next) && openList.get(openList.indexOf(next)).cost > c + tempVal)
                                     openList.get(openList.indexOf(next)).update(c, c + H, tempEd);
                             }
                         }
-                    }
-                        else
-                            System.out.println("catched");
-            
-                    
                 }
             }
-        }
-        List<Edge> result = new ArrayList<>();
-        /*
-        for(VisitedNode vn : closeList)
-        {
-            if(vn.getPreviousPath() != null)
-                result.add(vn.getPreviousPath());
-            System.out.println("CHOCOLAT!!! " + vn.cost);
-        }
-        */
-        Node fin = closeList.get(closeList.size()-1).previousPath.getStartNode();
-        Edge link = closeList.get(closeList.size()-1).previousPath;
-        boolean ok = false;
-        while(true){ //link != null && link.getStartNode() != null
-            result.add(link);
-                        
-            ok = true;
-            for(VisitedNode vn : closeList)
-            {
-                if(link == null)
-                {
-                    //List<Edge> reverse = new ArrayList<Edge>();
-                    
-                    return result;
-                }
-                    
-                if(vn.currentNode.getId()==link.getStartNode().getId())
-                    if(ok)
-                    {
-                        link = vn.getPreviousPath();
-                        ok = false;
-                    }
-            }
-        }
-        // + ajouter dernier noeud dans la liste
-        //return result;
+        } while(!openList.isEmpty() && !closeList.isEmpty() && !current.equals(goal));
+        
+        return getEdgesFromPath(closeList);
     }
     
-    /*
-    public List<Edge> getShortestPath1(Node init, Node goal, Authorizer auth){
-        List<Edge> result = new ArrayList<>();
-        Node current = init;
-        //int i;
-        boolean stop = false;
-        double H = 0;
-        while(!stop && !current.equals(goal))
-        {//
-            //System.out.println("here " + current.getId());
-            for(Node next : current.getNextNodes())
-            {
-                System.out.println("next : " + next.getId());
-                if(!current.getEdges(next).isEmpty())
-                {
-                    double tempVal = 50.0; //Double.MAX_VALUE;
-                    Edge tempEd = null;
-                    H = ((FlyHeuristique)h).getH((FireableNode)current, (FireableNode)next, (FireableNode)goal);
-                    for(Edge ed : current.getEdges(next))
-                    {
-                        //if(auth.canUseEdge(ed))
-                            System.out.println("INTO" + ((RobotEdge)(ed)).getValue());
-                            if(((RobotEdge)(ed)).getValue() < tempVal)
-                            {
-                                tempVal = ((RobotEdge)(ed)).getValue();
-                                tempEd = ed;
-                            }
-                    }
-
-                    System.out.println("next : " + next.getId() + " h : "+ H);
-                    if(!closeList.contains(next))
-                        if(!openList.contains(next))
-                        {
-                            openList.add(new VisitedNode(next, H, tempEd));
-                            //System.out.println("ADDED");
-                        }
-                }
-                //i++;
-                    //else // on checke si on peut améliorer
-                        //if()
-            }
-            openList.sort(new Comparator() {
-                @Override
-                public int compare(Object o1, Object o2) {
-                    //if(o1 instanceof VisitedNode && o2 instanceof VisitedNode)
-                        return ((VisitedNode)o1).quality < ((VisitedNode)o2).quality ? -1:
-                            ( ((VisitedNode)o1).quality == ((VisitedNode)o2).quality ? 0 : 1);
-                }
-            });
-            stop = openList.isEmpty();
-            if(openList.size() > 0)
-            {
-                closeList.add(openList.get(0));
-                current = openList.remove(0).getCurrentNode();
-                System.out.println();
-                System.out.println("ADDED " + current.getId());
-            }
-        };
-        for(VisitedNode vn : closeList)
-        {
-            result.add(vn.getPreviousPath());
-            System.out.println("CHOCOLAT!!!");
-        }
-        // + ajouter dernier noeud dans la liste
+    protected Collection<Edge> getEdgesFromPath(Collection<VisitedNode> closeList)
+    {
+        Collection<Edge> result = new ArrayList<>();
+        
+        if(closeList != null)
+            for(VisitedNode ed : closeList)
+                if(ed.previousPath != null)
+                    result.add(ed.previousPath);
+        
         return result;
-    }*/
-    
+    }
 }

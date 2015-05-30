@@ -1,29 +1,30 @@
 package model.authorizer;
 
-import model.graph.Edge;
-import model.graph.Node;
+import model.SurfaceType;
 
 /**
  * Thing all ground
  */
-public class Auth4x4 implements Authorizer {
-    /**
-     * Can go through everything
-     * @param e
-     * @return 
-     */
+public class Auth4x4 extends AuthRobot
+{
     @Override
-    public Boolean canUseEdge(Edge e) {
+    protected SurfaceType[] getAllowedSurfaceTypes()
+    {
+        return new SurfaceType[]
+        {
+            SurfaceType.Plat
+        };
+    }
+
+    @Override
+    protected Boolean canGoThroughWater()
+    {
         return true;
     }
 
-    /**
-     * Can go through everything
-     * @param n
-     * @return 
-     */
     @Override
-    public Boolean canUseNode(Node n) {
+    protected Boolean canGoThroughFire()
+    {
         return true;
     }
 }
