@@ -82,32 +82,19 @@ public class AstarBirdFlyAdrien extends Astar
     {
         try
         {
-            Collection<Node> total_path = new ArrayList<>();
-
-            total_path.add(current);
+            List<Edge> path = new ArrayList<>();
 
             while(came_from.containsKey(current))
             {
+                Node from = current;
                 current = came_from.get(current);
-                total_path.add(current);
+                
+                path.add(from.getEdges(current).stream()
+                        .filter(e -> auth.canUseEdge(e))
+                        .min(Comparator.comparing(e -> (e instanceof Valued) ? ((Valued)e).getValue() : 1.0))
+                        .get());
             }
-
-            List<Edge> path = new ArrayList<>();
-
-            Node lastNode = null;
-            for(Node n : total_path)
-            {
-                if(lastNode != null)
-                {
-                    path.add(lastNode.getEdges(n).stream()
-                            .filter(e -> auth.canUseEdge(e))
-                            .min(Comparator.comparing(e -> (e instanceof Valued) ? ((Valued)e).getValue() : 1.0))
-                            .get());
-                }
-
-                lastNode = n;
-            }
-
+            
             Collections.reverse(path);
             return path;
         }
