@@ -9,14 +9,14 @@ import model.graph.factory.GraphOffsetFactory;
 import model.item.FireHose;
 import model.pathfinding.PathFinding;
 import model.pathfinding.algorithms.Dijkstra;
-import model.pathfinding.algorithms.astar.AstarBirdFly;
-import model.pathfinding.algorithms.astar.BirdFly;
+import model.pathfinding.algorithms.OLD.AstarBirdFlyOLD;
+import model.pathfinding.algorithms.heuristics.BirdFly;
 import model.authorizer.Auth4x4;
 import model.authorizer.AuthFlammable_TO_REMOVE;
 import model.authorizer.AuthPafPaf;
 import model.authorizer.AuthSnapSnap;
 import model.authorizer.Authorizer;
-import model.pathfinding.algorithms.astar.AstarBirdFlyAdrien;
+import model.pathfinding.algorithms.Astar;
 import model.robot.FireFighterRobot;
 import model.robot.manager.FireFighterManager;
 import model.robot.manager.Manager;
@@ -49,9 +49,8 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
         
         Manager manager = new FireFighterManager(graph);
         Node firstNode = graph.getNodes().iterator().next();
-        PathFinding pf = new AstarBirdFly(new BirdFly());
+        PathFinding pf = new Astar(new BirdFly());
         //pf = new Dijkstra();
-        pf = new AstarBirdFlyAdrien(new BirdFly());
         
         Authorizer auth = new AuthPafPaf();
         manager.addRobot(new FireFighterRobot(10.0, firstNode, pf, auth, new FireHose(1.0)));

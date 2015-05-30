@@ -1,13 +1,10 @@
 package model.pathfinding.algorithms;
 
-import com.sun.javafx.collections.ImmutableObservableList;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
@@ -62,36 +59,7 @@ public class Dijkstra implements PathFinding
                         });
             }
 
-            Stack<Edge> edges = new Stack<>();
-            Node lastNode = dest;
-            discoveredNodes.clear();
-
-            do
-            {
-                discoveredNodes.add(lastNode);
-                Node nextNode = getNextNode(lastNode, dest, distances, auth, discoveredNodes);
-                
-                if(nextNode == null)
-                {
-                    if(edges.isEmpty())
-                        return Collections.emptyList();
-                    Edge edg = edges.pop();
-                    nextNode = edg.getStartNode().equals(lastNode) ? edg.getStopNode(): edg.getStartNode();
-                }
-                else
-                    edges.add(lastNode.getEdges(nextNode)
-                            .stream()
-                            .filter(e -> !edges.contains(e))
-                            .filter(e -> auth.canUseEdge(e))
-                            .filter(e -> e instanceof Valued)
-                            .min(Comparator.comparing(e -> ((Valued)e).getValue()))
-                            .get());
-
-                lastNode = nextNode;
-            } while(!origin.equals(lastNode));
-
-            Collections.reverse(edges);
-            return edges;
+            return getPath(origin, dest, distances, auth);
         }
         catch(java.util.NoSuchElementException ex)
         {
@@ -99,13 +67,64 @@ public class Dijkstra implements PathFinding
         }
     }
     
-    private Node getNextNode(Node lastNode, Node dest, Map<Node, Double> distances, Authorizer auth, Queue<Node> discoveredNodes)
+    /**
+     * Get the reconstructed path from the previously traversal graph.
+     * @param origin Origin node.
+     * @param dest Destionation node.
+     * @param distances Map of the distances.
+     * @param auth Authorizer to use to filter nodes and edges.
+     * @return 
+     */
+    protected Collection<Edge> getPath(Node origin, Node dest, Map<Node, Double> distances, Authorizer auth)
     {
-        return lastNode.getNextNodes()
+        Stack<Edge> edges = new Stack<>();
+        Node lastNode = dest;
+        Queue<Node> discoveredNodes = new LinkedList<>();
+
+        do
+        {
+            discoveredNodes.add(lastNode);
+            Node nextNode = getNextNode(lastNode, dest, distances, auth, discoveredNodes);
+
+            if(nextNode == null)
+            {
+                if(edges.isEmpty())
+                    return Collections.emptyList();
+                Edge edg = edges.pop();
+                nextNode = edg.getStartNode().equals(lastNode) ? edg.getStopNode(): edg.getStartNode();
+            }
+            else
+                edges.add(lastNode.getEdges(nextNode)
+                        .stream()
+                        .filter(e -> !edges.contains(e))
+                        .filter(e -> auth.canUseEdge(e))
+                        .filter(e -> e instanceof Valued)
+                        .min(Comparator.comparing(e -> ((Valued)e).getValue()))
+                        .get());
+
+            lastNode = nextNode;
+        } while(!origin.equals(lastNode));
+
+        Collections.reverse(edges);
+        return edges;
+    }
+    
+    /**
+     * Get the next node in the path reconstruction.
+     * @param current Current node.
+     * @param dest Destionation node.
+     * @param distances Map of the distances.
+     * @param auth Authorizer to use to filter nodes and edges.
+     * @param discoveredNodes Collection of already discovered nodes.
+     * @return The new current node to use.
+     */
+    private Node getNextNode(Node current, Node dest, Map<Node, Double> distances, Authorizer auth, Queue<Node> discoveredNodes)
+    {
+        return current.getNextNodes()
                 .stream()
                 .filter(n -> auth.canUseNode(n) || n.equals(dest))
                 .filter(n -> !discoveredNodes.contains(n))
-                .filter(n -> n.getEdges(lastNode).stream().anyMatch(e -> auth.canUseEdge(e)))
+                .filter(n -> n.getEdges(current).stream().anyMatch(e -> auth.canUseEdge(e)))
                 .min(Comparator.comparingDouble(n -> distances.get(n)))
                 .orElse(null);
     }

@@ -1,4 +1,4 @@
-package model.pathfinding.algorithms.astar;
+package model.pathfinding.algorithms;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,16 +13,27 @@ import model.authorizer.Authorizer;
 import model.elementary.Valued;
 import model.graph.Edge;
 import model.graph.Node;
+import model.pathfinding.PathFinding;
+import model.pathfinding.algorithms.heuristics.Heuristic;
 
 /**
- *
+ * This class represents the A* algorithm to find the best path in a graph.
  */
-public class AstarBirdFlyAdrien extends Astar
+public class Astar implements PathFinding
 {
-    public AstarBirdFlyAdrien(Heuristique heuristique)
+    /**
+     * Constructor.
+     * @param heuristic Heuristic to use.
+     */
+    public Astar(Heuristic heuristic)
     {
-        this.heuristique = heuristique;
+        this.heuristic = heuristic;
     }
+    
+    /**
+     * The heuristic to use.
+     */
+    protected final Heuristic heuristic;
     
     @Override
     public Collection<Edge> getShortestPath(Node origin, Node dest, Authorizer auth)
@@ -38,7 +49,7 @@ public class AstarBirdFlyAdrien extends Astar
         
         openset.add(origin);
         g_score.put(origin, 0.0);
-        f_score.put(origin, g_score.get(origin) + heuristique.getH(origin, dest));
+        f_score.put(origin, g_score.get(origin) + heuristic.getValue(origin, dest));
         
         while(!openset.isEmpty())
         {
@@ -46,16 +57,16 @@ public class AstarBirdFlyAdrien extends Astar
                     .filter(n -> f_score.get(n) > -1)
                     .min(Comparator.comparing(n -> f_score.get(n)))
                     .orElse(null);
-            if(current == null)
+            if(current == null) // No current node found
                 return Collections.EMPTY_LIST;
-            if(current.equals(dest))
+            if(current.equals(dest)) // Current node is destination -> return the path.
                 return getPath(came_from, dest, auth);
             
             openset.remove(current);
             closedset.add(current);
             for(Node neighbor : current.getNextNodes().stream()
-                    .filter(n -> n.equals(dest) || auth.canUseNode(n))
-                    .filter(n -> !closedset.contains(n))
+                    .filter(n -> n.equals(dest) || auth.canUseNode(n)) // Destination or authorized
+                    .filter(n -> !closedset.contains(n)) // Not explored yet
                     .collect(Collectors.toList()))
             {
                 Double tentative_g_score = g_score.get(current) + current.getEdges(neighbor).stream()
@@ -68,7 +79,7 @@ public class AstarBirdFlyAdrien extends Astar
                 {
                     came_from.put(neighbor, current);
                     g_score.put(neighbor, tentative_g_score);
-                    f_score.put(neighbor, tentative_g_score + heuristique.getH(neighbor, dest));
+                    f_score.put(neighbor, tentative_g_score + heuristic.getValue(neighbor, dest));
                     if(!openset.contains(neighbor))
                         openset.add(neighbor);
                 }
@@ -78,6 +89,15 @@ public class AstarBirdFlyAdrien extends Astar
         return Collections.EMPTY_LIST;
     }
     
+    /**
+     * Reconstruct the path with edges from a map of predecessors.
+     * <p>
+     * Returns an empty collection if there is no path possible.
+     * @param came_from Map of predecessors.
+     * @param current Node where to start the path reconstruction.
+     * @param auth Authorizer used to filter edges.
+     * @return The path with edges.
+     */
     protected Collection<Edge> getPath(Map<Node, Node> came_from, Node current, Authorizer auth)
     {
         try

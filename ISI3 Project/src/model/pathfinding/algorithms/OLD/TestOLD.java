@@ -1,4 +1,4 @@
-package model.pathfinding.algorithms.astar;
+package model.pathfinding.algorithms.OLD;
 
 import java.util.List;
 import static model.SurfaceType.Plat;
@@ -14,7 +14,7 @@ import model.authorizer.AuthPafPaf;
 import model.robot.FireFighterRobot;
 
 
-public class Test {
+public class TestOLD {
     
     /**
      * @param args the command line arguments
@@ -22,8 +22,8 @@ public class Test {
     public static void main(String[] args) {
         
         
-        FlyHeuristique fh = new BirdFly();
-        AstarBirdFly as = new AstarBirdFly(fh);
+        //FlyHeuristiqueOLD fh = new BirdFly();
+        //AstarBirdFlyOLD as = new AstarBirdFlyOLD(fh);
         Graph g = new Graph();
         Node nA = new FireableNode(1, g, new Point(2.0, 2.0));
         Node nB = new FireableNode(2, g, new Point(6.0, 2.0));

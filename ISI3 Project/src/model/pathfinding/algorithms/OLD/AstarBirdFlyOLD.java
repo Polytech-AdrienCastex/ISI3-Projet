@@ -1,4 +1,4 @@
-package model.pathfinding.algorithms.astar;
+package model.pathfinding.algorithms.OLD;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,16 +17,16 @@ import model.authorizer.Authorizer;
  *
  */
 
-public class AstarBirdFly extends Astar
+public class AstarBirdFlyOLD extends AstarOLD
 {
     //private ArrayList<VisitedNode> openList;
     //private ArrayList<VisitedNode> closeList;
     
-    public AstarBirdFly(FlyHeuristique h)
+    public AstarBirdFlyOLD(FlyHeuristiqueOLD h)
     {
         //openList = new ArrayList<>();
         //closeList = new ArrayList<>();
-        this.heuristique = h;
+        this.heuristic = h;
     }
 
     
@@ -157,7 +157,7 @@ public class AstarBirdFly extends Astar
                     if(auth.canUseNode(next))
                         if(!closeList.isEmpty() && !closeList.get(closeList.size()-1).getBaned().contains(next) && !openList.contains(next) && !next.equals(previous))
                         {
-                            double H = ((FlyHeuristique)heuristique).getH((FireableNode)current, (FireableNode)next, (FireableNode)goal);
+                            double H = ((FlyHeuristiqueOLD)heuristic).getH((FireableNode)current, (FireableNode)next, (FireableNode)goal);
                             Edge tempEd = null;
                             double tempVal = Double.MAX_VALUE;
                             if(!current.getEdges(next).isEmpty())
