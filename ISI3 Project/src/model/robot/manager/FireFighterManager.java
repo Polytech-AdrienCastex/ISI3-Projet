@@ -1,6 +1,8 @@
 package model.robot.manager;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -10,13 +12,14 @@ import model.graph.Node;
 import model.robot.FireFighterRobot;
 import model.robot.Robot;
 
-public class FireFighterManager extends Manager<FireFighterRobot> {
-
-    public FireFighterManager(Graph grap) {
+public class FireFighterManager extends Manager<FireFighterRobot>
+{
+    public FireFighterManager(Graph grap)
+    {
         super(grap);
     }
     
-    private List<Node> searchNodesNotAffected(boolean mustBeNotOccuped)
+    protected Collection<Node> searchNodesNotAffected(boolean mustBeNotOccuped)
     {
         return grap.getNodes().stream()
                 .filter(n -> n instanceof Fireable)
@@ -24,6 +27,7 @@ public class FireFighterManager extends Manager<FireFighterRobot> {
                 .filter(n -> n.isOnFire())
                 .filter(n -> !mustBeNotOccuped || robots.stream().noneMatch(ffr -> ffr.getCurrentNode().equals(n) || ffr.getDestination() != null && ffr.getDestination().equals(n)))
                 .map(n -> (Node)n)
+                .sorted(Comparator.comparing(n -> robots.stream().filter(r -> !r.isBusy()).mapToDouble(r -> r.getPathValue(n)).min().getAsDouble()))
                 .collect(Collectors.toList());
     }
     
@@ -31,11 +35,12 @@ public class FireFighterManager extends Manager<FireFighterRobot> {
      * Check if node on fire and send Robot to them
      */
     @Override
-    public void run() {
+    public void run()
+    {
         Random rand = new Random();
         
         //Rechercher les incendies non affectés
-        List<Node> nNotAffected = searchNodesNotAffected(true);
+        Collection<Node> nNotAffected = searchNodesNotAffected(true);
         
         //Pour chaque robot non occupé regarder le chemin
         //Prendre le meilleur chemin 
