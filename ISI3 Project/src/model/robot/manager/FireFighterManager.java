@@ -19,7 +19,7 @@ public class FireFighterManager extends Manager<FireFighterRobot>
         super(grap);
     }
     
-    protected Collection<Node> searchNodesNotAffected(boolean mustBeNotOccuped)
+    protected Collection<Node> searchNotAffectedNodes(boolean mustBeNotOccuped)
     {
         return grap.getNodes().stream()
                 .filter(n -> n instanceof Fireable)
@@ -27,6 +27,12 @@ public class FireFighterManager extends Manager<FireFighterRobot>
                 .filter(n -> n.isOnFire())
                 .filter(n -> !mustBeNotOccuped || robots.stream().noneMatch(ffr -> ffr.getCurrentNode().equals(n) || ffr.getDestination() != null && ffr.getDestination().equals(n)))
                 .map(n -> (Node)n)
+                .collect(Collectors.toList());
+    }
+    
+    protected Collection<Node> sortNotAffectedNodes(Collection<Node> nodes)
+    {
+        return nodes.stream()
                 .sorted(Comparator.comparing(n -> robots.stream().filter(r -> !r.isBusy()).mapToDouble(r -> r.getPathValue(n)).min().getAsDouble()))
                 .collect(Collectors.toList());
     }
@@ -40,21 +46,20 @@ public class FireFighterManager extends Manager<FireFighterRobot>
         Random rand = new Random();
         
         //Rechercher les incendies non affectés
-        Collection<Node> nNotAffected = searchNodesNotAffected(true);
+        Collection<Node> notAffectedNodes = sortNotAffectedNodes(searchNotAffectedNodes(true));
         
         //Pour chaque robot non occupé regarder le chemin
         //Prendre le meilleur chemin 
-        for (Node n : nNotAffected)
+        for (Node n : notAffectedNodes)
         {
             List<FireFighterRobot> bestRobots = new ArrayList<>();
             double bestValue = Double.MAX_VALUE;
-            System.out.println("************************************");
             for (FireFighterRobot r : robots)
             {
                 if (!r.isBusy())
                 {
                     double value = r.getPathValue(n);
-                    System.out.println(value);
+                    
                     if(value >= 0)
                     {
                         if (value < bestValue)
@@ -70,7 +75,6 @@ public class FireFighterManager extends Manager<FireFighterRobot>
                     }
                 }
             }
-            System.out.println("************************************");
             
             if(bestRobots.size() > 0)
             {
