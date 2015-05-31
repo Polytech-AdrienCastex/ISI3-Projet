@@ -1,18 +1,14 @@
 package model.robot.manager;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
+import java.util.Random;
 import java.util.stream.Collectors;
-import javafx.util.Pair;
 import model.elementary.Fireable;
-import model.elementary.Localisable;
 import model.graph.Graph;
 import model.graph.Node;
 import model.robot.FireFighterRobot;
+import model.robot.Robot;
 
 public class FireFighterManager extends Manager<FireFighterRobot> {
 
@@ -36,64 +32,47 @@ public class FireFighterManager extends Manager<FireFighterRobot> {
      */
     @Override
     public void run() {
+        Random rand = new Random();
+        
         //Rechercher les incendies non affectés
         List<Node> nNotAffected = searchNodesNotAffected(true);
-             
-        System.out.println("========== Start FireFighter Manager ============");
         
-        if (nNotAffected.size() > 0)
+        //Pour chaque robot non occupé regarder le chemin
+        //Prendre le meilleur chemin 
+        for (Node n : nNotAffected)
         {
-            //Calcul chaque valeur de chaque noeud pour chaque robot
-            LinkedHashMap<Pair<Node, FireFighterRobot>, Double> values = new LinkedHashMap<>();
-            for (Node n : nNotAffected)
-                for (FireFighterRobot r : robots)
-                    if (!r.isBusy())
-                    {
-                        Double v = r.getPathValue(n);
-                        if (v >= 0)
-                            values.put(new Pair(n, r), v);
-                    }
-
-            if (values.isEmpty())
-                System.out.println("No robot left");
-            
-            while(!values.isEmpty())
-            {                            
-                //Prendre le noeud/robot minimum
-                Pair<Node, FireFighterRobot> pMin = null;
-                double min = Double.MAX_VALUE;
-                for(Entry<Pair<Node, FireFighterRobot>, Double> e : values.entrySet())
+            List<FireFighterRobot> bestRobots = new ArrayList<>();
+            double bestValue = Double.MAX_VALUE;
+            System.out.println("************************************");
+            for (FireFighterRobot r : robots)
+            {
+                if (!r.isBusy())
                 {
-                    System.out.println(e.getKey().getKey()+" / "+e.getKey().getValue()+" / "+e.getValue());
-                    if (e.getValue() < min)
+                    double value = r.getPathValue(n);
+                    System.out.println(value);
+                    if(value >= 0)
                     {
-                        pMin = e.getKey();
-                        min = e.getValue();
-                    }
-                } 
+                        if (value < bestValue)
+                        {
+                            bestRobots.clear();
+                            bestValue = value;
+                        }
 
-                if (pMin != null)
-                {
-                    //Ajouter la destination au robot
-                    pMin.getValue().setDestination(pMin.getKey()); 
-                    
-                    System.out.println("Minimum = ["+min+" / "+pMin.getKey()+" / "+pMin.getValue()+"]");
-
-                    //Supprimer toutes les valeurs relier au robot et au noeud
-                    Set keys = new HashSet(values.keySet()); //recuperer les cles
-                    Iterator<Pair<Node, FireFighterRobot>> it = keys.iterator(); 
-                    while (it.hasNext())
-                    {
-                        Pair<Node, FireFighterRobot> p = it.next();
-                        if (p.getKey().equals(pMin.getKey()) || p.getValue().equals(pMin.getValue()))
-                            values.remove(p); //suppr si même noeud ou même robot
+                        if (value == bestValue)
+                        {
+                            bestRobots.add(r);
+                        }
                     }
-                }       
+                }
             }
-        } else {
-            System.out.println("No fire found");
+            System.out.println("************************************");
+            
+            if(bestRobots.size() > 0)
+            {
+                Robot bestRobot = bestRobots.get(rand.nextInt(bestRobots.size()));
+                bestRobot.setDestination(n); //Attribuer cette incendie à ce robot
+            }
         }
-        
-        System.out.println("========== End FireFighter Manager ============");
-    }   
+    }    
+    
 }
