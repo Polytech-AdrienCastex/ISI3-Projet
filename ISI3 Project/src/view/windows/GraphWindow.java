@@ -49,12 +49,6 @@ public abstract class GraphWindow extends Window implements IModeView
     
     protected static ResourceLoader resourceLoader = new ViewResourceLoader();
     
-    protected Manager manager = null;
-    public void setRobotManager(Manager manager)
-    {
-        this.manager = manager;
-    }
-    
     @Override
     public void setGraph(Graph graph)
     {

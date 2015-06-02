@@ -59,7 +59,6 @@ public abstract class Main
         
         // Load view
         MainWindow window = new MainWindow(bam);
-        window.setRobotManager(manager);
         window.setGraph(graph, resourceLoader.loadStream("mapsixieme.jpg"));
         window.initialize();
         

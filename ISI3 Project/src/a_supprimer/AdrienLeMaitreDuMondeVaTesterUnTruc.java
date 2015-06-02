@@ -67,7 +67,6 @@ public class AdrienLeMaitreDuMondeVaTesterUnTruc
         //graphFactory.save("S:\\ISI3\\mapsixieme\\mapsixieme\\mapsixieme2.xml", graph);
 
         MainWindow window = new MainWindow(bam);
-        window.setRobotManager(manager);
         window.setGraph(graph, resourceLoader.loadStream("mapsixieme.jpg"));
         //window.setGraph(graph, "D:\\Documents\\isi3\\mapsixieme\\mapsixieme.jpg");
         window.initialize();
