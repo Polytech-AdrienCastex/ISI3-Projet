@@ -19,7 +19,7 @@ public class AuthPafPaf extends AuthRobot
     @Override
     protected Boolean canGoThroughWater()
     {
-        return true;
+        return false;
     }
 
     @Override

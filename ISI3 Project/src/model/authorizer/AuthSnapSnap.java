@@ -15,8 +15,7 @@ public class AuthSnapSnap extends AuthRobot
     {
         return new SurfaceType[]
         {
-            SurfaceType.Plat,
-            SurfaceType.Escarpe
+            SurfaceType.Plat
         };
     }
 
