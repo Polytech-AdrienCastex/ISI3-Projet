@@ -6,6 +6,7 @@ import model.elementary.Point;
 import model.graph.Edge;
 import model.elementary.Localisable;
 import model.elementary.Typed;
+import model.elementary.Valued;
 import model.elementary.Waterable;
 
 /**
@@ -21,7 +22,7 @@ public class EdgeDrawer
     /**
      * Size of the line representing the edge.
      */
-    private final static int LINE_SIZE = 1;
+    private final static int LINE_SIZE = 2;
     
     /**
      * Draw the <i>edge</i> on the graphics <i>g</i>.
@@ -66,5 +67,10 @@ public class EdgeDrawer
             g.drawLine(start.x.intValue() + offset, start.y.intValue() + offset, end.x.intValue() + offset, end.y.intValue() + offset);
             g.drawLine(start.x.intValue() - offset, start.y.intValue() - offset, end.x.intValue() - offset, end.y.intValue() - offset);
         }
+        
+        /*
+        if(edge instanceof Valued)
+            g.drawString(String.valueOf(((Valued)edge).getValue()), Math.abs(start.x.intValue() - end.x.intValue()) / 2 + Math.min(start.x.intValue(), end.x.intValue()), Math.abs(start.y.intValue() - end.y.intValue()) / 2 + Math.min(start.y.intValue(), end.y.intValue()));
+        */
     }
 }

@@ -26,7 +26,7 @@ public class Auth4x4 extends AuthRobot
     @Override
     protected Boolean canGoThroughFire()
     {
-        return true;
+        return false;
     }
 
     @Override

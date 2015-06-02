@@ -12,7 +12,8 @@ public class AuthPafPaf extends AuthRobot
     {
         return new SurfaceType[]
         {
-            SurfaceType.Plat
+            SurfaceType.Plat,
+            SurfaceType.Escarpe
         };
     }
 
