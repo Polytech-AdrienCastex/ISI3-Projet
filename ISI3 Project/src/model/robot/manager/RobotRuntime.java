@@ -11,7 +11,7 @@ public class RobotRuntime extends Runtime
     /**
      * Manager assigned to this thread.
      */
-    private final Manager<Robot> m;
+    private final Manager m;
     
     /**
      * Constructor.

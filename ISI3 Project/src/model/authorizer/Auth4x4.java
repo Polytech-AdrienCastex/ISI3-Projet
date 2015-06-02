@@ -12,7 +12,8 @@ public class Auth4x4 extends AuthRobot
     {
         return new SurfaceType[]
         {
-            SurfaceType.Plat
+            SurfaceType.Plat,
+            SurfaceType.Escarpe
         };
     }
 
@@ -26,5 +27,11 @@ public class Auth4x4 extends AuthRobot
     protected Boolean canGoThroughFire()
     {
         return true;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "4x4";
     }
 }

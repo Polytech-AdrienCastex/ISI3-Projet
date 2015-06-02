@@ -4,9 +4,10 @@ import model.elementary.Fireable;
 import model.graph.Node;
 import model.item.FireHose;
 import model.authorizer.Authorizer;
+import model.item.IItem;
 import model.pathfinding.PathFinding;
 
-public class FireFighterRobot extends Robot<FireHose> {
+public class FireFighterRobot extends Robot {
 
     /**
      * Contructor : By default the FireFighter has 1 FireHose item
@@ -16,7 +17,7 @@ public class FireFighterRobot extends Robot<FireHose> {
      * @param typeRobot Authorizer type robot
      * @param fh First FireHose to add
      */
-    public FireFighterRobot(Double speed, Node currentNode, PathFinding pf, Authorizer typeRobot, FireHose fh) {
+    public FireFighterRobot(Double speed, Node currentNode, PathFinding pf, Authorizer typeRobot, IItem fh) {
         super(speed, currentNode, pf, typeRobot);
         
         this.addItem(fh); 

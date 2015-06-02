@@ -31,4 +31,10 @@ public class AuthSnapSnap extends AuthRobot
     {
         return false;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Snap snap";
+    }
 }

@@ -7,11 +7,10 @@ import model.robot.Robot;
 
 /**
  * Robots Manager
- * @param <R> : Type of robot
  */
-public abstract class Manager<R extends Robot> implements Runnable {
+public abstract class Manager implements Runnable {
     protected Graph grap;
-    protected final List<R> robots;
+    private final List<Robot> robots;
            
     /**
      * Constructor
@@ -26,7 +25,7 @@ public abstract class Manager<R extends Robot> implements Runnable {
      * Add a robot to the manager
      * @param r Robot to add
      */
-    public void addRobot(R r)
+    public void addRobot(Robot r)
     {
         robots.add(r);
     }
@@ -35,7 +34,7 @@ public abstract class Manager<R extends Robot> implements Runnable {
      * Remove a robot from the manager
      * @param r Robot to remove
      */
-    public void removeRobot(R r)
+    public void removeRobot(Robot r)
     {
         robots.remove(r);
     }
@@ -44,7 +43,7 @@ public abstract class Manager<R extends Robot> implements Runnable {
      * Getter list robots
      * @return list robots
      */
-    public List<R> getRobots() {
+    public List<Robot> getRobots() {
         return robots;
     }    
     

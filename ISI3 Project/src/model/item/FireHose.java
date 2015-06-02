@@ -50,4 +50,10 @@ public class FireHose implements IItem
         else
             return false;
     }    
+
+    @Override
+    public String toString()
+    {
+        return "Fire hose";
+    }
 }

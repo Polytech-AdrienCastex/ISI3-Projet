@@ -27,4 +27,10 @@ public class AuthPafPaf extends AuthRobot
     {
         return false;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Paf paf";
+    }
 }

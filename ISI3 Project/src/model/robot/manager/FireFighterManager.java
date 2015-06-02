@@ -13,8 +13,9 @@ import model.elementary.Fireable;
 import model.graph.Graph;
 import model.graph.Node;
 import model.robot.FireFighterRobot;
+import model.robot.Robot;
 
-public class FireFighterManager extends Manager<FireFighterRobot>
+public class FireFighterManager extends Manager
 {
     public FireFighterManager(Graph grap)
     {
@@ -27,7 +28,7 @@ public class FireFighterManager extends Manager<FireFighterRobot>
                 .filter(n -> n instanceof Fireable)
                 .map(n -> (Fireable)n)
                 .filter(n -> n.isOnFire())
-                .filter(n -> !mustBeNotOccuped || robots.stream().noneMatch(ffr -> ffr.getCurrentNode().equals(n) || ffr.getDestination() != null && ffr.getDestination().equals(n)))
+                .filter(n -> !mustBeNotOccuped || getRobots().stream().noneMatch(ffr -> ffr.getCurrentNode().equals(n) || ffr.getDestination() != null && ffr.getDestination().equals(n)))
                 .map(n -> (Node)n)
                 .collect(Collectors.toList());
     }
@@ -96,7 +97,7 @@ public class FireFighterManager extends Manager<FireFighterRobot>
             //Calcul chaque valeur de chaque noeud pour chaque robot
             LinkedHashMap<Pair<Node, FireFighterRobot>, Double> values = new LinkedHashMap<>();
             for (Node n : nNotAffected)
-                for (FireFighterRobot r : robots)
+                for (Robot r : getRobots())
                     if (!r.isBusy())
                     {
                         Double v = r.getPathValue(n);
@@ -146,5 +147,10 @@ public class FireFighterManager extends Manager<FireFighterRobot>
         
         System.out.println("========== End FireFighter Manager ============");
     }    
-    
+
+    @Override
+    public String toString()
+    {
+        return "Fire fighter";
+    }
 }

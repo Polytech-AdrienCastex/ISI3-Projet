@@ -9,12 +9,15 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.imageio.ImageIO;
+import model.ResourceLoader;
 import model.elementary.Localisable;
 import model.elementary.Point;
 import model.graph.Graph;
 import model.robot.manager.Manager;
 import view.IModeView;
+import view.ViewResourceLoader;
 import view.map.EdgeDrawer;
 import view.map.GraphDrawer;
 import view.map.NodeDrawer;
@@ -44,6 +47,8 @@ public abstract class GraphWindow extends Window implements IModeView
     protected GraphDrawer graphDrawer;
     protected ButtonPanel buttonPanel;
     
+    protected static ResourceLoader resourceLoader = new ViewResourceLoader();
+    
     protected Manager manager = null;
     public void setRobotManager(Manager manager)
     {
@@ -64,7 +69,25 @@ public abstract class GraphWindow extends Window implements IModeView
             return;
         }
         
-        setGraph(graph, new File(backgroundPath));
+        setGraph(graph, resourceLoader.loadStream(backgroundPath));
+    }
+    @Override
+    public void setGraph(Graph graph, InputStream backgroundStream)
+    {
+        if(backgroundStream == null)
+        {
+            setGraph(graph, (Image)null);
+            return;
+        }
+        
+        try
+        {
+            setGraph(graph, ImageIO.read(backgroundStream));
+        }
+        catch(IOException ex)
+        {
+            setGraph(graph, (Image)null);
+        }
     }
     @Override
     public void setGraph(Graph graph, File backgroundFile)

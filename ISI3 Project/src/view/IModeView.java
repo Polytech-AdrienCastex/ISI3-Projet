@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.InputStream;
 import model.graph.Graph;
 
 /**
@@ -19,5 +20,6 @@ public interface IModeView extends IView
     public void setGraph(Graph graph);
     public void setGraph(Graph graph, String backgroundPath);
     public void setGraph(Graph graph, File backgroundFile);
+    public void setGraph(Graph graph, InputStream backgroundStream);
     public void setGraph(Graph graph, Image backgroundImage);
 }

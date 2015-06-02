@@ -2,6 +2,7 @@ package model.graph.factory;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.stream.Stream;
 import javafx.util.Pair;
@@ -33,8 +34,13 @@ public class GraphFactory
      */
     public Graph load(String filePath) throws ParserConfigurationException, IOException, SAXException
     {
-        return load(new File(filePath));
+        File file = new File(filePath);
+        if(file.exists())
+            return load(file);
+        else
+            return load(getClass().getClassLoader().getResourceAsStream("controller/resources/" + filePath));
     }
+    
     /**
      * Load a graph file and convert it to a <i>Graph</i>.
      * @param graphFile File of the graph to load.
@@ -49,6 +55,36 @@ public class GraphFactory
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         Document document = documentBuilder.parse(graphFile);
         
+        return load(document);
+    }
+    
+    /**
+     * Load a graph stream and convert it to a <i>Graph</i>.
+     * @param graphStream Stream of the graph to load.
+     * @return The loaded graph.
+     * @throws ParserConfigurationException
+     * @throws IOException
+     * @throws SAXException 
+     */
+    public Graph load(InputStream graphStream) throws ParserConfigurationException, IOException, SAXException
+    {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document document = documentBuilder.parse(graphStream);
+        
+        return load(document);
+    }
+    
+    /**
+     * Convert a XML document to a <i>Graph</i>.
+     * @param document XML document to convert.
+     * @return The loaded graph.
+     * @throws ParserConfigurationException
+     * @throws IOException
+     * @throws SAXException 
+     */
+    public Graph load(Document document) throws ParserConfigurationException, IOException, SAXException
+    {
         Stream<org.w3c.dom.Node> nodeStream = NodeListWrap.getStream(document.getElementsByTagName("node"));
         Stream<org.w3c.dom.Node> edgeStream = NodeListWrap.getStream(document.getElementsByTagName("edge"));
         

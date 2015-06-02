@@ -17,6 +17,7 @@ import model.item.FireHose;
 import model.pathfinding.PathFinding;
 import model.pathfinding.algorithms.Dijkstra;
 import model.authorizer.Auth4x4;
+import model.robot.FireFighterRobot;
 import model.robot.manager.Manager;
 import model.robot.manager.RobotRuntime;
 import org.xml.sax.SAXException;
@@ -165,11 +166,11 @@ public class MainActionManager extends ActionManager<IMainView>
                 node = findNodeFromLocation(graph, clkLocation, 10);
                 if(node != null)
                 {
-                    RobotEditorWindow rew = new RobotEditorWindow();
+                    RobotEditorWindow rew = new RobotEditorWindow(managers);
                     rew.initialize();
                     rew.showDialog();
                     
-                    //managers[0].addRobot(new Robot4x4(rew.getSpeed(), node, pathFinding, rew.getWeapon()));
+                    rew.getManager().addRobot(new FireFighterRobot(rew.getSpeed(), node, pathFinding, rew.getAuthorizer(), rew.getWeapon()));
                 }
                 break;
                 

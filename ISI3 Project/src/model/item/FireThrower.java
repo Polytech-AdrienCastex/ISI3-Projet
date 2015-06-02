@@ -47,4 +47,10 @@ public class FireThrower implements IItem
         
         return false;
     }    
+
+    @Override
+    public String toString()
+    {
+        return "Fire thrower";
+    }
 }
