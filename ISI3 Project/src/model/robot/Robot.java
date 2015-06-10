@@ -162,7 +162,7 @@ public class Robot extends Observable implements Runnable
         
         return path.stream()
                 .filter(e -> e instanceof Valued)
-                .mapToDouble(e -> ((Valued)e).getValue() * speed)
+                .mapToDouble(e -> ((Valued)e).getValue() / speed)
                 .sum();
     }
     
