@@ -20,6 +20,18 @@ public interface IModeView extends IView
     public void setGraph(Graph graph);
     public void setGraph(Graph graph, String backgroundPath);
     public void setGraph(Graph graph, File backgroundFile);
+    
+    /**
+     * Change the graph of the view.
+     * @param graph New graph of the view.
+     * @param backgroundStream 
+     */
     public void setGraph(Graph graph, InputStream backgroundStream);
+    
+    /**
+     * Change the graph of the view.
+     * @param graph New graph of the view.
+     * @param backgroundImage New image in background.
+     */
     public void setGraph(Graph graph, Image backgroundImage);
 }

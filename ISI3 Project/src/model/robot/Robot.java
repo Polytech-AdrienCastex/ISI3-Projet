@@ -16,11 +16,11 @@ import model.pathfinding.PathFinding;
 /**
  * Robot general
  */
-public abstract class Robot<I extends IItem> extends Observable implements Runnable
+public class Robot extends Observable implements Runnable
 {
     protected Double speed;
     protected Node currentNode;
-    protected List<I> items;
+    protected List<IItem> items;
     
     private PathFinding pathFinding;
     private final Authorizer type;
@@ -57,7 +57,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
      * Get the robot items
      * @return 
      */
-    public List<I> getItems()
+    public List<IItem> getItems()
     {
         return items;
     }
@@ -66,7 +66,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
      * Set a list of items for the robot
      * @param items 
      */
-    public void setItems(List<I> items)
+    public void setItems(List<IItem> items)
     {
         this.items = items;
     }
@@ -75,7 +75,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
      * Add an item to the robot
      * @param i Item to add
      */
-    public void addItem(I i)
+    public void addItem(IItem i)
     {
         if (!items.contains(i))
             items.add(i);
@@ -86,7 +86,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
      * @param i Item to remove
      * @return true if item has be removed
      */
-    public boolean removeItem(I i)
+    public boolean removeItem(IItem i)
     {
         if (i != null)
             return items.remove(i);

@@ -3,10 +3,15 @@ package model.authorizer;
 import model.SurfaceType;
 
 /**
- * Thing all ground
+ * Authorizer all ground
  */
 public class Auth4x4 extends AuthRobot
 {
+
+    /**
+     * Get the type of surfaces allowed 
+     * @return surface type allowed
+     */
     @Override
     protected SurfaceType[] getAllowedSurfaceTypes()
     {
@@ -17,6 +22,7 @@ public class Auth4x4 extends AuthRobot
         };
     }
 
+    
     @Override
     protected Boolean canGoThroughWater()
     {

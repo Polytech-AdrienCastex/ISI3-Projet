@@ -12,7 +12,7 @@ import model.graph.Graph;
 import model.graph.Node;
 import model.graph.factory.GraphFactory;
 import model.pathfinding.PathFinding;
-import model.robot.FireFighterRobot;
+import model.robot.Robot;
 import model.robot.manager.Manager;
 import model.robot.manager.RobotRuntime;
 import org.xml.sax.SAXException;
@@ -165,7 +165,9 @@ public class MainActionManager extends ActionManager<IMainView>
                     rew.initialize();
                     rew.showDialog();
                     
-                    rew.getManager().addRobot(new FireFighterRobot(rew.getSpeed(), node, pathFinding, rew.getAuthorizer(), rew.getWeapon()));
+                    Robot r = new Robot(rew.getSpeed(), node, pathFinding, rew.getAuthorizer());
+                    r.addItem(rew.getWeapon());
+                    rew.getManager().addRobot(r);
                 }
                 break;
                 
