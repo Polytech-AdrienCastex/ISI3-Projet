@@ -7,11 +7,6 @@ import model.SurfaceType;
  */
 public class Auth4x4 extends AuthRobot
 {
-
-    /**
-     * Get the type of surfaces allowed 
-     * @return surface type allowed
-     */
     @Override
     protected SurfaceType[] getAllowedSurfaceTypes()
     {

@@ -48,6 +48,9 @@ public class MainActionManager extends ActionManager<IMainView>
      */
     protected Graph graph;
     
+    /**
+     * PathFinding used to create new robot.
+     */
     protected final PathFinding pathFinding;
     
     /**

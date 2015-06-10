@@ -18,8 +18,17 @@ import model.pathfinding.PathFinding;
  */
 public class Robot extends Observable implements Runnable
 {
+    /**
+     * Speed 
+     */
     protected Double speed;
+    /**
+     * Current node where this robot is.
+     */
     protected Node currentNode;
+    /**
+     * List of items available on this robots.
+     */
     protected List<IItem> items;
     
     private PathFinding pathFinding;
@@ -188,6 +197,10 @@ public class Robot extends Observable implements Runnable
         this.path = new LinkedList<>(pathFinding.getShortestPath(currentNode, dest, type));
     }
 
+    /**
+     * Get the node distination of this robot.
+     * @return Node destination.
+     */
     public Node getDestination()
     {
         if(this.path.isEmpty())
@@ -196,14 +209,31 @@ public class Robot extends Observable implements Runnable
         return dest;
     }
     
+    /**
+     * inital distance from the initial node to the next node.
+     */
     protected double distanceInitial = 1;
+    /**
+     * Distance left to the next node from the current node.
+     */
     protected double distanceLeft = 0;
+    /**
+     * Get distance left to the next node from the current node.
+     * @return distance left
+     */
     public double getDistanceLeft()
     {
         return (distanceInitial - distanceLeft) / (double)distanceInitial;
     }
     
+    /**
+     * Last node in the current path.
+     */
     protected Node lastNode = null;
+    /**
+     * Get the last node in the current path.
+     * @return last node in the current path.
+     */
     public Node getLastNode()
     {
         return lastNode;
@@ -270,20 +300,37 @@ public class Robot extends Observable implements Runnable
     
     
     private static ObservableCollection<Robot> observableRobots = null;
+    /**
+     * Get the observable collection of robots for the whole application.
+     * @return Collection of robots used in the application.
+     */
     public static ObservableCollection<Robot> getRobotList()
     {
         if(observableRobots == null)
             observableRobots = new ObservableCollection(new ArrayList<>());
         return observableRobots;
     }
+    /**
+     * Add existing robot to the application observable collection of robots.
+     * @param robot Existing robot to add.
+     */
     protected static void addNewRobot(Robot robot)
     {
         getRobotList().add(robot);
     }
+    
+    /**
+     * Remove a robot from the application observable collection of robots. 
+     * @param robot Robot to delete.
+     */
     protected static void removeRobot(Robot robot)
     {
         getRobotList().remove(robot);
     }
+    
+    /**
+     * Clear the collection of robots of the application.
+     */
     protected static void clearRobots()
     {
         getRobotList().clear();

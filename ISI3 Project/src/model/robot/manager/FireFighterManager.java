@@ -13,13 +13,25 @@ import model.graph.Graph;
 import model.graph.Node;
 import model.robot.Robot;
 
+/**
+ * Manager to manage fire by sending robots.
+ */
 public class FireFighterManager extends Manager
 {
+    /**
+     * Contructor
+     * @param grap the graph used by this manager. 
+     */
     public FireFighterManager(Graph grap)
     {
         super(grap);
     }
     
+    /**
+     * To search node in fire not affected not affected to a robot.
+     * @param mustBeNotOccuped if nodes must be not occuped by a robot.
+     * @return Collection of node in fire not affected to a robot
+     */
     protected Collection<Node> searchNotAffectedNodes(boolean mustBeNotOccuped)
     {
         return grap.getNodes().stream()
