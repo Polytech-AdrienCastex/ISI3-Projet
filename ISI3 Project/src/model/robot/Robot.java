@@ -173,7 +173,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
      */
     public Boolean isBusy()
     {
-        return path.size() > 0 || (currentNode instanceof Fireable && ((Fireable)currentNode).isOnFire());            
+        return path.size() > 0 || getDistanceLeft() < 1.0 || getItems().stream().allMatch(i -> i.canUse(currentNode));
     }
     
     
@@ -197,23 +197,55 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
         return dest;
     }
     
+    protected double distanceInitial = 1;
+    protected double distanceLeft = 0;
+    public double getDistanceLeft()
+    {
+        return (distanceInitial - distanceLeft) / (double)distanceInitial;
+    }
+    
+    protected Node lastNode = null;
+    public Node getLastNode()
+    {
+        return lastNode;
+    }
+    
     /**
      * Move forward to the next node in the path list
      */
     public void moveForward()
     {
-        if (path.size() > 0)
+        if (path.size() > 0 && distanceLeft == 0)
         {
             Edge nextEdge = path.remove(0);
             Node nextNode = nextEdge.getStopNode().equals(currentNode) ? nextEdge.getStartNode(): nextEdge.getStopNode();
             
-            if ((nextEdge.getStartNode().equals(currentNode) || nextEdge.getStopNode().equals(currentNode)) && type.canUseEdge(nextEdge) && (path.size() == 0 || type.canUseNode(nextNode)))
+            if ((nextEdge.getStartNode().equals(currentNode) || nextEdge.getStopNode().equals(currentNode)) &&
+                    type.canUseEdge(nextEdge) &&
+                    (path.size() == 0 || type.canUseNode(nextNode)))
             {
+                if(nextEdge instanceof Valued)
+                {
+                    distanceInitial = ((Valued)nextEdge).getValue();
+                    distanceLeft = distanceInitial;
+                }
+                
+                lastNode = currentNode;
                 currentNode = nextNode;
-            } else {
-                //Vider la destination
+            }
+            else
+            {
+                // Vider la destination
                 path.clear();
             }
+        }
+        
+        if(distanceLeft > 0)
+        {
+            if(distanceLeft <= getSpeed())
+                distanceLeft = 0;
+            else
+                distanceLeft -= getSpeed();
         }
     }
 
@@ -226,12 +258,13 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
         moveForward();    
         
         //Items action
-        items.stream()
-                .filter(i -> i.actionNode(currentNode))
-                .forEach(i ->
-                        currentNode
-                        .getEdges()
-                        .forEach(e -> i.actionEdge(e)));
+        if(distanceLeft == 0)
+            items.stream()
+                    .filter(i -> i.actionNode(currentNode))
+                    .forEach(i ->
+                            currentNode
+                            .getEdges()
+                            .forEach(e -> i.actionEdge(e)));
                            
         notifyChanges();
     }

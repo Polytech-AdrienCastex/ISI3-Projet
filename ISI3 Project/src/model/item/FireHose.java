@@ -41,7 +41,7 @@ public class FireHose implements IItem
     @Override
     public boolean actionNode(Node n)
     {
-        if (n instanceof Fireable && ((Fireable)n).isOnFire())
+        if (canUse(n))
         {
             Fireable f = (Fireable)n;
             f.setFireIntensity(f.getFireIntensity() - intensity);
@@ -50,6 +50,12 @@ public class FireHose implements IItem
         else
             return false;
     }    
+
+    @Override
+    public boolean canUse(Node n)
+    {
+        return n instanceof Fireable && ((Fireable)n).isOnFire();
+    }
 
     @Override
     public String toString()

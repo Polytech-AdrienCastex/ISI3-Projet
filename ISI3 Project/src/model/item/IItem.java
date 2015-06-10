@@ -18,4 +18,6 @@ public interface IItem {
      * @param n Node
      */
     public boolean actionNode(Node n);
+    
+    public boolean canUse(Node n);
 }

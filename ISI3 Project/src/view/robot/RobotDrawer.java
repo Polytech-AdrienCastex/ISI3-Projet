@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Observer;
 import javafx.util.Pair;
 import model.Observable;
-import model.ObservableCollection;
 import model.elementary.Fireable;
 import model.elementary.Point;
 import model.elementary.Localisable;
@@ -60,16 +59,30 @@ public class RobotDrawer extends Observable implements Observer
     
     public void draw(Graphics g, Robot robot)
     {
+        Node lastNode = robot.getLastNode();
         Node currentNode = robot.getCurrentNode();
         
-        if(currentNode instanceof Localisable)
+        if(currentNode instanceof Localisable && (lastNode == null || lastNode instanceof Localisable))
         {
-            Point location = ((Localisable)currentNode).getLocation();
+            Point location;
+            
+            if(lastNode != null)
+            {
+                Point last = ((Localisable)lastNode).getLocation();
+                Point next = ((Localisable)currentNode).getLocation();
+
+                location = new Point(
+                        last.x + (next.x - last.x) * robot.getDistanceLeft(),
+                        last.y + (next.y - last.y) * robot.getDistanceLeft()
+                );
+            }
+            else
+                location = ((Localisable)currentNode).getLocation();
             
             if(defaultRobotImage != null)
                 g.drawImage(defaultRobotImage, location.x.intValue() - defaultRobotImage.getWidth(null) / 2, location.y.intValue() - defaultRobotImage.getHeight(null) / 2, null);
             
-            if(currentNode instanceof Fireable && ((Fireable)currentNode).isOnFire())
+            if(robot.getDistanceLeft() == 1 && currentNode instanceof Fireable && ((Fireable)currentNode).isOnFire())
             {
                 Image wateringImage = wateringImages[resourcesIndex % wateringImages.length];
                 g.drawImage(wateringImage, location.x.intValue() - wateringImage.getWidth(null) / 2, location.y.intValue() - wateringImage.getHeight(null) / 2, null);
