@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import model.Observable;
 import model.ObservableCollection;
-import model.elementary.Fireable;
 import model.graph.Edge;
 import model.graph.Node;
 import model.elementary.Valued;

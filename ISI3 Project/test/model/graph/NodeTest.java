@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.graph;
 
 import java.util.Collection;
-import model.graph.Edge;
-import model.graph.Node;
-import model.graph.Graph;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;

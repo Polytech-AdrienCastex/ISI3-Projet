@@ -5,8 +5,6 @@ import java.awt.Image;
 import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.JPanel;
 import model.elementary.Point;
 import model.graph.Graph;

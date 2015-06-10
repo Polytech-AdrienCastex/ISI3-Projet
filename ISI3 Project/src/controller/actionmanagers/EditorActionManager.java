@@ -1,13 +1,10 @@
 package controller.actionmanagers;
 
 import static controller.actionmanagers.ActionManager.findNodeFromLocation;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.xml.parsers.ParserConfigurationException;
 import model.elementary.Fireable;

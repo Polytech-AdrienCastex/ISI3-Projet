@@ -1,8 +1,5 @@
 package model.graph;
 
-import model.graph.Edge;
-import model.graph.Node;
-import model.graph.Graph;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

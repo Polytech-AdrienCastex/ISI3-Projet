@@ -6,7 +6,6 @@ import model.elementary.Point;
 import model.graph.Edge;
 import model.elementary.Localisable;
 import model.elementary.Typed;
-import model.elementary.Valued;
 import model.elementary.Waterable;
 
 /**

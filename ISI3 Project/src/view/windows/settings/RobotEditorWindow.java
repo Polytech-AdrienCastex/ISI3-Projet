@@ -2,7 +2,6 @@ package view.windows.settings;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
-import model.SurfaceType;
 import model.authorizer.Auth4x4;
 import model.authorizer.AuthPafPaf;
 import model.authorizer.AuthSnapSnap;
@@ -10,7 +9,6 @@ import model.authorizer.Authorizer;
 import model.item.FireHose;
 import model.item.FireThrower;
 import model.item.IItem;
-import model.robot.Robot;
 import model.robot.manager.Manager;
 import view.windows.PopupWindow;
 

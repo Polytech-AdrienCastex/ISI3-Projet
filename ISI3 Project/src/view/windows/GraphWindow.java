@@ -15,7 +15,6 @@ import model.ResourceLoader;
 import model.elementary.Localisable;
 import model.elementary.Point;
 import model.graph.Graph;
-import model.robot.manager.Manager;
 import view.IModeView;
 import view.ViewResourceLoader;
 import view.map.EdgeDrawer;

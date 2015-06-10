@@ -1,6 +1,5 @@
 package model.robot.manager;
 
-import model.robot.Robot;
 import model.Runtime;
 
 /**

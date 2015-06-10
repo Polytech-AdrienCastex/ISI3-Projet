@@ -2,7 +2,6 @@ package model.robot;
 
 import model.elementary.Fireable;
 import model.graph.Node;
-import model.item.FireHose;
 import model.authorizer.Authorizer;
 import model.item.IItem;
 import model.pathfinding.PathFinding;

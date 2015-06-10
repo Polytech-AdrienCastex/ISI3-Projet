@@ -1,10 +1,6 @@
 package model.graph;
 
-import model.graph.Node;
-import model.graph.Graph;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

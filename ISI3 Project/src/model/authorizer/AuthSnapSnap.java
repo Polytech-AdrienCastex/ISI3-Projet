@@ -1,9 +1,6 @@
 package model.authorizer;
 
-import java.util.Arrays;
 import model.SurfaceType;
-import model.graph.Edge;
-import model.elementary.Typed;
 
 /**
  * Truc à chenilles
