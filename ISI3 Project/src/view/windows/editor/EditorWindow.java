@@ -4,10 +4,14 @@ import controller.actionmanagers.EditorActionManager;
 import view.windows.GraphWindow;
 
 /**
- *
+ * View editor.
  */
 public class EditorWindow extends GraphWindow implements IEditorView
 {
+    /**
+     * Constructor.
+     * @param actionManager controller editor
+     */
     public EditorWindow(EditorActionManager actionManager)
     {
         super(actionManager, false);

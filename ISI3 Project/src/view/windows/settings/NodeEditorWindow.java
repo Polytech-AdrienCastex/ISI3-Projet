@@ -6,10 +6,13 @@ import model.SurfaceType;
 import view.windows.PopupWindow;
 
 /**
- *
+ * Node editor view.
  */
 public class NodeEditorWindow extends PopupWindow
 {
+    /**
+     * Constructor.
+     */
     public NodeEditorWindow()
     {
         super(1);
@@ -17,7 +20,14 @@ public class NodeEditorWindow extends PopupWindow
         this.setTitle("Node");
     }
     
+    /**
+     * JComboBox to select surface type for this node.
+     */
     protected JComboBox<SurfaceType> typeList;
+    
+    /**
+     * Text field for the fire intensity for this node.
+     */
     protected JTextField fireIntensity;
     
     @Override
@@ -31,6 +41,10 @@ public class NodeEditorWindow extends PopupWindow
         this.pack();
     }
     
+    /**
+     * Get the fire intensity from the text field.
+     * @return Fire intensity wanted.
+     */
     public Double getFireIntensity()
     {
         try
