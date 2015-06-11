@@ -194,7 +194,9 @@ public class Robot extends Observable implements Runnable
     public void setDestination(Node dest)
     {
         this.dest = dest;
-        this.path = new LinkedList<>(pathFinding.getShortestPath(currentNode, dest, type));
+        
+        Collection<Edge> ce = (pathFinding != null ? pathFinding.getShortestPath(currentNode, dest, type) : new ArrayList<>());
+        this.path = new LinkedList<>(ce);
     }
 
     /**
