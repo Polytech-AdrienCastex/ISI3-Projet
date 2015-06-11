@@ -15,6 +15,10 @@ public class FireThrower implements IItem
     private final double intensity; //power force of the weapon
     private final Random rnd;
     
+    /**
+     * Contructor
+     * @param intensity intensity of the weapon 
+     */
     public FireThrower(double intensity)
     {
         this.intensity = intensity;

@@ -32,7 +32,11 @@ public class NodeListWrap implements Iterator<Node>
     private final int maxIndex;
     private int index;
     
-    
+    /**
+     * Get stream for the list of node in parameter. 
+     * @param list Node List.
+     * @return list of node convert in stream.
+     */
     public static Stream<Node> getStream(NodeList list)
     {
         return StreamSupport.stream(
@@ -40,6 +44,11 @@ public class NodeListWrap implements Iterator<Node>
                 false);
     }
     
+    /**
+     * Get bytes of the document in parameter.
+     * @param doc Document.
+     * @return array of bytes.
+     */
     public static byte[] getBytes(Document doc)
     {
         try

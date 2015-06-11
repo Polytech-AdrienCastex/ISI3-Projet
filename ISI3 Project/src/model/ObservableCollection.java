@@ -10,10 +10,17 @@ import javafx.util.Pair;
  */
 public class ObservableCollection<T> extends Observable implements Collection<T>
 {
+    /**
+     * Constructor
+     * @param collection collection to convert in observable. 
+     */
     public ObservableCollection(Collection<T> collection)
     {
         this.collection = collection;
     }
+    /**
+     * Collection 
+     */
     protected final Collection<T> collection;
 
     @Override

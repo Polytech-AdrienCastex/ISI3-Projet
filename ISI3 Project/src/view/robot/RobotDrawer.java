@@ -21,7 +21,6 @@ public class RobotDrawer extends Observable implements Observer
     /**
      * Constructor.
      * @param defaultRobot 
-     * @param wateringImage 
      */
     public RobotDrawer(String defaultRobot)
     {
@@ -57,6 +56,11 @@ public class RobotDrawer extends Observable implements Observer
         resourcesIndex++;
     }
     
+    /**
+     * Draw a robot.
+     * @param g graphics
+     * @param robot robot model to draw.
+     */
     public void draw(Graphics g, Robot robot)
     {
         Node lastNode = robot.getLastNode();
@@ -90,6 +94,10 @@ public class RobotDrawer extends Observable implements Observer
         }
     }
     
+    /**
+     * Draw every robot from the global observable collection.
+     * @param g graphics
+     */
     public void draw(Graphics g)
     {
         robots.forEach(r -> draw(g, r));

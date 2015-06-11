@@ -5,6 +5,12 @@ package model;
  */
 public enum SurfaceType
 {
+    /**
+     * Plat
+     */
     Plat,
+    /**
+     * Escarpe
+     */
     Escarpe
 }

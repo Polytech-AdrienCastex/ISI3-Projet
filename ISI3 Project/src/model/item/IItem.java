@@ -16,8 +16,14 @@ public interface IItem {
     /**
      * Action that need to be done on the node in parameter
      * @param n Node
+     * @return false if no action has been done.
      */
     public boolean actionNode(Node n);
     
+    /**
+     * Test if this item can be used on the node in parameter.
+     * @param n Node to test.
+     * @return true if this item can be used.
+     */
     public boolean canUse(Node n);
 }

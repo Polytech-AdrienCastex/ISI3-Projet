@@ -23,10 +23,15 @@ import view.map.NodeDrawer;
 import view.robot.RobotDrawer;
 
 /**
- *
+ * Abstract class view to manage the graph.
  */
 public abstract class GraphWindow extends Window implements IModeView
 {
+
+    /**
+     * Contructor with controller.
+     * @param actionManager controller for this view.
+     */
     public GraphWindow(ActionManager actionManager)
     {
         super(actionManager);
@@ -34,6 +39,12 @@ public abstract class GraphWindow extends Window implements IModeView
         this.setResizable(false);
         this.displayRobots = true;
     }
+
+    /**
+     * Contructor with controller and boolean to display robots.
+     * @param actionManager controller for this view.
+     * @param displayRobots boolean to display robots or not
+     */
     public GraphWindow(ActionManager actionManager, boolean displayRobots)
     {
         super(actionManager);
@@ -42,10 +53,24 @@ public abstract class GraphWindow extends Window implements IModeView
         this.displayRobots = displayRobots;
     }
     
+    /**
+     * If true display robots else hide them.
+     */
     protected final boolean displayRobots;
+
+    /**
+     * View to draw the graph.
+     */
     protected GraphDrawer graphDrawer;
+
+    /**
+     * View for the panel of button.
+     */
     protected ButtonPanel buttonPanel;
     
+    /**
+     * Ressources loader
+     */
     protected static ResourceLoader resourceLoader = new ViewResourceLoader();
     
     @Override
@@ -134,10 +159,24 @@ public abstract class GraphWindow extends Window implements IModeView
         }
     }
     
+    /**
+     * Add a new button to the button panel of this view.
+     * @param action text action command.
+     * @param imageName text name of the image.
+     * @return new button added to the button panel.
+     */
     protected Button addButton(String action, String imageName)
     {
         return addButton(action, imageName, null);
     }
+
+    /**
+     * Add a new button to the button panel of this view.
+     * @param action text action command.
+     * @param imageName text name of the image.
+     * @param selectionImageName text name of the image when selected. 
+     * @return new button added to the button panel.
+     */
     protected Button addButton(String action, String imageName, String selectionImageName)
     {
         Button btn = new Button(action, imageName, selectionImageName);
@@ -145,6 +184,11 @@ public abstract class GraphWindow extends Window implements IModeView
         this.buttonPanel.add(btn);
         return btn;
     }
+
+    /**
+     * Add a separator to the button panel.
+     * @return New separatora added.
+     */
     protected Separator addSeparator()
     {
         Separator sep = new Separator();

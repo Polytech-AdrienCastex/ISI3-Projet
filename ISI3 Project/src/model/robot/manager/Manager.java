@@ -9,6 +9,9 @@ import model.robot.Robot;
  * Robots Manager
  */
 public abstract class Manager implements Runnable {
+    /**
+     * Graph used by this manager.
+     */
     protected Graph grap;
     private final List<Robot> robots;
            

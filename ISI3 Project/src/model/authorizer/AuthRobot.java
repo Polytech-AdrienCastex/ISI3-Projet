@@ -9,7 +9,7 @@ import model.graph.Edge;
 import model.graph.Node;
 
 /**
- *
+ * Abstract authorizer model for robots
  */
 public abstract class AuthRobot implements Authorizer
 {
@@ -34,7 +34,21 @@ public abstract class AuthRobot implements Authorizer
         return true;
     }
     
+    /**
+     * Get the type of surfaces allowed 
+     * @return surface type allowed.
+     */
     protected abstract SurfaceType[] getAllowedSurfaceTypes();
+    
+    /**
+     * Can the robot go through water ?
+     * @return true if he can go through water
+     */
     protected abstract Boolean canGoThroughWater();
+    
+    /**
+     * Can the robot go through fire ?
+     * @return true if he can go through fire
+     */
     protected abstract Boolean canGoThroughFire();
 }

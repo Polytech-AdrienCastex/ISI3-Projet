@@ -14,6 +14,9 @@ import view.ImageLoader;
  */
 public class NodeDrawer
 {
+    /**
+     * Contructor.
+     */
     public NodeDrawer()
     {
         fireImages = new Image[]

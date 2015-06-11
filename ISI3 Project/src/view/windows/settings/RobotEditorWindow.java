@@ -13,10 +13,14 @@ import model.robot.manager.Manager;
 import view.windows.PopupWindow;
 
 /**
- *
+ * Popup view robot editor to add new robot.
  */
 public class RobotEditorWindow extends PopupWindow
 {
+    /**
+     * Constructor
+     * @param managers Models managers to use in this view.
+     */
     public RobotEditorWindow(Manager[] managers)
     {
         super(5);
@@ -25,11 +29,34 @@ public class RobotEditorWindow extends PopupWindow
         this.managers = managers;
     }
     
+    /**
+     * Managers used in this view.
+     */
     protected final Manager[] managers;
+    
+    /**
+     * JComboBox to display managers.
+     */
     protected JComboBox<Manager> managersList;
+    
+    /**
+     * JComboBox to display authorizers.
+     */
     protected JComboBox<Authorizer> authorizerList;
+    
+    /**
+     * JComboBox to display weapon.
+     */
     protected JComboBox<String> weaponList;
+    
+    /**
+     * Text field for the weapon intensity.
+     */
     protected JTextField weaponIntensity;
+    
+    /**
+     * Text field for the speed of the new robot.
+     */
     protected JTextField speed;
     
     @Override
@@ -83,14 +110,28 @@ public class RobotEditorWindow extends PopupWindow
         this.pack();
     }
     
+    /**
+     * Get the manager selected.
+     * @return Manager selected.
+     */
     public Manager getManager()
     {
         return (Manager)managersList.getSelectedItem();
     }
+    
+    /**
+     * Get the authorizer selected.
+     * @return Authorizer selected.
+     */
     public Authorizer getAuthorizer()
     {
         return (Authorizer)authorizerList.getSelectedItem();
     }
+    
+    /**
+     * Get the weapon selected.
+     * @return Item selected.
+     */
     public IItem getWeapon()
     {
         Double intensity;
@@ -118,6 +159,11 @@ public class RobotEditorWindow extends PopupWindow
         
         return item;
     }
+    
+    /**
+     * Get the speed of the robot.
+     * @return speed selected.
+     */
     public Double getSpeed()
     {
         try

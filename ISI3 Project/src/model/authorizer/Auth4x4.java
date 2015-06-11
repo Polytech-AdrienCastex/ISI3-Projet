@@ -3,7 +3,7 @@ package model.authorizer;
 import model.SurfaceType;
 
 /**
- * Thing all ground
+ * Authorizer all ground
  */
 public class Auth4x4 extends AuthRobot
 {
@@ -17,6 +17,7 @@ public class Auth4x4 extends AuthRobot
         };
     }
 
+    
     @Override
     protected Boolean canGoThroughWater()
     {

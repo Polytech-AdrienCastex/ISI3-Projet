@@ -18,6 +18,13 @@ public class GraphDrawer extends JPanel implements Observer
 {
     private final static int AUTO_DRAWER_PERIOD = 250; // ms
     
+    /**
+     * Constructor.
+     * @param graph model graph to draw.
+     * @param nodeDrawer node drawer used by this graph drawer.
+     * @param edgeDrawer edge drawer used by this graph drawer.
+     * @param robotDrawer robot drawer used by this graph drawer.
+     */
     public GraphDrawer(Graph graph, NodeDrawer nodeDrawer, EdgeDrawer edgeDrawer, RobotDrawer robotDrawer)
     {
         super();
@@ -39,6 +46,10 @@ public class GraphDrawer extends JPanel implements Observer
     
     private Runtime runtime = null;
 
+    /**
+     * Set the graph model to draw.
+     * @param graph graph model
+     */
     public void setGraph(Graph graph)
     {
         if(this.graph != null)
@@ -48,6 +59,9 @@ public class GraphDrawer extends JPanel implements Observer
         graph.addObserver(this);
     }
     
+    /**
+     * Runtime to update the view.
+     */
     protected class Runtime extends model.Runtime
     {
         @Override
@@ -62,31 +76,68 @@ public class GraphDrawer extends JPanel implements Observer
         }
     }
     
+    /**
+     * Graph used by this drawer.
+     */
     protected Graph graph = null;
     
+    /**
+     * Node drawer.
+     */
     protected final NodeDrawer nodeDrawer;
+    
+    /**
+     * Edge drawer.
+     */
     protected final EdgeDrawer edgeDrawer;
+    
+    /**
+     * Robot drawer.
+     */
     protected final RobotDrawer robotDrawer;
     
+    /**
+     * Background image.
+     */
     protected Image backgroundImage;
     
+    /**
+     * Set the image in the background.
+     * @param imageFile file for the image.
+     * @return true if loaded with success
+     */
     public Boolean setBackgroundImage(File imageFile)
     {
         backgroundImage = ImageLoader.loadImage(imageFile);
         return backgroundImage != null;
     }
+    
+    /**
+     * Set the image in the background. 
+     * @param image image to set in background.
+     * @return true
+     */
     public Boolean setBackgroundImage(Image image)
     {
         this.backgroundImage = image;
         return true;
     }
     
+    /**
+     * Get the size of the background
+     * @return coord x, y
+     */
     public Point getBackgroundSize()
     {
         return new Point((double)backgroundImage.getWidth(null), (double)backgroundImage.getHeight(null));
     }
     
     private final Image fileSelecteionImage;
+    
+    /**
+     * Draw the graph
+     * @param g graphics
+     */
     public void draw(Graphics g)
     {
         // Draw background image
@@ -138,6 +189,10 @@ public class GraphDrawer extends JPanel implements Observer
         this.getParent().repaint();
     }
 
+    /**
+     * Get the background image.
+     * @return background image.
+     */
     public Image getBackgroundImage()
     {
         return this.backgroundImage;

@@ -40,7 +40,10 @@ public class ButtonPanel extends JPanel
      */
     private int currentX;
     
-
+    /**
+     * Set the selection of buttons reconized by the mode
+     * @param mode sub string of button name
+     */
     public void setSelection(String mode)
     {
         Stream.of(this.getComponents())

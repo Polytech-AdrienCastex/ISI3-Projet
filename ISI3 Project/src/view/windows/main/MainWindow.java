@@ -7,10 +7,14 @@ import view.menupanel.Button;
 import view.windows.GraphWindow;
 
 /**
- *
+ * Main view.
  */
 public class MainWindow extends GraphWindow implements IMainView
 {
+    /**
+     * Constructor.
+     * @param actionManager Main controller. 
+     */
     public MainWindow(MainActionManager actionManager)
     {
         super(actionManager);

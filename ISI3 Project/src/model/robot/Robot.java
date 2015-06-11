@@ -16,11 +16,20 @@ import model.pathfinding.PathFinding;
 /**
  * Robot general
  */
-public abstract class Robot<I extends IItem> extends Observable implements Runnable
+public class Robot extends Observable implements Runnable
 {
+    /**
+     * Speed 
+     */
     protected Double speed;
+    /**
+     * Current node where this robot is.
+     */
     protected Node currentNode;
-    protected List<I> items;
+    /**
+     * List of items available on this robots.
+     */
+    protected List<IItem> items;
     
     private PathFinding pathFinding;
     private final Authorizer type;
@@ -57,7 +66,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
      * Get the robot items
      * @return 
      */
-    public List<I> getItems()
+    public List<IItem> getItems()
     {
         return items;
     }
@@ -66,7 +75,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
      * Set a list of items for the robot
      * @param items 
      */
-    public void setItems(List<I> items)
+    public void setItems(List<IItem> items)
     {
         this.items = items;
     }
@@ -75,7 +84,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
      * Add an item to the robot
      * @param i Item to add
      */
-    public void addItem(I i)
+    public void addItem(IItem i)
     {
         if (!items.contains(i))
             items.add(i);
@@ -86,7 +95,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
      * @param i Item to remove
      * @return true if item has be removed
      */
-    public boolean removeItem(I i)
+    public boolean removeItem(IItem i)
     {
         if (i != null)
             return items.remove(i);
@@ -162,7 +171,7 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
         
         return path.stream()
                 .filter(e -> e instanceof Valued)
-                .mapToDouble(e -> ((Valued)e).getValue() * speed)
+                .mapToDouble(e -> ((Valued)e).getValue() / speed)
                 .sum();
     }
     
@@ -188,6 +197,10 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
         this.path = new LinkedList<>(pathFinding.getShortestPath(currentNode, dest, type));
     }
 
+    /**
+     * Get the node distination of this robot.
+     * @return Node destination.
+     */
     public Node getDestination()
     {
         if(this.path.isEmpty())
@@ -196,14 +209,31 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
         return dest;
     }
     
+    /**
+     * inital distance from the initial node to the next node.
+     */
     protected double distanceInitial = 1;
+    /**
+     * Distance left to the next node from the current node.
+     */
     protected double distanceLeft = 0;
+    /**
+     * Get distance left to the next node from the current node.
+     * @return distance left
+     */
     public double getDistanceLeft()
     {
         return (distanceInitial - distanceLeft) / (double)distanceInitial;
     }
     
+    /**
+     * Last node in the current path.
+     */
     protected Node lastNode = null;
+    /**
+     * Get the last node in the current path.
+     * @return last node in the current path.
+     */
     public Node getLastNode()
     {
         return lastNode;
@@ -270,20 +300,37 @@ public abstract class Robot<I extends IItem> extends Observable implements Runna
     
     
     private static ObservableCollection<Robot> observableRobots = null;
+    /**
+     * Get the observable collection of robots for the whole application.
+     * @return Collection of robots used in the application.
+     */
     public static ObservableCollection<Robot> getRobotList()
     {
         if(observableRobots == null)
             observableRobots = new ObservableCollection(new ArrayList<>());
         return observableRobots;
     }
+    /**
+     * Add existing robot to the application observable collection of robots.
+     * @param robot Existing robot to add.
+     */
     protected static void addNewRobot(Robot robot)
     {
         getRobotList().add(robot);
     }
+    
+    /**
+     * Remove a robot from the application observable collection of robots. 
+     * @param robot Robot to delete.
+     */
     protected static void removeRobot(Robot robot)
     {
         getRobotList().remove(robot);
     }
+    
+    /**
+     * Clear the collection of robots of the application.
+     */
     protected static void clearRobots()
     {
         getRobotList().clear();
