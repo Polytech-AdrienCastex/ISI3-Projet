@@ -163,8 +163,8 @@ public class Robot extends Observable implements Runnable
      * @return value of the best path
      */
     public Double getPathValue(Node dest)
-    {                                
-        Collection<Edge> path = pathFinding.getShortestPath(currentNode, dest, type);
+    {                    
+        Collection<Edge> path = (pathFinding != null ? pathFinding.getShortestPath(currentNode, dest, type) : new ArrayList<>());
         
         if(path.isEmpty())
             return -1.0;
