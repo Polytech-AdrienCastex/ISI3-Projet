@@ -2,6 +2,7 @@ package model.robot;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import model.Observable;
@@ -163,8 +164,11 @@ public class Robot extends Observable implements Runnable
      * @return value of the best path
      */
     public Double getPathValue(Node dest)
-    {                    
-        Collection<Edge> path = (pathFinding != null ? pathFinding.getShortestPath(currentNode, dest, type) : new ArrayList<>());
+    {
+        if(pathFinding == null)
+            return -1.0;
+        
+        Collection<Edge> path = pathFinding.getShortestPath(currentNode, dest, type);
         
         if(path.isEmpty())
             return -1.0;

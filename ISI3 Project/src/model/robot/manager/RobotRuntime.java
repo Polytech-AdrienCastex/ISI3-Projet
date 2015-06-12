@@ -1,33 +1,45 @@
 package model.robot.manager;
 
+import java.util.Arrays;
+import java.util.Collection;
 import model.Runtime;
 
 /**
- * This class represents a manager thread.
+ * This class represents a thread of multiple managers.
  */
 public class RobotRuntime extends Runtime
 {
     /**
-     * Manager assigned to this thread.
+     * Managers assigned to this thread.
      */
-    private final Manager m;
+    private final Collection<Manager> managers;
     
     /**
      * Constructor.
-     * @param m Manager to execute.
+     * @param managers Managers to execute.
      */
-    public RobotRuntime(Manager m)
+    public RobotRuntime(Collection<Manager> managers)
     {
         super();
         
-        this.m = m;
+        this.managers = managers;
+    }
+    /**
+     * Constructor.
+     * @param managers Managers to execute.
+     */
+    public RobotRuntime(Manager... managers)
+    {
+        this(Arrays.asList(managers));
     }
     
     @Override
     public void runtime()
     {
-        m.run();
-        
-        m.getRobots().forEach(r -> r.run());
+        managers.forEach(m ->
+        {
+            m.run();
+            m.getRobots().forEach(r -> r.run());
+        });
     }
 }

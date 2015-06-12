@@ -141,7 +141,7 @@ public class NodeTest
         assertArrayEquals(new Edge[] { edge1 }, result.toArray());
         
         result = n2.getEdges(n1);
-        assertArrayEquals(new Edge[] { }, result.toArray());
+        assertArrayEquals(new Edge[] { edge1 }, result.toArray());
         
         result = n1.getEdges(n3);
         assertArrayEquals(new Edge[] { edge2, edge3 }, result.toArray());
