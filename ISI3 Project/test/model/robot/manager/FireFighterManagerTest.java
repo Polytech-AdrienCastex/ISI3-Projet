@@ -9,29 +9,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import model.graph.Graph;
 import model.graph.Node;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mockito.Mockito;
 
 /**
- *
- * @author Necrolight
+ * Tests for class FireFighterManager.
  */
 public class FireFighterManagerTest {
-    
-    public FireFighterManagerTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
     /**
      * Test of searchNotAffectedNodes method, of class FireFighterManager.
      */

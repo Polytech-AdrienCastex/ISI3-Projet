@@ -19,22 +19,9 @@ import static org.junit.Assert.*;
 import org.mockito.Mockito;
 
 /**
- *
- * @author Necrolight
+ * Test class for Auth4x4.
  */
 public class Auth4x4Test {
-    
-    public Auth4x4Test() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     private abstract class  EdgeWaterable extends Edge implements Waterable
     {
         public EdgeWaterable(Node start, Node end) {

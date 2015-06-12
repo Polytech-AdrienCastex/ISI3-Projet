@@ -5,28 +5,13 @@
  */
 package model.robot.manager;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- *
- * @author Necrolight
+ * Test for class RobotRuntime.
  */
 public class RobotRuntimeTest {
-    
-    public RobotRuntimeTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
     /**
      * Test of runtime method, of class RobotRuntime.
      */

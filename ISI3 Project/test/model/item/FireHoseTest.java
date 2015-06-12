@@ -17,27 +17,19 @@ import static org.junit.Assert.*;
 import org.mockito.Mockito;
 
 /**
- *
- * @author Necrolight
+ * Tests for class FireHose.
  */
 public class FireHoseTest {
-    
-    public FireHoseTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
     /**
      * To test action on edge
      */
     public abstract class EdgeWaterable extends Edge implements Waterable
     {
+        /**
+         * Constructor
+         * @param start node
+         * @param end node
+         */
         public EdgeWaterable(Node start, Node end) {
             super(start, end);
         }   
@@ -73,11 +65,20 @@ public class FireHoseTest {
      * To test action on node
      */
     public abstract class NodeFireable extends Node implements Fireable
-    {        
+    {       
+        /**
+         * Constructor
+         * @param id number id
+         * @param graph graph
+         */
         public NodeFireable(Integer id, Graph graph) {
             super(id, graph);
         }
-
+        
+        /**
+         * constructor.
+         * @param graph graph
+         */
         public NodeFireable(Graph graph) {
             super(graph);
         }

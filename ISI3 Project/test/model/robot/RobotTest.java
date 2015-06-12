@@ -22,22 +22,9 @@ import static org.junit.Assert.*;
 import org.mockito.Mockito;
 
 /**
- *
- * @author Necrolight
+ * Test for class Robot.
  */
-public class RobotTest {
-    
-    public RobotTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
+public class RobotTest {    
     /**
      * Test of getType method, of class Robot.
      */

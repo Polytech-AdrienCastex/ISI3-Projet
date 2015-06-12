@@ -6,28 +6,13 @@
 package model.authorizer;
 
 import model.SurfaceType;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author Necrolight
+ * Tests for class AuthSnapSnap.
  */
 public class AuthSnapSnapTest {
-    
-    public AuthSnapSnapTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
     /**
      * Test of getAllowedSurfaceTypes method, of class AuthSnapSnap.
      */

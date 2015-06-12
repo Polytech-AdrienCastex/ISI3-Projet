@@ -9,28 +9,14 @@ import model.elementary.Fireable;
 import model.graph.Edge;
 import model.graph.Graph;
 import model.graph.Node;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mockito.Mockito;
 
 /**
- *
- * @author Necrolight
+ * Tests for class FireThrower.
  */
 public class FireThrowerTest {
-    
-    public FireThrowerTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
 
     /**
      * Test of actionEdge method, of class FireThrower.
@@ -47,7 +33,7 @@ public class FireThrowerTest {
     /**
      * To test action on node
      */
-    public abstract class NodeFireable extends Node implements Fireable
+    private abstract class NodeFireable extends Node implements Fireable
     {        
         public NodeFireable(Integer id, Graph graph) {
             super(id, graph);
