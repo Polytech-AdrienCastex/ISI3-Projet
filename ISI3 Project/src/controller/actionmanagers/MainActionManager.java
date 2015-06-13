@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.ParserConfigurationException;
 import model.elementary.Fireable;
 import model.elementary.Point;
@@ -190,11 +191,13 @@ public class MainActionManager extends ActionManager<IMainView>
                 
             case "load":
                 fc = new JFileChooser();
+                fc.setDialogTitle("Choose a XML file");
                 if(fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
                 {
                     File f = fc.getSelectedFile();
                     
                     File backgroundImage = null;
+                    fc.setDialogTitle("Choose a background file");
                     if(fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
                         backgroundImage = fc.getSelectedFile();
                     

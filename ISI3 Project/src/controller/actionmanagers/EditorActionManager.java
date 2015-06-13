@@ -136,6 +136,8 @@ public class EditorActionManager extends ActionManager<IEditorView>
                 
             case "save":
                 fc = new JFileChooser();
+                fc.setApproveButtonText("Save");
+                fc.setDialogTitle("Save the current graph");
                 if(fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
                 {
                     File f = fc.getSelectedFile();
