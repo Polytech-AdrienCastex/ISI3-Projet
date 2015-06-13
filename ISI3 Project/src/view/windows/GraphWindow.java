@@ -159,10 +159,19 @@ public abstract class GraphWindow extends Window implements IModeView
         }
     }
     
+    /**
+     * Get a new Edge Drawer
+     * @return new Edge drawer created
+     */
     protected EdgeDrawer getEdgeDrawer()
     {
         return new EdgeDrawer();
     }
+    
+    /**
+     * Get a new node drawer
+     * @return new node drawer created
+     */
     protected NodeDrawer getNodeDrawer()
     {
         return new NodeDrawer();
