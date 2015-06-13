@@ -27,17 +27,9 @@ import static org.junit.Assert.*;
  */
 public abstract class ShortestPathTest
 {
-    public ShortestPathTest()
-    { }
-    
-    @BeforeClass
-    public static void setUpClass()
-    { }
-    
-    @AfterClass
-    public static void tearDownClass()
-    { }
-    
+    /**
+     * Set up
+     */
     @Before
     public void setUp()
     {
@@ -76,10 +68,10 @@ public abstract class ShortestPathTest
         pathFindingAlgorithm = getPathFinding();
     }
     
-    @After
-    public void tearDown()
-    { }
-    
+    /**
+     * Get path finding to use for tests for herited classes
+     * @return path finding to use for tests
+     */
     protected abstract PathFinding getPathFinding();
     
     /**

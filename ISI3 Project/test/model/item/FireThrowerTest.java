@@ -23,7 +23,7 @@ public class FireThrowerTest {
      */
     @Test
     public void testActionEdge() {
-        System.out.println("actionEdge");
+        System.out.println("FireThrower - actionEdge");
         FireThrower ft = new FireThrower(0.0);
         Edge e = Mockito.mock(Edge.class);
         
@@ -49,7 +49,7 @@ public class FireThrowerTest {
      */
     @Test
     public void testActionNode() {
-        System.out.println("actionNode");
+        System.out.println("FireThrower - actionNode");
       
         NodeFireable nf = Mockito.mock(NodeFireable.class);
         FireThrower ft = new FireThrower(0.0);
@@ -68,7 +68,7 @@ public class FireThrowerTest {
      */
     @Test
     public void testCanUse() {
-        System.out.println("canUse");
+        System.out.println("FireThrower - canUse");
         NodeFireable nf = Mockito.mock(NodeFireable.class);
         FireThrower fh = new FireThrower(0.0);
         
@@ -90,7 +90,7 @@ public class FireThrowerTest {
      */
     @Test
     public void testToString() {
-        System.out.println("toString");
+        System.out.println("FireThrower - toString");
         FireThrower instance = new FireThrower(0.0);
         String expResult = "Fire thrower";
         String result = instance.toString();

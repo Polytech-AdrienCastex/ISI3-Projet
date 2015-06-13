@@ -12,8 +12,6 @@ import model.elementary.Waterable;
 import model.graph.Edge;
 import model.graph.Graph;
 import model.graph.Node;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mockito.Mockito;
@@ -41,7 +39,7 @@ public class Auth4x4Test {
      */
     @Test
     public void testCanUseEdge() {
-        System.out.println("canUseEdge");
+        System.out.println("Auth4x4 - canUseEdge");
         Auth4x4 instance = new Auth4x4();
         
         //Edge not waterable not type = true
@@ -75,7 +73,7 @@ public class Auth4x4Test {
      */
     @Test
     public void testCanUseNode() {
-        System.out.println("canUseEdge");
+        System.out.println("Auth4x4 - canUseEdge");
         Auth4x4 instance = new Auth4x4();
         
         //Normal node
@@ -95,7 +93,7 @@ public class Auth4x4Test {
      */
     @Test
     public void testGetAllowedSurfaceTypes() {
-        System.out.println("getAllowedSurfaceTypes");
+        System.out.println("Auth4x4 - getAllowedSurfaceTypes");
         Auth4x4 instance = new Auth4x4();
         SurfaceType[] expResult = new SurfaceType[] { SurfaceType.Plat, SurfaceType.Escarpe };
         SurfaceType[] result = instance.getAllowedSurfaceTypes();
@@ -107,7 +105,7 @@ public class Auth4x4Test {
      */
     @Test
     public void testCanGoThroughWater() {
-        System.out.println("canGoThroughWater");
+        System.out.println("Auth4x4 - canGoThroughWater");
         Auth4x4 instance = new Auth4x4();
         Boolean expResult = true;
         Boolean result = instance.canGoThroughWater();
@@ -119,7 +117,7 @@ public class Auth4x4Test {
      */
     @Test
     public void testCanGoThroughFire() {
-        System.out.println("canGoThroughFire");
+        System.out.println("Auth4x4 - canGoThroughFire");
         Auth4x4 instance = new Auth4x4();
         Boolean expResult = false;
         Boolean result = instance.canGoThroughFire();
@@ -131,7 +129,7 @@ public class Auth4x4Test {
      */
     @Test
     public void testToString() {
-        System.out.println("toString");
+        System.out.println("Auth4x4 - toString");
         Auth4x4 instance = new Auth4x4();
         String expResult = "4x4";
         String result = instance.toString();

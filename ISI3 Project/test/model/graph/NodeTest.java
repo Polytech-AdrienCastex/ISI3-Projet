@@ -28,7 +28,7 @@ public class NodeTest
     @Test
     public void testAddEdge()
     {
-        System.out.println("addEdge");
+        System.out.println("Node - addEdge");
         
         Node n1 = new Node(graph);
         Node n2 = new Node(graph);
@@ -45,7 +45,7 @@ public class NodeTest
     @Test
     public void testGetEdges_0args()
     {
-        System.out.println("getEdges");
+        System.out.println("Node - getEdges");
         
         Collection<Edge> result;
         
@@ -67,7 +67,7 @@ public class NodeTest
     @Test
     public void testGetId()
     {
-        System.out.println("getId");
+        System.out.println("Node - getId");
         
         Node n1 = new Node(graph);
         Node n2 = new Node(graph);
@@ -84,7 +84,7 @@ public class NodeTest
     @Test
     public void testGetNextNodes()
     {
-        System.out.println("getNextNodes");
+        System.out.println("Node - getNextNodes");
         
         List<Node> result;
         
@@ -106,7 +106,7 @@ public class NodeTest
     @Test
     public void testGetEdges_Node()
     {
-        System.out.println("getEdges");
+        System.out.println("Node - getEdges");
         
         List<Edge> result;
         
@@ -137,7 +137,7 @@ public class NodeTest
     @Test
     public void testGetGraph()
     {
-        System.out.println("getGraph");
+        System.out.println("Node - getGraph");
         
         Node node = new Node(graph);
         
@@ -150,7 +150,7 @@ public class NodeTest
     @Test
     public void testEquals()
     {
-        System.out.println("equals");
+        System.out.println("Node - equals");
         
         Node n1 = new Node(graph);
         Node n2 = new Node(graph);
@@ -167,7 +167,7 @@ public class NodeTest
     @Test
     public void testHashCode()
     {
-        System.out.println("hashCode");
+        System.out.println("Node - hashCode");
         
         Node n1 = new Node(graph);
         Node n2 = new Node(graph);

@@ -22,7 +22,7 @@ public class FireFighterManagerTest {
      */
     @Test
     public void testSearchNotAffectedNodes() {
-        System.out.println("searchNotAffectedNodes");
+        System.out.println("FireFighterManager - searchNotAffectedNodes");
         boolean mustBeNotOccuped = false;
         FireFighterManager instance = new FireFighterManager(Mockito.mock(Graph.class));
         
@@ -36,7 +36,7 @@ public class FireFighterManagerTest {
      */
     @Test
     public void testRun() {
-        System.out.println("run");
+        System.out.println("FireFighterManager - run");
         FireFighterManager instance = new FireFighterManager(new Graph());
         instance.run();
     }
@@ -46,7 +46,7 @@ public class FireFighterManagerTest {
      */
     @Test
     public void testToString() {
-        System.out.println("toString");
+        System.out.println("FireFighterManager - toString");
         FireFighterManager instance = new FireFighterManager(null);
         String expResult = "Fire fighter";
         String result = instance.toString();

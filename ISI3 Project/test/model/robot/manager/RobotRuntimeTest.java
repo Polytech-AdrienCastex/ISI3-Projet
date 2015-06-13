@@ -17,7 +17,7 @@ public class RobotRuntimeTest {
      */
     @Test
     public void testRuntime() {
-        System.out.println("runtime");
+        System.out.println("RobotRuntime - runtime");
         RobotRuntime instance = new RobotRuntime(Mockito.mock(Manager.class));
         instance.runtime();
     }

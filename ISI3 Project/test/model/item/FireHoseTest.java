@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.item;
 
 import model.elementary.Fireable;
@@ -10,8 +5,6 @@ import model.elementary.Waterable;
 import model.graph.Edge;
 import model.graph.Graph;
 import model.graph.Node;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mockito.Mockito;
@@ -40,7 +33,7 @@ public class FireHoseTest {
      */
     @Test
     public void testActionEdge() {
-        System.out.println("actionEdge");
+        System.out.println("FireHose - actionEdge");
         FireHose fh = new FireHose(0.0);
         
         //edge waterable
@@ -89,7 +82,7 @@ public class FireHoseTest {
      */
     @Test
     public void testActionNode() {
-        System.out.println("actionNode");
+        System.out.println("FireHose - actionNode");
       
         NodeFireable nf = Mockito.mock(NodeFireable.class);
         FireHose fh = new FireHose(0.0);
@@ -108,7 +101,7 @@ public class FireHoseTest {
      */
     @Test
     public void testCanUse() {
-        System.out.println("canUse");
+        System.out.println("FireHose - canUse");
         NodeFireable nf = Mockito.mock(NodeFireable.class);
         FireHose fh = new FireHose(0.0);
         
@@ -130,7 +123,7 @@ public class FireHoseTest {
      */
     @Test
     public void testToString() {
-        System.out.println("toString");
+        System.out.println("FireHose - toString");
         FireHose instance = new FireHose(0.0);
         String expResult = "Fire hose";
         String result = instance.toString();

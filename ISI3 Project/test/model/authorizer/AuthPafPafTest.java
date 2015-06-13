@@ -18,7 +18,7 @@ public class AuthPafPafTest {
      */
     @Test
     public void testGetAllowedSurfaceTypes() {
-        System.out.println("getAllowedSurfaceTypes");
+        System.out.println("AuthPafPaf - getAllowedSurfaceTypes");
         AuthPafPaf instance = new AuthPafPaf();
         SurfaceType[] expResult = new SurfaceType[] { SurfaceType.Plat, SurfaceType.Escarpe };
         SurfaceType[] result = instance.getAllowedSurfaceTypes();
@@ -30,7 +30,7 @@ public class AuthPafPafTest {
      */
     @Test
     public void testCanGoThroughWater() {
-        System.out.println("canGoThroughWater");
+        System.out.println("AuthPafPaf - canGoThroughWater");
         AuthPafPaf instance = new AuthPafPaf();
         Boolean expResult = false;
         Boolean result = instance.canGoThroughWater();
@@ -42,7 +42,7 @@ public class AuthPafPafTest {
      */
     @Test
     public void testCanGoThroughFire() {
-        System.out.println("canGoThroughFire");
+        System.out.println("AuthPafPaf - canGoThroughFire");
         AuthPafPaf instance = new AuthPafPaf();
         Boolean expResult = false;
         Boolean result = instance.canGoThroughFire();
@@ -54,7 +54,7 @@ public class AuthPafPafTest {
      */
     @Test
     public void testToString() {
-        System.out.println("toString");
+        System.out.println("AuthPafPaf - toString");
         AuthPafPaf instance = new AuthPafPaf();
         String expResult = "Paf paf";
         String result = instance.toString();

@@ -15,7 +15,7 @@ public class GraphTest
     @Test
     public void testGetUID()
     {
-        System.out.println("getUID");
+        System.out.println("Graph - getUID");
         
         Graph instance = new Graph();
         
@@ -31,7 +31,7 @@ public class GraphTest
     @Test
     public void testGetNodes()
     {
-        System.out.println("getNodes");
+        System.out.println("Graph - getNodes");
         
         Graph instance = new Graph();
         
@@ -57,7 +57,7 @@ public class GraphTest
     @Test
     public void testAddNode()
     {
-        System.out.println("addNode");
+        System.out.println("Graph - addNode");
         
         Graph instance = new Graph();
         Node n = new Node(instance);
@@ -73,7 +73,7 @@ public class GraphTest
     @Test
     public void testRemoveNode()
     {
-        System.out.println("removeNode");
+        System.out.println("Graph - removeNode");
         
         Graph instance = new Graph();
         Node n1 = new Node(instance);

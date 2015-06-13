@@ -28,7 +28,7 @@ public class FireableNodeTest
     @Test
     public void testIsOnFire()
     {
-        System.out.println("isOnFire");
+        System.out.println("FireableNode - isOnFire");
         
         FireableNode fn = new FireableNode(graph, new Point(10.0, 5.3));
         
@@ -49,7 +49,7 @@ public class FireableNodeTest
     @Test
     public void testGetFireIntensity()
     {
-        System.out.println("getFireIntensity");
+        System.out.println("FireableNode - getFireIntensity");
         
         FireableNode fn = new FireableNode(graph, new Point(10.0, 5.3));
         
@@ -66,7 +66,7 @@ public class FireableNodeTest
     @Test
     public void testSetFireIntensity()
     {
-        System.out.println("setFireIntensity");
+        System.out.println("FireableNode - setFireIntensity");
         
         FireableNode fn = new FireableNode(graph, new Point(10.0, 5.3));
         
@@ -87,7 +87,7 @@ public class FireableNodeTest
     @Test
     public void testGetLocation()
     {
-        System.out.println("getLocation");
+        System.out.println("FireableNode - getLocation");
         
         FireableNode fn = new FireableNode(graph, new Point(10.0, 5.3));
         

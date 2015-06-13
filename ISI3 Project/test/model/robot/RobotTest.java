@@ -5,18 +5,12 @@
  */
 package model.robot;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import model.ObservableCollection;
 import model.authorizer.Authorizer;
-import model.graph.Graph;
 import model.graph.Node;
 import model.item.IItem;
 import model.pathfinding.PathFinding;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mockito.Mockito;
@@ -30,7 +24,7 @@ public class RobotTest {
      */
     @Test
     public void testGetType() {
-        System.out.println("getType");
+        System.out.println("Robot - getType");
         Authorizer a = Mockito.mock(Authorizer.class);
         Robot instance = new Robot(0.0, null, null, a);
         
@@ -42,7 +36,7 @@ public class RobotTest {
      */
     @Test
     public void testGetItems() {
-        System.out.println("getItems");
+        System.out.println("Robot - getItems");
         Robot instance = new Robot(Double.NaN, null, null, null);
         
         //no item
@@ -62,7 +56,7 @@ public class RobotTest {
      */
     @Test
     public void testSetItems() {
-        System.out.println("setItems");
+        System.out.println("Robot - setItems");
         
         List<IItem> items = new LinkedList<>();
         
@@ -77,7 +71,7 @@ public class RobotTest {
      */
     @Test
     public void testAddItem() {
-        System.out.println("addItem");
+        System.out.println("Robot - addItem");
         IItem i = Mockito.mock(IItem.class);
         
         Robot instance = new Robot(Double.NaN, null, null, null);
@@ -92,7 +86,7 @@ public class RobotTest {
      */
     @Test
     public void testRemoveItem() {
-        System.out.println("removeItem");
+        System.out.println("Robot - removeItem");
         IItem i = Mockito.mock(IItem.class);
         
         Robot instance = new Robot(Double.NaN, null, null, null);
@@ -106,7 +100,7 @@ public class RobotTest {
      */
     @Test
     public void testGetCurrentNode() {
-        System.out.println("getCurrentNode");
+        System.out.println("Robot - getCurrentNode");
         Node n = Mockito.mock(Node.class);
         Robot instance = new Robot(Double.NaN, n, null, null);
         Node expResult = n;
@@ -119,7 +113,7 @@ public class RobotTest {
      */
     @Test
     public void testSetCurrentNode() {
-        System.out.println("setCurrentNode");
+        System.out.println("Robot - setCurrentNode");
         Node currentNode = Mockito.mock(Node.class);
         Robot instance = new Robot(Double.NaN, null, null, null);
         
@@ -133,7 +127,7 @@ public class RobotTest {
      */
     @Test
     public void testGetSpeed() {
-        System.out.println("getSpeed");
+        System.out.println("Robot - getSpeed");
         Robot instance = new Robot(1.0, null, null, null);
         Double expResult = 1.0;
         Double result = instance.getSpeed();
@@ -145,7 +139,7 @@ public class RobotTest {
      */
     @Test
     public void testSetSpeed() {
-        System.out.println("setSpeed");
+        System.out.println("Robot - setSpeed");
         Double speed = 1.0;
         Robot instance = new Robot(0.0, null, null, null);
         instance.setSpeed(speed);
@@ -158,7 +152,7 @@ public class RobotTest {
      */
     @Test
     public void testGetPathFinding() {
-        System.out.println("getPathFinding");
+        System.out.println("Robot - getPathFinding");
         PathFinding pf = Mockito.mock(PathFinding.class);
         
         Robot instance = new Robot(Double.NaN, null, pf, null);
@@ -172,7 +166,7 @@ public class RobotTest {
      */
     @Test
     public void testSetPathFinding() {
-        System.out.println("setPathFinding");
+        System.out.println("Robot - setPathFinding");
         PathFinding pathFinding = Mockito.mock(PathFinding.class);
         Robot instance = new Robot(Double.NaN, null, null, null);
         instance.setPathFinding(pathFinding);
@@ -185,7 +179,7 @@ public class RobotTest {
      */
     @Test
     public void testGetPathValue() {
-        System.out.println("getPathValue");
+        System.out.println("Robot - getPathValue");
         Node dest = null;
         Robot instance = new Robot(Double.NaN, dest, null, null);
         Double expResult = -1.0;
@@ -198,7 +192,7 @@ public class RobotTest {
      */
     @Test
     public void testIsBusy() {
-        System.out.println("isBusy");
+        System.out.println("Robot - isBusy");
         
         Robot instance = new Robot(Double.NaN, null, null, null);
         
@@ -210,7 +204,7 @@ public class RobotTest {
      */
     @Test
     public void testSetDestination() {
-        System.out.println("setDestination");
+        System.out.println("Robot - setDestination");
         
         Node dest = Mockito.mock(Node.class);
         
@@ -225,7 +219,7 @@ public class RobotTest {
      */
     @Test
     public void testGetDestination() {
-        System.out.println("getDestination");
+        System.out.println("Robot - getDestination");
         Robot instance = new Robot(Double.NaN, null, null, null);
        
         Node expResult = null;
@@ -238,7 +232,7 @@ public class RobotTest {
      */
     @Test
     public void testGetDistanceLeft() {
-        System.out.println("getDistanceLeft");
+        System.out.println("Robot - getDistanceLeft");
         Robot instance = new Robot(Double.NaN, null, null, null);
         double expResult = 1.0;
         double result = instance.getDistanceLeft();
@@ -251,7 +245,7 @@ public class RobotTest {
      */
     @Test
     public void testGetLastNode() {
-        System.out.println("getLastNode");
+        System.out.println("Robot - getLastNode");
         Robot instance = new Robot(Double.NaN, null, null, null);
         
         assertEquals(null, instance.getLastNode());
@@ -262,7 +256,7 @@ public class RobotTest {
      */
     @Test
     public void testMoveForward() {
-        System.out.println("moveForward");
+        System.out.println("Robot - moveForward");
         Robot instance = new Robot(Double.NaN, null, null, null);
         instance.moveForward();
     }
@@ -272,7 +266,7 @@ public class RobotTest {
      */
     @Test
     public void testRun() {
-        System.out.println("run");
+        System.out.println("Robot - run");
         Robot instance = new Robot(Double.NaN, null, null, null);
         instance.run();
     }
@@ -282,7 +276,7 @@ public class RobotTest {
      */
     @Test
     public void testAddNewRobot() {
-        System.out.println("addNewRobot");
+        System.out.println("Robot - addNewRobot");
         Robot robot = new Robot(Double.NaN, null, null, null);
         Robot.addNewRobot(robot);
         
@@ -294,7 +288,7 @@ public class RobotTest {
      */
     @Test
     public void testRemoveRobot() {
-        System.out.println("removeRobot");
+        System.out.println("Robot - removeRobot");
         Robot robot = new Robot(Double.NaN, null, null, null);
         Robot.addNewRobot(robot);
         Robot.removeRobot(robot);
@@ -307,7 +301,7 @@ public class RobotTest {
      */
     @Test
     public void testClearRobots() {
-        System.out.println("clearRobots");
+        System.out.println("Robot - clearRobots");
         Robot.clearRobots();
         
         assertEquals(0, Robot.getRobotList().size());

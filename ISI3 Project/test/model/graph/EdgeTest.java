@@ -1,9 +1,6 @@
 package model.graph;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -34,7 +31,7 @@ public class EdgeTest
     @Test
     public void testConstructor()
     {
-        System.out.println("constructor");
+        System.out.println("Edge - constructor");
         
         assertArrayEquals(new Edge[] { edge }, startNode.getEdges().toArray());
         assertArrayEquals(new Edge[] { edge }, endNode.getEdges().toArray());
@@ -46,7 +43,7 @@ public class EdgeTest
     @Test
     public void testGetStartNode()
     {
-        System.out.println("getStartNode");
+        System.out.println("Edge - getStartNode");
         
         Node result = edge.getStartNode();
         assertEquals(startNode, result);
@@ -58,7 +55,7 @@ public class EdgeTest
     @Test
     public void testGetStopNode()
     {
-        System.out.println("getStopNode");
+        System.out.println("Edge - getStopNode");
         
         Node result = edge.getStopNode();
         assertEquals(endNode, result);
