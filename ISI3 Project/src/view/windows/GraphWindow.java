@@ -127,8 +127,8 @@ public abstract class GraphWindow extends Window implements IModeView
     @Override
     public void setGraph(Graph graph, Image backgroundImage)
     {
-        NodeDrawer nd = new NodeDrawer();
-        EdgeDrawer ed = new EdgeDrawer();
+        NodeDrawer nd = getNodeDrawer();
+        EdgeDrawer ed = getEdgeDrawer();
         
         if(this.graphDrawer == null)
             this.graphDrawer = new GraphDrawer(graph, nd, ed, displayRobots ? new RobotDrawer("robots/bluerobot.png") : null);
@@ -157,6 +157,15 @@ public abstract class GraphWindow extends Window implements IModeView
                             .orElse(600.0) + 100
             ));
         }
+    }
+    
+    protected EdgeDrawer getEdgeDrawer()
+    {
+        return new EdgeDrawer();
+    }
+    protected NodeDrawer getNodeDrawer()
+    {
+        return new NodeDrawer();
     }
     
     /**

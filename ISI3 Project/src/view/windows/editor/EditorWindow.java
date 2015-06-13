@@ -1,6 +1,8 @@
 package view.windows.editor;
 
 import controller.actionmanagers.EditorActionManager;
+import view.map.EdgeDrawer;
+import view.map.ValuedEdgeDrawer;
 import view.windows.GraphWindow;
 
 /**
@@ -33,5 +35,11 @@ public class EditorWindow extends GraphWindow implements IEditorView
         addButton("fire", "buttons/fire.png", "buttons/fire_selected.png");
         addSeparator();
         addButton("save", "buttons/save.png");
+    }
+
+    @Override
+    protected EdgeDrawer getEdgeDrawer()
+    {
+        return new ValuedEdgeDrawer();
     }
 }

@@ -66,10 +66,5 @@ public class EdgeDrawer
             g.drawLine(start.x.intValue() + offset, start.y.intValue() + offset, end.x.intValue() + offset, end.y.intValue() + offset);
             g.drawLine(start.x.intValue() - offset, start.y.intValue() - offset, end.x.intValue() - offset, end.y.intValue() - offset);
         }
-        
-        /*
-        if(edge instanceof Valued)
-            g.drawString(String.valueOf(((Valued)edge).getValue()), Math.abs(start.x.intValue() - end.x.intValue()) / 2 + Math.min(start.x.intValue(), end.x.intValue()), Math.abs(start.y.intValue() - end.y.intValue()) / 2 + Math.min(start.y.intValue(), end.y.intValue()));
-        */
     }
 }
