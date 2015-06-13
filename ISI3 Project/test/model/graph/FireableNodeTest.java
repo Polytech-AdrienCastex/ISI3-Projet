@@ -2,40 +2,24 @@ package model.graph;
 
 import model.graph.project.FireableNode;
 import model.elementary.Point;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests for class FireableNode.
  */
 public class FireableNodeTest
-{
-    
-    public FireableNodeTest()
-    { }
-    
-    @BeforeClass
-    public static void setUpClass()
-    { }
-    
-    @AfterClass
-    public static void tearDownClass()
-    { }
-    
+{    
+    /**
+     * Set up
+     */
     @Before
     public void setUp()
     {
         graph = new Graph();
     }
-    
-    @After
-    public void tearDown()
-    { }
-    
+
     private Graph graph;
 
     /**

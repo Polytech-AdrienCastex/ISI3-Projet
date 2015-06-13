@@ -2,40 +2,24 @@ package model.graph;
 
 import java.util.Collection;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests for class Node.
  */
 public class NodeTest
-{
-    
-    public NodeTest()
-    { }
-    
-    @BeforeClass
-    public static void setUpClass()
-    { }
-    
-    @AfterClass
-    public static void tearDownClass()
-    { }
-    
+{   
+    /**
+     * Set up
+     */
     @Before
     public void setUp()
     {
         graph = new Graph();
     }
-    
-    @After
-    public void tearDown()
-    { }
-    
+       
     private Graph graph;
 
     /**

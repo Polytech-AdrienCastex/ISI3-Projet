@@ -8,21 +8,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests for class Edge.
  */
 public class EdgeTest
 {
-    public EdgeTest()
-    { }
-    
-    @BeforeClass
-    public static void setUpClass()
-    { }
-    
-    @AfterClass
-    public static void tearDownClass()
-    { }
-    
+    /**
+     * set up
+     */
     @Before
     public void setUp()
     {
@@ -31,15 +23,14 @@ public class EdgeTest
         endNode = new Node(graph);
         edge = new Edge(startNode, endNode);
     }
-    
-    @After
-    public void tearDown()
-    { }
-    
+     
     private Edge edge;
     private Node startNode;
     private Node endNode;
     
+    /**
+     * test contructor.
+     */
     @Test
     public void testConstructor()
     {
